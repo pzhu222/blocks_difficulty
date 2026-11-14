@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Loading experiment...</title>
+  <style>
+    body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+    p { font-size: 1.1em; color: #444; }
+  </style>
+</head>
+<body>
+  <p>Loading experiment, please wait...</p>
+  <script>
+    // DataPipe n_conditions must match ASSIGNMENT_LIST.length. use gen_assignment_list.py to regen.
+    // Set CURRENT_ASSIGNMENT_IDX to the current DataPipe counter value to effectively restart from the beginning of the list.
+    const CURRENT_ASSIGNMENT_IDX = 99;
+    const DATAPIPE_ID     = 'hodI459pnZK5';
+    const CONDITIONS      = ['easier', 'harder'];
+    const ASSIGNMENT_LIST = [1, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0];
+
+    // condition hard-coded to 'easier' for this run
+    const params = new URLSearchParams(window.location.search);
+    params.set('condition', CONDITIONS.indexOf('easier'));
+    params.set('assignment_idx', 'hardcoded');
+    window.location.replace(`./experiment/?${params.toString()}`);
+  </script>
+</body>
+</html>

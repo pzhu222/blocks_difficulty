@@ -1,0 +1,200 @@
+---
+title: "ted_e3_cleaning_and_analysis"
+output: html_document
+date: "2024-08-12"
+---
+
+# Set-up
+```{r}
+
+cran_packages <- c("knitr", "readxl", "lme4", "ggeffects", "tidyverse", "here", "emmeans")
+
+missing_cran <- setdiff(cran_packages, rownames(installed.packages()))
+if (length(missing_cran) > 0) {
+  install.packages(missing_cran)
+}
+
+require(knitr)
+library(readxl)
+library(lme4)
+library(ggeffects)
+library(tidyverse)
+library(here)
+library(emmeans)
+
+inport_dir <- here("data")
+
+# set default code chunk options
+knitr::opts_chunk$set(echo = T, warning = F, message = F)
+
+# set default plot theme
+theme_set(theme_classic() +
+            theme(text = element_text(size = 18)))
+
+# suppress warnings about grouping
+options(dplyr.summarise.inform = F)
+```
+
+# Data
+
+```{r}
+
+#Read in data
+df.e3_childfc_raw <- read.csv(here(inport_dir, "e3_childfc.csv"), header = T,
+                              na.strings = character(0))
+
+```
+
+Clean and Change Trial Names:
+
+```{r}
+
+# Clean data
+df.e3_childfc = df.e3_childfc_raw %>%
+  transmute(trial = Trial,
+            order = PresentationOrder,
+            faster = Faster,
+            counterbalancing = Counterbalancing,
+            gender = Gender,
+            age = as.numeric(Age),
+            school = Schoolig,
+            condition = Category,
+            id = id,
+            correct = Harder_acc) %>%
+  mutate(trial = factor(trial, levels=c("1","2","3","4","5","6","7","11","12","15"), labels=c("Number_TriCir","Number_Cross","Number_Vert","Number_Horz","Init_Horz","Init_Vert","TwoBlock_TenBlock","Pattern","Sampling","Vert_Horz"))) %>%
+  mutate(condition = ifelse(trial== "Number_TriCir" | trial == "Number_Cross" | trial == "Number_Vert" | trial == "Number_Horz" | trial == "TwoBlock_TenBlock" | trial == "Vert_Horz", "Simple", "Complex")) %>%
+    na.omit() %>% # there are two kids with no bday info
+  mutate(ageBin = ifelse(age < median(age),"5-8","9-13"))
+
+
+#renaming trials
+df.e3_childfc <- df.e3_childfc |>
+  mutate(trial = case_when(trial == "Number_TriCir" ~ "Number1",
+                           trial == "Number_Cross" ~ "Number2",
+                           trial == "Number_Vert" ~ "Number3",
+                           trial == "Number_Horz" ~ "Number4",
+                           trial == "Vert_Horz" ~ "Stability",
+                           trial == "TwoBlock_TenBlock" ~ "Number&Stability",
+                           trial == "Init_Horz" ~ "Process1",
+                           trial == "Init_Vert" ~ "Process2",
+                           trial == "Pattern" ~ "Pattern",
+                           trial == "Sampling" ~ "Probability",
+                           .default = trial))
+
+```
+
+# Process Cleaned Data
+
+# Demographic Information
+
+```{r}
+
+df.e3_childfc |>
+  select(id, gender, age, school, trial, correct) |>
+  pivot_wider(names_from = trial,
+              values_from = correct) |>
+  pull(age) |>
+  mean()
+
+df.e3_childfc |>
+  select(id, gender, age, school, trial, correct) |>
+  pivot_wider(names_from = trial,
+              values_from = correct) |>
+  pull(age) |>
+  sd()
+
+df.e3_childfc |>
+  select(id, gender, age, school, trial, correct) |>
+  pivot_wider(names_from = trial,
+              values_from = correct) |>
+  group_by(gender) |>
+  dplyr::summarize(n = n())
+
+```
+
+Descriptives:
+
+```{r}
+
+df.e3_childfc |>
+  distinct(id, age, school) |>
+  dplyr::summarize(n = n(),
+                   min_age = min(age), max_age = max(age),
+                   mean_school = mean(school), sd_school = sd(school),
+                   min_school = min(school), max_school = max(school))
+
+# children dropped by na.omit() above (no age on record)
+n_distinct(df.e3_childfc_raw$id) - n_distinct(df.e3_childfc$id)
+
+```
+
+# Analyses
+
+```{r}
+
+# Creating model here
+model_e3_childfc <- glmer(correct ~ 1 + trial + age + trial:age + (1|id),
+                         family = "binomial",
+                         control = glmerControl(optimizer = "bobyqa",
+                         optCtrl = list(maxfun = 2e5)), data = df.e3_childfc)
+
+model_e3_childfc |>
+  summary()
+```
+
+Across age:
+
+```{r}
+
+ggemmeans(model = model_e3_childfc, terms = "trial")
+ggemmeans(model = model_e3_childfc, terms = "age")
+
+```
+
+Age estimates:
+
+```{r}
+
+e3_age_range <- seq(5, 13, by = .01)
+
+emm_options(rg.limit = 20000)
+
+e3_age_analysis_raw <- ggemmeans(model = model_e3_childfc,
+          terms = c("age [e3_age_range]", "trial"))
+
+df.e3_age_analysis <- data.frame(age = e3_age_analysis_raw$x,
+           trial = e3_age_analysis_raw$group,
+           lowerCI = e3_age_analysis_raw$conf.low)
+
+df.e3_age_analysis <- df.e3_age_analysis |>
+  group_by(trial) |>
+  mutate(passed = ifelse(any(lowerCI > 0.50), "passed", "did not pass .5")) |>
+  ungroup()
+
+df.e3_passed_min <- df.e3_age_analysis %>%
+  filter(passed == "passed",
+         lowerCI > .5) %>%
+  group_by(trial) %>%
+  summarise(min_age = min(age))
+
+df.e3_no_pass <- df.e3_age_analysis |>
+  filter(passed == "did not pass .5") |>
+  group_by(trial) |>
+  summarise(min_age = "did not pass .5")
+
+df.e3_age_predictions <- rbind(df.e3_passed_min, df.e3_no_pass) |>
+  mutate(min_age = as.numeric(min_age))
+
+options(max.print = 10000)
+
+print(df.e3_age_predictions)
+```
+
+
+# Session Info
+
+```{r}
+
+sessionInfo()
+
+```

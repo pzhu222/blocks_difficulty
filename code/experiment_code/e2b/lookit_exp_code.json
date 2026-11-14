@@ -1,0 +1,3040 @@
+{
+    "frames": {
+        "email-address": {
+            "kind": "exp-lookit-survey",
+            "formSchema": {
+                "schema": {
+                    "type": "object",
+                    "title": "Please enter your email address below. This will be used for sending you the $5 gift card.",
+                    "properties": {
+                        "email": {
+                            "type": "string",
+                            "title": "Email address:",
+                            "required": true
+                        }
+                    }
+                }
+            },
+            "nextButtonText": "Next"
+        },
+        "exit-survey": {
+            "kind": "exp-lookit-exit-survey",
+            "debriefing": {
+                "title": "Thank you for participating!",
+                "blocks": [
+                    {
+                        "title": "",
+                        "text": "This research wouldn't be possible without awesome parents like you!"
+                    },
+                    {
+                        "title": "Some Background Information:",
+                        "text": "How do children understand the relationship between complexity, effort, and time? As adults, we have an intuitive sense of how long a task will take to be completed, or how much  effort is required, and we consider these things when planning activities and evaluating others. We are interested in investigating the roots of this capability in young children.\n\nIn this study, we presented your child with pairs of pictures: each pair showed two friends with block structures in front of them. These block structures varied in the number of blocks used and/or how close they were to the block structure that was initially laid out on the table. Second, your child observed block structures that have the same number of blocks but differ in how complex they are, as well as differences between the people playing with the blocks (e.g., person with arm in a sling vs. person without sling). We are interested in evaluating if (and how) children take into account these differences when they judge which block structures are easier/harder to build.\n\nThis study will allow us to understand how children consider time and effort when observing others working towards achieving various physical outcomes.\n\nIf you would like to learn more about this topic, you may be interested in  <a href='https://www.youtube.com/watch?v=zfeeW3hgV5I&ab_channel=CognitiveDevelopmentCenterCEU' target='_blank'>the following talk</a>!"
+                    },
+                    {
+                        "title": "Compensation:",
+                        "text": "To thank you for your participation, we'll be emailing you a $5 Amazon gift card - this should arrive in your email inbox within the next week after we confirm your consent video and check that your child is in the age range for this study (If you don't hear from us by then, feel free to reach out!). If you participate again with another child in the age range, you'll receive one gift card per child."
+                    },
+                    {
+                        "title": "Questions or Concerns:",
+                        "text": "In case of questions or concerns, please do not hesitate to contact Adani Abutto: aabutto@stanford.edu"
+                    }
+                ]
+            }
+        },
+        "video-config": {
+            "kind": "exp-video-config",
+            "troubleshootingIntro": "If you're having any trouble or would like us to walk you through setup, please email aabutto@stanford.edu."
+        },
+        "video-consent": {
+            "gdpr": false,
+            "kind": "exp-lookit-video-consent",
+            "PIName": "Adani Abutto",
+            "datause": "The researchers and study staff follow federal and state laws to protect your privacy, so all of your information and research records will be kept confidential. The only exception to these procedures for maintaining confidentiality is that we are required by law to report to the appropriate authorities suspicion of harm to your child or to others. More information on how we keep your videos and data private can be found at lookit.mit.edu/faq.",
+            "payment": "There are no costs to participating. There are also no known risks associated with this study beyond those of everyday life. Although this study will not benefit your child directly, it will add to our understanding of how children think in general. If indicated in the study description, you may be compensated for participating in this study; if this is not stated in the study description, then you will not receive any payment for your participation.",
+            "purpose": "The ability to reason about the difficulty of a task at hand is crucial to learning. For example, it helps us decide which goals to choose for ourselves and others, how to allocate our time and resources, and how to avoid unecessary failure. But how do we know how hard a given task is when we have not engaged in it before? In this study, we are interested in how children judge how easy (or hard) it is to complete different novel blockbuilding structures. The study will help us understand how children gauge task difficulty.",
+            "template": "consent_002",
+            "PIContact": "Adani Abutto (aabutto@stanford.edu) if you have any questions or inquiries about the study.",
+            "procedures": "If your child participates, on the screen, they will see pictures of different block structures, and they will be asked some questions about them. For example, your child may be asked which one of two block structures is harder/easier to build. This study has been designed to be appropriate and fun for young children.",
+            "institution": "Stanford University",
+            "research_rights_statement": "The Institutional Review Board (IRB) of Stanford University has approved this research study. If you have questions regarding your rights as a research subject you may contact the IRB office at 650-723-2480, or by mail at Research Compliance Office, Stanford University, 1705 El Camino Real, Palo Alto, CA 94306."
+        },
+        "audio-check": {
+            "kind": "exp-lookit-instructions",
+            "blocks": [
+                {
+                    "title": "Study overview",
+                    "listblocks": [
+                        {
+                            "text": "For the next 10 minutes your child will see some pictures of friends playing with blocks and answer questions about them!"
+                        }
+                    ]
+                },
+                {
+                    "title": "During the videos",
+                    "listblocks": [
+                        {
+                            "text": "Please sit behind your child and allow your child to answer the questions on their own. Please don't correct your child if you disagree, or tell them they're right if you agree. We're just interested in what they think!"
+                        },
+                        {
+                            "text": "However, if your child doesn't know how to click yet, they can instead point to the screen, and you can click for them."
+                        }
+                    ]
+                },
+                {
+                    "title": "Pausing and stopping",
+                    "listblocks": [
+                        {
+                            "text": "If your child gets distracted, or you need to attend to something else for a moment, you can pause the study by pressing the space bar."
+                        },
+                        {
+                            "text": "If you need to end the study early, try closing the window or tab and you should see an 'exit' option pop up. You'll be prompted to note any technical problems you might be experiencing and to select a privacy level for your videos."
+                        }
+                    ]
+                },
+                {
+                    "text": "Please turn the volume up so it's easy to hear but still comfortable.",
+                    "title": "Test your audio",
+                    "mediaBlock": {
+                        "text": "You should hear 'Ready to go!'",
+                        "isVideo": false,
+                        "sources": [
+                            {
+                                "src": "https://s3.amazonaws.com/lookitcontents/exp-physics-final/audio/ready.mp3",
+                                "type": "audio/mp3"
+                            },
+                            {
+                                "src": "https://s3.amazonaws.com/lookitcontents/exp-physics-final/audio/ready.ogg",
+                                "type": "audio/ogg"
+                            }
+                        ],
+                        "mustPlay": true,
+                        "warningText": "Please try playing the sample audio."
+                    }
+                }
+            ],
+            "nextButtonText": "Let's begin! \n (You'll have a moment to adjust the webcam for your child.)"
+        },
+        "instructions": {
+            "kind": "exp-lookit-images-audio",
+            "baseDir": "https://raw.githubusercontent.com/adaniabutto/tedstimuli/main/shared/",
+            "audioTypes": [
+                "mp3",
+                "ogg"
+            ],
+            "parentTextBlock": {
+                "text": "Parents, if you’re sitting by your child’s side, please let your children make their own decisions. If they’re having trouble using the mouse to click the answer, feel free to help them!",
+                "title": "For parents"
+            },
+            "autoProceed": false,
+            "audio": "intro",
+            "images": [
+                {
+                    "src": "welcome.jpeg",
+                    "position": "fill"
+                }
+            ]
+        },
+        "positioning": {
+            "kind": "exp-video-config-quality",
+            "title": "Positioning",
+            "introText": "It's time to get your child & check yourself out!",
+            "showRecordMenu": false,
+            "requireTestVideo": false,
+            "completedItemText": "Got it!",
+            "instructionBlocks": [
+                {
+                    "text": "You and your child can sit in any position.",
+                    "title": "Get comfortable"
+                },
+                {
+                    "text": "Go ahead and get settled and use the webcam preview to make sure your child’s whole face and torso are in view.",
+                    "title": "Take a few moments"
+                },
+                {
+                    "text": "Press the 'Next' button down below if you and your child are in position and ready to go.",
+                    "title": "When you're ready"
+                }
+            ],
+            "nextButtonText": "My child and I are in position and ready to start!",
+            "showPreviousButton": true,
+            "requireItemConfirmation": true,
+            "recordingInstructionText": ""
+        },
+        "start-recording": {
+            "kind": "exp-lookit-start-recording",
+            "imageAnimation": "spin",
+            "displayFullscreen": true
+        },
+        "stop-recording": {
+            "kind": "exp-lookit-stop-recording",
+            "imageAnimation": "spin",
+            "displayFullscreen": true
+        },
+        "color-check": {
+            "kind": "choice",
+            "sampler": "random-parameter-set",
+            "commonFrameProperties": {
+                "kind": "exp-lookit-images-audio",
+                "baseDir": "https://raw.githubusercontent.com/adaniabutto/tedstimuli/main/shared/",
+                "audioTypes": [
+                    "mp3",
+                    "ogg"
+                ],
+                "autoProceed": false,
+                "choiceRequired": true,
+                "showCursor": true,
+                "canMakeChoiceBeforeAudioFinished": false,
+                "allowUserPause": false
+            },
+            "frameList": [
+                {
+                    "audio": "colored_blocks1",
+                    "images": [
+                        {
+                            "id": "coloredblocks1_left",
+                            "src": "COLOREDBLOCKS_G",
+                            "position": "left",
+                            "displayDelayMs": 5500
+                        },
+                        {
+                            "id": "coloredblocks1_right",
+                            "src": "COLOREDBLOCKS_Y",
+                            "position": "right",
+                            "displayDelayMs": 5500
+                        }
+                    ],
+                    "highlights": [
+                        {
+                            "range": [
+                                9,
+                                9.4
+                            ],
+                            "imageId": "coloredblocks1_left"
+                        },
+                        {
+                            "range": [
+                                9.7,
+                                10.1
+                            ],
+                            "imageId": "coloredblocks1_left"
+                        },
+                        {
+                            "range": [
+                                11.5,
+                                11.9
+                            ],
+                            "imageId": "coloredblocks1_right"
+                        },
+                        {
+                            "range": [
+                                12.2,
+                                12.6
+                            ],
+                            "imageId": "coloredblocks1_right"
+                        }
+                    ]
+                },
+                {
+                    "audio": "colored_blocks2",
+                    "images": [
+                        {
+                            "id": "coloredblocks2_left",
+                            "src": "COLOREDBLOCKS_G",
+                            "position": "left"
+                        },
+                        {
+                            "id": "coloredblocks2_right",
+                            "src": "COLOREDBLOCKS_Y",
+                            "position": "right"
+                        }
+                    ],
+                    "highlights": [
+                        {
+                            "range": [
+                                3.5,
+                                3.9
+                            ],
+                            "imageId": "coloredblocks2_left"
+                        },
+                        {
+                            "range": [
+                                4.2,
+                                4.6
+                            ],
+                            "imageId": "coloredblocks2_left"
+                        },
+                        {
+                            "range": [
+                                5.5,
+                                5.9
+                            ],
+                            "imageId": "coloredblocks2_right"
+                        },
+                        {
+                            "range": [
+                                6.2,
+                                6.6
+                            ],
+                            "imageId": "coloredblocks2_right"
+                        }
+                    ]
+                }
+            ],
+            "parameterSets": [
+                {
+                    "COLOREDBLOCKS_G": "Color_Check_G_crop.jpg",
+                    "COLOREDBLOCKS_Y": "Color_Check_Y_crop.jpg"
+                }
+            ]
+        },
+        "trials": {
+            "kind": "choice",
+            "sampler": "random-parameter-set",
+            "frameList": [
+                {
+                    "kind": "choice",
+                    "sampler": "random-parameter-set",
+                    "frameList": [
+                        {
+                            "kind": "exp-lookit-images-audio",
+                            "baseDir": "DIRECTORY",
+                            "id": "warmup",
+                            "audioTypes": [
+                                "mp3",
+                                "ogg"
+                            ],
+                            "audio": "warmup/warmup_drawings",
+                            "autoProceed": false,
+                            "choiceRequired": true,
+                            "images": [
+                                {
+                                    "id": "triangle",
+                                    "src": "WARMUPLEFT",
+                                    "position": "left",
+                                    "displayDelayMs": 5000
+                                },
+                                {
+                                    "id": "house",
+                                    "src": "WARMUPRIGHT",
+                                    "position": "right",
+                                    "displayDelayMs": 6500
+                                }
+                            ],
+                            "highlights": [
+                                {
+                                    "range": [
+                                        14,
+                                        14.4
+                                    ],
+                                    "imageId": "triangle"
+                                },
+                                {
+                                    "range": [
+                                        14.7,
+                                        15.1
+                                    ],
+                                    "imageId": "triangle"
+                                },
+                                {
+                                    "range": [
+                                        17,
+                                        17.3
+                                    ],
+                                    "imageId": "house"
+                                },
+                                {
+                                    "range": [
+                                        17.7,
+                                        18.1
+                                    ],
+                                    "imageId": "house"
+                                }
+                            ],
+                            "parentTextBlock": {
+                                "text": "Please help keep your child's attention, but don't talk with him or her about which drawing is harder/easier to make! Feel free to replay the audio if your child was distracted.",
+                                "title": "For parents"
+                            }
+                        }
+                    ],
+                    "parameterSets": [
+                        {
+                            "WARMUPLEFT": "warmup/triangle.png",
+                            "WARMUPRIGHT": "warmup/house.jpg"
+                        },
+                        {
+                            "WARMUPLEFT": "warmup/house.jpg",
+                            "WARMUPRIGHT": "warmup/triangle.png"
+                        }
+                    ]
+                },
+                {
+                    "kind": "choice",
+                    "sampler": "random-parameter-set",
+                    "frameList": [
+                        {
+                            "sampler": "permute",
+                            "kind": "choice",
+                            "commonFrameProperties": {
+                                "kind": "exp-lookit-images-audio",
+                                "baseDir": "DIRECTORY",
+                                "audioTypes": [
+                                    "mp3",
+                                    "ogg"
+                                ],
+                                "autoProceed": false,
+                                "choiceRequired": true,
+                                "showCursor": true,
+                                "canMakeChoiceBeforeAudioFinished": false,
+                                "allowUserPause": false,
+                                "parentTextBlock": {
+                                    "css": {
+                                        "font-size": "1.25em"
+                                    },
+                                    "text": "Please help keep your child's attention, but don't talk with him or her about which block structure is harder/easier to build! Feel free to replay the audio if your child was distracted.",
+                                    "title": "For parents"
+                                }
+                            },
+                            "frameOptions": [
+                                {
+                                    "audio": "simple/simple_1",
+                                    "images": [
+                                        {
+                                            "id": "TOPLEFTIMG",
+                                            "src": "SIMPLE_1_TOPLEFT",
+                                            "top": 10,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 3000,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPRIGHTIMG",
+                                            "src": "SIMPLE_1_TOPRIGHT",
+                                            "top": 10,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 4250,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPLEFTGREYIMG",
+                                            "src": "SIMPLE_1_TOPLEFTGREY",
+                                            "top": 10,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 13750,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPRIGHTGREYIMG",
+                                            "src": "SIMPLE_1_TOPRIGHTGREY",
+                                            "top": 10,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 13750,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "BOTTOMLEFTIMG",
+                                            "src": "SIMPLE_1_BOTTOMLEFT",
+                                            "top": 50,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 15000
+                                        },
+                                        {
+                                            "id": "BOTTOMRIGHTIMG",
+                                            "src": "SIMPLE_1_BOTTOMRIGHT",
+                                            "top": 50,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 18500
+                                        }
+                                    ],
+                                    "highlights": [
+                                        {
+                                            "range": [
+                                                7,
+                                                7.4
+                                            ],
+                                            "imageId": [
+                                                "TOPLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                7.7,
+                                                8.1
+                                            ],
+                                            "imageId": [
+                                                "TOPLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                11,
+                                                11.4
+                                            ],
+                                            "imageId": [
+                                                "TOPRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                11.7,
+                                                12.1
+                                            ],
+                                            "imageId": [
+                                                "TOPRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                27.5,
+                                                27.9
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                28.2,
+                                                28.6
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                29.6,
+                                                30
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                30.3,
+                                                30.7
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "audio": "simple/simple_2",
+                                    "images": [
+                                        {
+                                            "id": "TOPLEFTIMG",
+                                            "src": "SIMPLE_2_TOPLEFT",
+                                            "top": 10,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 3000,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPRIGHTIMG",
+                                            "src": "SIMPLE_2_TOPRIGHT",
+                                            "top": 10,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 4250,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPLEFTGREYIMG",
+                                            "src": "SIMPLE_2_TOPLEFTGREY",
+                                            "top": 10,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 13750,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPRIGHTGREYIMG",
+                                            "src": "SIMPLE_2_TOPRIGHTGREY",
+                                            "top": 10,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 13750,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "BOTTOMLEFTIMG",
+                                            "src": "SIMPLE_2_BOTTOMLEFT",
+                                            "top": 50,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 15000
+                                        },
+                                        {
+                                            "id": "BOTTOMRIGHTIMG",
+                                            "src": "SIMPLE_2_BOTTOMRIGHT",
+                                            "top": 50,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 18500
+                                        }
+                                    ],
+                                    "highlights": [
+                                        {
+                                            "range": [
+                                                7,
+                                                7.4
+                                            ],
+                                            "imageId": [
+                                                "TOPLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                7.7,
+                                                8.1
+                                            ],
+                                            "imageId": [
+                                                "TOPLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                11,
+                                                11.4
+                                            ],
+                                            "imageId": [
+                                                "TOPRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                11.7,
+                                                12.1
+                                            ],
+                                            "imageId": [
+                                                "TOPRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                27.5,
+                                                27.9
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                28.2,
+                                                28.6
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                29.6,
+                                                30
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                30.3,
+                                                30.7
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "audio": "simple/simple_3",
+                                    "images": [
+                                        {
+                                            "id": "TOPLEFTIMG",
+                                            "src": "SIMPLE_3_TOPLEFT",
+                                            "top": 10,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 3000,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPRIGHTIMG",
+                                            "src": "SIMPLE_3_TOPRIGHT",
+                                            "top": 10,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 4250,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPLEFTGREYIMG",
+                                            "src": "SIMPLE_3_TOPLEFTGREY",
+                                            "top": 10,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 13750,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPRIGHTGREYIMG",
+                                            "src": "SIMPLE_3_TOPRIGHTGREY",
+                                            "top": 10,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 13750,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "BOTTOMLEFTIMG",
+                                            "src": "SIMPLE_3_BOTTOMLEFT",
+                                            "top": 50,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 15000
+                                        },
+                                        {
+                                            "id": "BOTTOMRIGHTIMG",
+                                            "src": "SIMPLE_3_BOTTOMRIGHT",
+                                            "top": 50,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 18500
+                                        }
+                                    ],
+                                    "highlights": [
+                                        {
+                                            "range": [
+                                                7,
+                                                7.4
+                                            ],
+                                            "imageId": [
+                                                "TOPLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                7.7,
+                                                8.1
+                                            ],
+                                            "imageId": [
+                                                "TOPLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                11,
+                                                11.4
+                                            ],
+                                            "imageId": [
+                                                "TOPRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                11.7,
+                                                12.1
+                                            ],
+                                            "imageId": [
+                                                "TOPRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                27.5,
+                                                27.9
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                28.2,
+                                                28.6
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                29.3,
+                                                29.7
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                30,
+                                                30.4
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "audio": "simple/simple_4",
+                                    "images": [
+                                        {
+                                            "id": "TOPLEFTIMG",
+                                            "src": "SIMPLE_4_TOPLEFT",
+                                            "top": 10,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 3000,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPRIGHTIMG",
+                                            "src": "SIMPLE_4_TOPRIGHT",
+                                            "top": 10,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 4250,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPLEFTGREYIMG",
+                                            "src": "SIMPLE_4_TOPLEFTGREY",
+                                            "top": 10,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 13750,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPRIGHTGREYIMG",
+                                            "src": "SIMPLE_4_TOPRIGHTGREY",
+                                            "top": 10,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 13750,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "BOTTOMLEFTIMG",
+                                            "src": "SIMPLE_4_BOTTOMLEFT",
+                                            "top": 50,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 15000
+                                        },
+                                        {
+                                            "id": "BOTTOMRIGHTIMG",
+                                            "src": "SIMPLE_4_BOTTOMRIGHT",
+                                            "top": 50,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 18500
+                                        }
+                                    ],
+                                    "highlights": [
+                                        {
+                                            "range": [
+                                                7,
+                                                7.4
+                                            ],
+                                            "imageId": [
+                                                "TOPLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                7.7,
+                                                8.1
+                                            ],
+                                            "imageId": [
+                                                "TOPLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                11,
+                                                11.4
+                                            ],
+                                            "imageId": [
+                                                "TOPRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                11.7,
+                                                12.1
+                                            ],
+                                            "imageId": [
+                                                "TOPRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                27.5,
+                                                27.9
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                28.2,
+                                                28.6
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                29.6,
+                                                30
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                30.3,
+                                                30.7
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "audio": "simple/simple_7",
+                                    "images": [
+                                        {
+                                            "id": "TOPLEFTIMG",
+                                            "src": "SIMPLE_7_TOPLEFT",
+                                            "top": 10,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 3000,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPRIGHTIMG",
+                                            "src": "SIMPLE_7_TOPRIGHT",
+                                            "top": 10,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 4250,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPLEFTGREYIMG",
+                                            "src": "SIMPLE_7_TOPLEFTGREY",
+                                            "top": 10,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 13750,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPRIGHTGREYIMG",
+                                            "src": "SIMPLE_7_TOPRIGHTGREY",
+                                            "top": 10,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 13750,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "BOTTOMLEFTIMG",
+                                            "src": "SIMPLE_7_BOTTOMLEFT",
+                                            "top": 50,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 15000
+                                        },
+                                        {
+                                            "id": "BOTTOMRIGHTIMG",
+                                            "src": "SIMPLE_7_BOTTOMRIGHT",
+                                            "top": 50,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 18500
+                                        }
+                                    ],
+                                    "highlights": [
+                                        {
+                                            "range": [
+                                                7,
+                                                7.4
+                                            ],
+                                            "imageId": [
+                                                "TOPLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                7.7,
+                                                8.1
+                                            ],
+                                            "imageId": [
+                                                "TOPLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                11,
+                                                11.4
+                                            ],
+                                            "imageId": [
+                                                "TOPRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                11.7,
+                                                12.1
+                                            ],
+                                            "imageId": [
+                                                "TOPRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                27.5,
+                                                27.9
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                28.2,
+                                                28.6
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                29.6,
+                                                30
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                30.3,
+                                                30.7
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "audio": "simple/simple_15",
+                                    "images": [
+                                        {
+                                            "id": "TOPLEFTIMG",
+                                            "src": "SIMPLE_15_TOPLEFT",
+                                            "top": 10,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 3000,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPRIGHTIMG",
+                                            "src": "SIMPLE_15_TOPRIGHT",
+                                            "top": 10,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 4250,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPLEFTGREYIMG",
+                                            "src": "SIMPLE_15_TOPLEFTGREY",
+                                            "top": 10,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 13750,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPRIGHTGREYIMG",
+                                            "src": "SIMPLE_15_TOPRIGHTGREY",
+                                            "top": 10,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 13750,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "BOTTOMLEFTIMG",
+                                            "src": "SIMPLE_15_BOTTOMLEFT",
+                                            "top": 50,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 15000
+                                        },
+                                        {
+                                            "id": "BOTTOMRIGHTIMG",
+                                            "src": "SIMPLE_15_BOTTOMRIGHT",
+                                            "top": 50,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 18500
+                                        }
+                                    ],
+                                    "highlights": [
+                                        {
+                                            "range": [
+                                                7,
+                                                7.4
+                                            ],
+                                            "imageId": [
+                                                "TOPLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                7.7,
+                                                8.1
+                                            ],
+                                            "imageId": [
+                                                "TOPLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                11,
+                                                11.4
+                                            ],
+                                            "imageId": [
+                                                "TOPRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                11.7,
+                                                12.1
+                                            ],
+                                            "imageId": [
+                                                "TOPRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                27.5,
+                                                27.9
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                28.2,
+                                                28.6
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                29.6,
+                                                30
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                30.3,
+                                                30.7
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "parameterSets": [
+                        {
+                            "SIMPLE_1_TOPLEFT": "simple/1_Init_LD_NB_1_crop.jpg",
+                            "SIMPLE_1_TOPLEFTGREY": "simple/1_Init_LD_NB_1_crop_G.jpg",
+                            "SIMPLE_1_BOTTOMLEFT": "simple/1_Fin_LD_NB_1_crop.jpg",
+                            "SIMPLE_1_TOPRIGHT": "simple/1_Init_LD_NB_2_crop.jpg",
+                            "SIMPLE_1_TOPRIGHTGREY": "simple/1_Init_LD_NB_2_crop_G.jpg",
+                            "SIMPLE_1_BOTTOMRIGHT": "simple/1_Fin_LD_NB_2_crop.jpg",
+                            "SIMPLE_2_TOPLEFT": "simple/2_Init_LD_NB_2_crop.jpg",
+                            "SIMPLE_2_TOPLEFTGREY": "simple/2_Init_LD_NB_2_crop_G.jpg",
+                            "SIMPLE_2_BOTTOMLEFT": "simple/2_Fin_LD_NB_2_crop.jpg",
+                            "SIMPLE_2_TOPRIGHT": "simple/2_Init_LD_NB_1_crop.jpg",
+                            "SIMPLE_2_TOPRIGHTGREY": "simple/2_Init_LD_NB_1_crop_G.jpg",
+                            "SIMPLE_2_BOTTOMRIGHT": "simple/2_Fin_LD_NB_1_crop.jpg",
+                            "SIMPLE_3_TOPLEFT": "simple/3_Init_LD_NB_1_crop.jpg",
+                            "SIMPLE_3_TOPLEFTGREY": "simple/3_Init_LD_NB_1_crop_G.jpg",
+                            "SIMPLE_3_BOTTOMLEFT": "simple/3_Fin_LD_NB_1_crop.jpg",
+                            "SIMPLE_3_TOPRIGHT": "simple/3_Init_LD_NB_2_crop.jpg",
+                            "SIMPLE_3_TOPRIGHTGREY": "simple/3_Init_LD_NB_2_crop_G.jpg",
+                            "SIMPLE_3_BOTTOMRIGHT": "simple/3_Fin_LD_NB_2_crop.jpg",
+                            "SIMPLE_4_TOPLEFT": "simple/4_Init_LD_NB_2_crop.jpg",
+                            "SIMPLE_4_TOPLEFTGREY": "simple/4_Init_LD_NB_2_crop_G.jpg",
+                            "SIMPLE_4_BOTTOMLEFT": "simple/4_Fin_LD_NB_2_crop.jpg",
+                            "SIMPLE_4_TOPRIGHT": "simple/4_Init_LD_NB_1_crop.jpg",
+                            "SIMPLE_4_TOPRIGHTGREY": "simple/4_Init_LD_NB_1_crop_G.jpg",
+                            "SIMPLE_4_BOTTOMRIGHT": "simple/4_Fin_LD_NB_1_crop.jpg",
+                            "SIMPLE_7_TOPLEFT": "simple/7_Init_LD_NB_1_crop.jpg",
+                            "SIMPLE_7_TOPLEFTGREY": "simple/7_Init_LD_NB_1_crop_G.jpg",
+                            "SIMPLE_7_BOTTOMLEFT": "simple/7_Fin_LD_NB_1_crop.jpg",
+                            "SIMPLE_7_TOPRIGHT": "simple/7_Init_LD_NB_2_crop.jpg",
+                            "SIMPLE_7_TOPRIGHTGREY": "simple/7_Init_LD_NB_2_crop_G.jpg",
+                            "SIMPLE_7_BOTTOMRIGHT": "simple/7_Fin_LD_NB_2_crop.jpg",
+                            "SIMPLE_15_TOPLEFT": "simple/15_Init_LD_NB_2_crop.jpg",
+                            "SIMPLE_15_TOPLEFTGREY": "simple/15_Init_LD_NB_2_crop_G.jpg",
+                            "SIMPLE_15_BOTTOMLEFT": "simple/15_Fin_LD_NB_2_crop.jpg",
+                            "SIMPLE_15_TOPRIGHT": "simple/15_Init_LD_NB_1_crop.jpg",
+                            "SIMPLE_15_TOPRIGHTGREY": "simple/15_Init_LD_NB_1_crop_G.jpg",
+                            "SIMPLE_15_BOTTOMRIGHT": "simple/15_Fin_LD_NB_1_crop.jpg"
+                        },
+                        {
+                            "SIMPLE_1_TOPLEFT": "simple/1_Init_LD_NB_2_crop.jpg",
+                            "SIMPLE_1_TOPLEFTGREY": "simple/1_Init_LD_NB_2_crop_G.jpg",
+                            "SIMPLE_1_BOTTOMLEFT": "simple/1_Fin_LD_NB_2_crop.jpg",
+                            "SIMPLE_1_TOPRIGHT": "simple/1_Init_LD_NB_1_crop.jpg",
+                            "SIMPLE_1_TOPRIGHTGREY": "simple/1_Init_LD_NB_1_crop_G.jpg",
+                            "SIMPLE_1_BOTTOMRIGHT": "simple/1_Fin_LD_NB_1_crop.jpg",
+                            "SIMPLE_2_TOPLEFT": "simple/2_Init_LD_NB_1_crop.jpg",
+                            "SIMPLE_2_TOPLEFTGREY": "simple/2_Init_LD_NB_1_crop_G.jpg",
+                            "SIMPLE_2_BOTTOMLEFT": "simple/2_Fin_LD_NB_1_crop.jpg",
+                            "SIMPLE_2_TOPRIGHT": "simple/2_Init_LD_NB_2_crop.jpg",
+                            "SIMPLE_2_TOPRIGHTGREY": "simple/2_Init_LD_NB_2_crop_G.jpg",
+                            "SIMPLE_2_BOTTOMRIGHT": "simple/2_Fin_LD_NB_2_crop.jpg",
+                            "SIMPLE_3_TOPLEFT": "simple/3_Init_LD_NB_2_crop.jpg",
+                            "SIMPLE_3_TOPLEFTGREY": "simple/3_Init_LD_NB_2_crop_G.jpg",
+                            "SIMPLE_3_BOTTOMLEFT": "simple/3_Fin_LD_NB_2_crop.jpg",
+                            "SIMPLE_3_TOPRIGHT": "simple/3_Init_LD_NB_1_crop.jpg",
+                            "SIMPLE_3_TOPRIGHTGREY": "simple/3_Init_LD_NB_1_crop_G.jpg",
+                            "SIMPLE_3_BOTTOMRIGHT": "simple/3_Fin_LD_NB_1_crop.jpg",
+                            "SIMPLE_4_TOPLEFT": "simple/4_Init_LD_NB_1_crop.jpg",
+                            "SIMPLE_4_TOPLEFTGREY": "simple/4_Init_LD_NB_1_crop_G.jpg",
+                            "SIMPLE_4_BOTTOMLEFT": "simple/4_Fin_LD_NB_1_crop.jpg",
+                            "SIMPLE_4_TOPRIGHT": "simple/4_Init_LD_NB_2_crop.jpg",
+                            "SIMPLE_4_TOPRIGHTGREY": "simple/4_Init_LD_NB_2_crop_G.jpg",
+                            "SIMPLE_4_BOTTOMRIGHT": "simple/4_Fin_LD_NB_2_crop.jpg",
+                            "SIMPLE_7_TOPLEFT": "simple/7_Init_LD_NB_2_crop.jpg",
+                            "SIMPLE_7_TOPLEFTGREY": "simple/7_Init_LD_NB_2_crop_G.jpg",
+                            "SIMPLE_7_BOTTOMLEFT": "simple/7_Fin_LD_NB_2_crop.jpg",
+                            "SIMPLE_7_TOPRIGHT": "simple/7_Init_LD_NB_1_crop.jpg",
+                            "SIMPLE_7_TOPRIGHTGREY": "simple/7_Init_LD_NB_1_crop_G.jpg",
+                            "SIMPLE_7_BOTTOMRIGHT": "simple/7_Fin_LD_NB_1_crop.jpg",
+                            "SIMPLE_15_TOPLEFT": "simple/15_Init_LD_NB_1_crop.jpg",
+                            "SIMPLE_15_TOPLEFTGREY": "simple/15_Init_LD_NB_1_crop_G.jpg",
+                            "SIMPLE_15_BOTTOMLEFT": "simple/15_Fin_LD_NB_1_crop.jpg",
+                            "SIMPLE_15_TOPRIGHT": "simple/15_Init_LD_NB_2_crop.jpg",
+                            "SIMPLE_15_TOPRIGHTGREY": "simple/15_Init_LD_NB_2_crop_G.jpg",
+                            "SIMPLE_15_BOTTOMRIGHT": "simple/15_Fin_LD_NB_2_crop.jpg"
+                        }
+                    ]
+                },
+                {
+                    "kind": "choice",
+                    "sampler": "random-parameter-set",
+                    "frameList": [
+                        {
+                            "sampler": "permute",
+                            "kind": "choice",
+                            "commonFrameProperties": {
+                                "kind": "exp-lookit-images-audio",
+                                "baseDir": "DIRECTORY",
+                                "audioTypes": [
+                                    "mp3",
+                                    "ogg"
+                                ],
+                                "autoProceed": false,
+                                "choiceRequired": true,
+                                "showCursor": true,
+                                "canMakeChoiceBeforeAudioFinished": false,
+                                "allowUserPause": false,
+                                "parentTextBlock": {
+                                    "css": {
+                                        "font-size": "1.25em"
+                                    },
+                                    "text": "Please help keep your child's attention, but don't talk with him or her about which block structure is harder/easier to build! Feel free to replay the audio if your child was distracted.",
+                                    "title": "For parents"
+                                }
+                            },
+                            "frameOptions": [
+                                {
+                                    "audio": "complex/complex_5",
+                                    "images": [
+                                        {
+                                            "id": "TOPLEFTIMG",
+                                            "src": "COMPLEX_5_TOPLEFT",
+                                            "top": 10,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 4000,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPRIGHTIMG",
+                                            "src": "COMPLEX_5_TOPRIGHT",
+                                            "top": 10,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 5500,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPLEFTGREYIMG",
+                                            "src": "COMPLEX_5_TOPLEFTGREY",
+                                            "top": 10,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 16500,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPRIGHTGREYIMG",
+                                            "src": "COMPLEX_5_TOPRIGHTGREY",
+                                            "top": 10,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 16500,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "BOTTOMLEFTIMG",
+                                            "src": "COMPLEX_5_BOTTOMLEFT",
+                                            "top": 50,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 18000
+                                        },
+                                        {
+                                            "id": "BOTTOMRIGHTIMG",
+                                            "src": "COMPLEX_5_BOTTOMRIGHT",
+                                            "top": 50,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 21000
+                                        }
+                                    ],
+                                    "highlights": [
+                                        {
+                                            "range": [
+                                                9,
+                                                9.4
+                                            ],
+                                            "imageId": [
+                                                "TOPLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                9.7,
+                                                10.1
+                                            ],
+                                            "imageId": [
+                                                "TOPLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                12.5,
+                                                12.9
+                                            ],
+                                            "imageId": [
+                                                "TOPRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                13.2,
+                                                13.6
+                                            ],
+                                            "imageId": [
+                                                "TOPRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                25.5,
+                                                25.9
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                26.2,
+                                                26.6
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                25.5,
+                                                25.9
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                26.2,
+                                                26.6
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                30,
+                                                30.4
+                                            ],
+                                            "imageId": [
+                                                "TOPLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                30.7,
+                                                31.1
+                                            ],
+                                            "imageId": [
+                                                "TOPLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                30,
+                                                30.4
+                                            ],
+                                            "imageId": [
+                                                "TOPRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                30.7,
+                                                31.1
+                                            ],
+                                            "imageId": [
+                                                "TOPRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                39,
+                                                39.4
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                39.7,
+                                                40.1
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                41,
+                                                41.4
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                41.7,
+                                                42.1
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "audio": "complex/complex_6",
+                                    "images": [
+                                        {
+                                            "id": "TOPLEFTIMG",
+                                            "src": "COMPLEX_6_TOPLEFT",
+                                            "top": 10,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 3000,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPRIGHTIMG",
+                                            "src": "COMPLEX_6_TOPRIGHT",
+                                            "top": 10,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 5000,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPLEFTGREYIMG",
+                                            "src": "COMPLEX_6_TOPLEFTGREY",
+                                            "top": 10,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 16250,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPRIGHTGREYIMG",
+                                            "src": "COMPLEX_6_TOPRIGHTGREY",
+                                            "top": 10,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 16250,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "BOTTOMLEFTIMG",
+                                            "src": "COMPLEX_6_BOTTOMLEFT",
+                                            "top": 50,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 17500
+                                        },
+                                        {
+                                            "id": "BOTTOMRIGHTIMG",
+                                            "src": "COMPLEX_6_BOTTOMRIGHT",
+                                            "top": 50,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 20000
+                                        }
+                                    ],
+                                    "highlights": [
+                                        {
+                                            "range": [
+                                                9,
+                                                9.4
+                                            ],
+                                            "imageId": [
+                                                "TOPLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                9.7,
+                                                10.1
+                                            ],
+                                            "imageId": [
+                                                "TOPLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                12.5,
+                                                12.9
+                                            ],
+                                            "imageId": [
+                                                "TOPRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                13.2,
+                                                13.6
+                                            ],
+                                            "imageId": [
+                                                "TOPRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                24,
+                                                24.4
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                24.7,
+                                                25.1
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                24,
+                                                24.4
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                24.7,
+                                                25.1
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                28,
+                                                28.4
+                                            ],
+                                            "imageId": [
+                                                "TOPLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                28.7,
+                                                29.1
+                                            ],
+                                            "imageId": [
+                                                "TOPLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                28,
+                                                28.4
+                                            ],
+                                            "imageId": [
+                                                "TOPRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                28.7,
+                                                29.1
+                                            ],
+                                            "imageId": [
+                                                "TOPRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                37,
+                                                37.4
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                37.7,
+                                                38.1
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                40,
+                                                40.4
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                40.7,
+                                                41.1
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "audio": "complex/complex_11",
+                                    "images": [
+                                        {
+                                            "id": "TOPLEFTIMG",
+                                            "src": "COMPLEX_11_TOPLEFT",
+                                            "top": 10,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 2000,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPRIGHTIMG",
+                                            "src": "COMPLEX_11_TOPRIGHT",
+                                            "top": 10,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 3000,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPLEFTGREYIMG",
+                                            "src": "COMPLEX_11_TOPLEFTGREY",
+                                            "top": 10,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 14500,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPRIGHTGREYIMG",
+                                            "src": "COMPLEX_11_TOPRIGHTGREY",
+                                            "top": 10,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 14500,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "BOTTOMLEFTIMG",
+                                            "src": "COMPLEX_11_BOTTOMLEFT",
+                                            "top": 50,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 16500
+                                        },
+                                        {
+                                            "id": "BOTTOMRIGHTIMG",
+                                            "src": "COMPLEX_11_BOTTOMRIGHT",
+                                            "top": 50,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 20000
+                                        }
+                                    ],
+                                    "highlights": [
+                                        {
+                                            "range": [
+                                                6,
+                                                6.4
+                                            ],
+                                            "imageId": [
+                                                "TOPLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                6.7,
+                                                7.1
+                                            ],
+                                            "imageId": [
+                                                "TOPLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                10,
+                                                10.4
+                                            ],
+                                            "imageId": [
+                                                "TOPRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                10.7,
+                                                11.1
+                                            ],
+                                            "imageId": [
+                                                "TOPRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                30,
+                                                30.4
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                30.7,
+                                                31.1
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                33.7,
+                                                34.1
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                34.4,
+                                                34.7
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "audio": "complex/complex_12",
+                                    "images": [
+                                        {
+                                            "id": "TOPLEFTIMG",
+                                            "src": "COMPLEX_12_TOPLEFT",
+                                            "top": 10,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 3000,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPRIGHTIMG",
+                                            "src": "COMPLEX_12_TOPRIGHT",
+                                            "top": 10,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 11000,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPLEFTGREYIMG",
+                                            "src": "COMPLEX_12_TOPLEFTGREY",
+                                            "top": 10,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 26000,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPRIGHTGREYIMG",
+                                            "src": "COMPLEX_12_TOPRIGHTGREY",
+                                            "top": 10,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 26000,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "BOTTOMLEFTIMG",
+                                            "src": "COMPLEX_12_BOTTOMLEFT",
+                                            "top": 50,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 28500
+                                        },
+                                        {
+                                            "id": "BOTTOMRIGHTIMG",
+                                            "src": "COMPLEX_12_BOTTOMRIGHT",
+                                            "top": 50,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 31000
+                                        }
+                                    ],
+                                    "highlights": [
+                                        {
+                                            "range": [
+                                                5,
+                                                5.4
+                                            ],
+                                            "imageId": [
+                                                "TOPLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                5.7,
+                                                6.1
+                                            ],
+                                            "imageId": [
+                                                "TOPLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                12,
+                                                12.4
+                                            ],
+                                            "imageId": [
+                                                "TOPRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                12.7,
+                                                13.1
+                                            ],
+                                            "imageId": [
+                                                "TOPRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                18.5,
+                                                18.9
+                                            ],
+                                            "imageId": [
+                                                "TOPLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                19.2,
+                                                19.6
+                                            ],
+                                            "imageId": [
+                                                "TOPLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                21.5,
+                                                21.9
+                                            ],
+                                            "imageId": [
+                                                "TOPRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                22.2,
+                                                22.6
+                                            ],
+                                            "imageId": [
+                                                "TOPRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                35,
+                                                35.4
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                35.7,
+                                                36.1
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                35,
+                                                35.4
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                35.7,
+                                                36.1
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                39,
+                                                39.4
+                                            ],
+                                            "imageId": [
+                                                "TOPLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                39.7,
+                                                40.1
+                                            ],
+                                            "imageId": [
+                                                "TOPLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                39,
+                                                39.4
+                                            ],
+                                            "imageId": [
+                                                "TOPRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                39.7,
+                                                40.1
+                                            ],
+                                            "imageId": [
+                                                "TOPRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                48,
+                                                48.4
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                48.7,
+                                                49.1
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                51,
+                                                51.4
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                51.7,
+                                                52.1
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "parameterSets": [
+                        {
+                            "COMPLEX_5_TOPLEFT": "complex/5_Init_LD_NB_1_crop.jpg",
+                            "COMPLEX_5_TOPLEFTGREY": "complex/5_Init_LD_NB_1_crop_G.jpg",
+                            "COMPLEX_5_BOTTOMLEFT": "complex/5_Fin_LD_NB_1_crop.jpg",
+                            "COMPLEX_5_TOPRIGHT": "complex/5_Init_LD_NB_2_crop.jpg",
+                            "COMPLEX_5_TOPRIGHTGREY": "complex/5_Init_LD_NB_2_crop_G.jpg",
+                            "COMPLEX_5_BOTTOMRIGHT": "complex/5_Fin_LD_NB_2_crop.jpg",
+                            "COMPLEX_6_TOPLEFT": "complex/6_Init_LD_NB_2_crop.jpg",
+                            "COMPLEX_6_TOPLEFTGREY": "complex/6_Init_LD_NB_2_crop_G.jpg",
+                            "COMPLEX_6_BOTTOMLEFT": "complex/6_Fin_LD_NB_2_crop.jpg",
+                            "COMPLEX_6_TOPRIGHT": "complex/6_Init_LD_NB_1_crop.jpg",
+                            "COMPLEX_6_TOPRIGHTGREY": "complex/6_Init_LD_NB_1_crop_G.jpg",
+                            "COMPLEX_6_BOTTOMRIGHT": "complex/6_Fin_LD_NB_1_crop.jpg",
+                            "COMPLEX_11_TOPLEFT": "complex/11_Init_LD_NB_1_crop.jpg",
+                            "COMPLEX_11_TOPLEFTGREY": "complex/11_Init_LD_NB_1_crop_G.jpg",
+                            "COMPLEX_11_BOTTOMLEFT": "complex/11_Fin_LD_NB_1_crop.jpg",
+                            "COMPLEX_11_TOPRIGHT": "complex/11_Init_LD_NB_2_crop.jpg",
+                            "COMPLEX_11_TOPRIGHTGREY": "complex/11_Init_LD_NB_2_crop_G.jpg",
+                            "COMPLEX_11_BOTTOMRIGHT": "complex/11_Fin_LD_NB_2_crop.jpg",
+                            "COMPLEX_12_TOPLEFT": "complex/12_Init_LD_NB_2_crop.jpg",
+                            "COMPLEX_12_TOPLEFTGREY": "complex/12_Init_LD_NB_2_crop_G.jpg",
+                            "COMPLEX_12_BOTTOMLEFT": "complex/12_Fin_LD_NB_2_crop.jpg",
+                            "COMPLEX_12_TOPRIGHT": "complex/12_Init_LD_NB_1_crop.jpg",
+                            "COMPLEX_12_TOPRIGHTGREY": "complex/12_Init_LD_NB_1_crop_G.jpg",
+                            "COMPLEX_12_BOTTOMRIGHT": "complex/12_Fin_LD_NB_1_crop.jpg"
+                        },
+                        {
+                            "COMPLEX_5_TOPLEFT": "complex/5_Init_LD_NB_2_crop.jpg",
+                            "COMPLEX_5_TOPLEFTGREY": "complex/5_Init_LD_NB_2_crop_G.jpg",
+                            "COMPLEX_5_BOTTOMLEFT": "complex/5_Fin_LD_NB_2_crop.jpg",
+                            "COMPLEX_5_TOPRIGHT": "complex/5_Init_LD_NB_1_crop.jpg",
+                            "COMPLEX_5_TOPRIGHTGREY": "complex/5_Init_LD_NB_1_crop_G.jpg",
+                            "COMPLEX_5_BOTTOMRIGHT": "complex/5_Fin_LD_NB_1_crop.jpg",
+                            "COMPLEX_6_TOPLEFT": "complex/6_Init_LD_NB_1_crop.jpg",
+                            "COMPLEX_6_TOPLEFTGREY": "complex/6_Init_LD_NB_1_crop_G.jpg",
+                            "COMPLEX_6_BOTTOMLEFT": "complex/6_Fin_LD_NB_1_crop.jpg",
+                            "COMPLEX_6_TOPRIGHT": "complex/6_Init_LD_NB_2_crop.jpg",
+                            "COMPLEX_6_TOPRIGHTGREY": "complex/6_Init_LD_NB_2_crop_G.jpg",
+                            "COMPLEX_6_BOTTOMRIGHT": "complex/6_Fin_LD_NB_2_crop.jpg",
+                            "COMPLEX_11_TOPLEFT": "complex/11_Init_LD_NB_2_crop.jpg",
+                            "COMPLEX_11_TOPLEFTGREY": "complex/11_Init_LD_NB_2_crop_G.jpg",
+                            "COMPLEX_11_BOTTOMLEFT": "complex/11_Fin_LD_NB_2_crop.jpg",
+                            "COMPLEX_11_TOPRIGHT": "complex/11_Init_LD_NB_1_crop.jpg",
+                            "COMPLEX_11_TOPRIGHTGREY": "complex/11_Init_LD_NB_1_crop_G.jpg",
+                            "COMPLEX_11_BOTTOMRIGHT": "complex/11_Fin_LD_NB_1_crop.jpg",
+                            "COMPLEX_12_TOPLEFT": "complex/12_Init_LD_NB_1_crop.jpg",
+                            "COMPLEX_12_TOPLEFTGREY": "complex/12_Init_LD_NB_1_crop_G.jpg",
+                            "COMPLEX_12_BOTTOMLEFT": "complex/12_Fin_LD_NB_1_crop.jpg",
+                            "COMPLEX_12_TOPRIGHT": "complex/12_Init_LD_NB_2_crop.jpg",
+                            "COMPLEX_12_TOPRIGHTGREY": "complex/12_Init_LD_NB_2_crop_G.jpg",
+                            "COMPLEX_12_BOTTOMRIGHT": "complex/12_Fin_LD_NB_2_crop.jpg"
+                        }
+                    ]
+                },
+                {
+                    "kind": "exp-lookit-images-audio",
+                    "audio": "break",
+                    "baseDir": "https://raw.githubusercontent.com/adaniabutto/tedstimuli/main/shared/",
+                    "audioTypes": [
+                        "mp3",
+                        "ogg"
+                    ],
+                    "autoProceed": false,
+                    "showCursor": true,
+                    "images": [
+                        {
+                            "src": "break.jpeg",
+                            "position": "fill"
+                        }
+                    ],
+                    "parentTextBlock": {
+                        "text": "Whenever your child is ready, click ‘next’!",
+                        "title": "For parents"
+                    }
+                },
+                {
+                    "kind": "choice",
+                    "sampler": "random-parameter-set",
+                    "frameList": [
+                        {
+                            "sampler": "permute",
+                            "kind": "choice",
+                            "commonFrameProperties": {
+                                "kind": "exp-lookit-images-audio",
+                                "baseDir": "DIRECTORY",
+                                "audioTypes": [
+                                    "mp3",
+                                    "ogg"
+                                ],
+                                "autoProceed": false,
+                                "choiceRequired": true,
+                                "showCursor": true,
+                                "canMakeChoiceBeforeAudioFinished": false,
+                                "allowUserPause": false,
+                                "parentTextBlock": {
+                                    "css": {
+                                        "font-size": "1.25em"
+                                    },
+                                    "text": "Please help keep your child's attention, but don't talk with him or her about which block structure is harder/easier to build! Feel free to replay the audio if your child was distracted.",
+                                    "title": "For parents"
+                                }
+                            },
+                            "frameOptions": [
+                                {
+                                    "audio": "agent/agent_16",
+                                    "images": [
+                                        {
+                                            "id": "TOPLEFTIMG",
+                                            "src": "AGENT_16_TOPLEFT",
+                                            "top": 10,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 2500,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPRIGHTIMG",
+                                            "src": "AGENT_16_TOPRIGHT",
+                                            "top": 10,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 3500,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPLEFTGREYIMG",
+                                            "src": "AGENT_16_TOPLEFTGREY",
+                                            "top": 10,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 22500,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPRIGHTGREYIMG",
+                                            "src": "AGENT_16_TOPRIGHTGREY",
+                                            "top": 10,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 22500,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "BOTTOMLEFTIMG",
+                                            "src": "AGENT_16_BOTTOMLEFT",
+                                            "top": 50,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 23500
+                                        },
+                                        {
+                                            "id": "BOTTOMRIGHTIMG",
+                                            "src": "AGENT_16_BOTTOMRIGHT",
+                                            "top": 50,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 26500
+                                        }
+                                    ],
+                                    "highlights": [
+                                        {
+                                            "range": [
+                                                15.2,
+                                                15.6
+                                            ],
+                                            "imageId": [
+                                                "TOPLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                15.9,
+                                                16.3
+                                            ],
+                                            "imageId": [
+                                                "TOPLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                18.8,
+                                                19.2
+                                            ],
+                                            "imageId": [
+                                                "TOPRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                19.5,
+                                                19.9
+                                            ],
+                                            "imageId": [
+                                                "TOPRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                30.5,
+                                                30.9
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                31.2,
+                                                31.6
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                30.5,
+                                                30.9
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                31.2,
+                                                31.6
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                41,
+                                                41.4
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                41.7,
+                                                42.1
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                43,
+                                                43.4
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                43.7,
+                                                44.1
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "audio": "agent/agent_17",
+                                    "images": [
+                                        {
+                                            "id": "TOPLEFTIMG",
+                                            "src": "AGENT_17_TOPLEFT",
+                                            "top": 10,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 1500,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPRIGHTIMG",
+                                            "src": "AGENT_17_TOPRIGHT",
+                                            "top": 10,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 3000,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPLEFTGREYIMG",
+                                            "src": "AGENT_17_TOPLEFTGREY",
+                                            "top": 10,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 31000,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPRIGHTGREYIMG",
+                                            "src": "AGENT_17_TOPRIGHTGREY",
+                                            "top": 10,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 31000,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "BOTTOMLEFTIMG",
+                                            "src": "AGENT_17_BOTTOMLEFT",
+                                            "top": 50,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 33000
+                                        },
+                                        {
+                                            "id": "BOTTOMRIGHTIMG",
+                                            "src": "AGENT_17_BOTTOMRIGHT",
+                                            "top": 50,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 35500
+                                        }
+                                    ],
+                                    "highlights": [
+                                        {
+                                            "range": [
+                                                6,
+                                                6.4
+                                            ],
+                                            "imageId": [
+                                                "TOPLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                6.7,
+                                                7.1
+                                            ],
+                                            "imageId": [
+                                                "TOPLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                15.5,
+                                                15.9
+                                            ],
+                                            "imageId": [
+                                                "TOPRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                16.2,
+                                                16.6
+                                            ],
+                                            "imageId": [
+                                                "TOPRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                22.5,
+                                                22.9
+                                            ],
+                                            "imageId": [
+                                                "TOPLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                23.2,
+                                                23.6
+                                            ],
+                                            "imageId": [
+                                                "TOPLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                26,
+                                                26.4
+                                            ],
+                                            "imageId": [
+                                                "TOPRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                26.7,
+                                                27.1
+                                            ],
+                                            "imageId": [
+                                                "TOPRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                38,
+                                                38.4
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                38.7,
+                                                39.1
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                38,
+                                                38.4
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                38.7,
+                                                39.1
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                49,
+                                                49.4
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                49.7,
+                                                50.1
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                51.5,
+                                                51.9
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                52.2,
+                                                52.6
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "audio": "agent/agent_18",
+                                    "images": [
+                                        {
+                                            "id": "TOPLEFTIMG",
+                                            "src": "AGENT_18_TOPLEFT",
+                                            "top": 10,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 1500,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPRIGHTIMG",
+                                            "src": "AGENT_18_TOPRIGHT",
+                                            "top": 10,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 5500,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPLEFTGREYIMG",
+                                            "src": "AGENT_18_TOPLEFTGREY",
+                                            "top": 10,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 23500,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "TOPRIGHTGREYIMG",
+                                            "src": "AGENT_18_TOPRIGHTGREY",
+                                            "top": 10,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 23500,
+                                            "nonChoiceOption": true
+                                        },
+                                        {
+                                            "id": "BOTTOMLEFTIMG",
+                                            "src": "AGENT_18_BOTTOMLEFT",
+                                            "top": 50,
+                                            "left": 20,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 25000
+                                        },
+                                        {
+                                            "id": "BOTTOMRIGHTIMG",
+                                            "src": "AGENT_18_BOTTOMRIGHT",
+                                            "top": 50,
+                                            "left": 60,
+                                            "height": 40,
+                                            "width": 20,
+                                            "displayDelayMs": 28000
+                                        }
+                                    ],
+                                    "highlights": [
+                                        {
+                                            "range": [
+                                                14.2,
+                                                14.6
+                                            ],
+                                            "imageId": [
+                                                "TOPLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                14.9,
+                                                15.2
+                                            ],
+                                            "imageId": [
+                                                "TOPLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                17.5,
+                                                17.9
+                                            ],
+                                            "imageId": [
+                                                "TOPRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                18.2,
+                                                18.6
+                                            ],
+                                            "imageId": [
+                                                "TOPRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                30.5,
+                                                30.9
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                31.2,
+                                                31.6
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                30.5,
+                                                30.9
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                31.2,
+                                                31.6
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                40,
+                                                40.4
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                40.7,
+                                                41.1
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMLEFTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                42.5,
+                                                42.9
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        },
+                                        {
+                                            "range": [
+                                                43.2,
+                                                43.6
+                                            ],
+                                            "imageId": [
+                                                "BOTTOMRIGHTIMG"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "parameterSets": [
+                        {
+                            "AGENT_16_TOPLEFT": "agent/16_Init_LD_NB_1_crop.jpg",
+                            "AGENT_16_TOPLEFTGREY": "agent/16_Init_LD_NB_1_crop_G.jpg",
+                            "AGENT_16_BOTTOMLEFT": "agent/16_Fin_LD_NB_1_crop.jpg",
+                            "AGENT_16_TOPRIGHT": "agent/16_Init_LD_NB_2_crop.jpg",
+                            "AGENT_16_TOPRIGHTGREY": "agent/16_Init_LD_NB_2_crop_G.jpg",
+                            "AGENT_16_BOTTOMRIGHT": "agent/16_Fin_LD_NB_2_crop.jpg",
+                            "AGENT_17_TOPLEFT": "agent/17_Init_LD_NB_2_crop.jpg",
+                            "AGENT_17_TOPLEFTGREY": "agent/17_Init_LD_NB_2_crop_G.jpg",
+                            "AGENT_17_BOTTOMLEFT": "agent/17_Fin_LD_NB_2_crop.jpg",
+                            "AGENT_17_TOPRIGHT": "agent/17_Init_LD_NB_1_crop.jpg",
+                            "AGENT_17_TOPRIGHTGREY": "agent/17_Init_LD_NB_1_crop_G.jpg",
+                            "AGENT_17_BOTTOMRIGHT": "agent/17_Fin_LD_NB_1_crop.jpg",
+                            "AGENT_18_TOPLEFT": "agent/18_Init_LD_NB_1_crop.jpg",
+                            "AGENT_18_TOPLEFTGREY": "agent/18_Init_LD_NB_1_crop_G.jpg",
+                            "AGENT_18_BOTTOMLEFT": "agent/18_Fin_LD_NB_1_crop.jpg",
+                            "AGENT_18_TOPRIGHT": "agent/18_Init_LD_NB_2_crop.jpg",
+                            "AGENT_18_TOPRIGHTGREY": "agent/18_Init_LD_NB_2_crop_G.jpg",
+                            "AGENT_18_BOTTOMRIGHT": "agent/18_Fin_LD_NB_2_crop.jpg"
+                        }
+                    ]
+                }
+            ],
+            "parameterSets": [
+                {
+                    "DIRECTORY": "https://raw.githubusercontent.com/adaniabutto/tedstimuli/main/easier/"
+                },
+                {
+                    "DIRECTORY": "https://raw.githubusercontent.com/adaniabutto/tedstimuli/main/harder/"
+                }
+            ]
+        },
+        "attention-checks": {
+            "kind": "choice",
+            "sampler": "random-parameter-set",
+            "commonFrameProperties": {
+                "kind": "exp-lookit-images-audio",
+                "baseDir": "https://raw.githubusercontent.com/adaniabutto/tedstimuli/main/shared/",
+                "audioTypes": [
+                    "mp3",
+                    "ogg"
+                ],
+                "autoProceed": false,
+                "choiceRequired": true,
+                "showCursor": true,
+                "canMakeChoiceBeforeAudioFinished": false,
+                "allowUserPause": false
+            },
+            "frameList": [
+                {
+                    "audio": "control_blue",
+                    "images": [
+                        {
+                            "id": "redblue_left",
+                            "src": "MOREBLUE",
+                            "position": "left",
+                            "displayDelayMs": 2000
+                        },
+                        {
+                            "id": "redblue_right",
+                            "src": "MORERED",
+                            "position": "right",
+                            "displayDelayMs": 2000
+                        }
+                    ],
+                    "highlights": [
+                        {
+                            "range": [
+                                5,
+                                5.4
+                            ],
+                            "imageId": "redblue_left"
+                        },
+                        {
+                            "range": [
+                                5.7,
+                                6.1
+                            ],
+                            "imageId": "redblue_left"
+                        },
+                        {
+                            "range": [
+                                8.5,
+                                8.9
+                            ],
+                            "imageId": "redblue_right"
+                        },
+                        {
+                            "range": [
+                                9.2,
+                                9.6
+                            ],
+                            "imageId": "redblue_right"
+                        },
+                        {
+                            "range": [
+                                16,
+                                16.4
+                            ],
+                            "imageId": "redblue_left"
+                        },
+                        {
+                            "range": [
+                                16.7,
+                                17.1
+                            ],
+                            "imageId": "redblue_left"
+                        },
+                        {
+                            "range": [
+                                18.5,
+                                18.9
+                            ],
+                            "imageId": "redblue_right"
+                        },
+                        {
+                            "range": [
+                                19.2,
+                                19.6
+                            ],
+                            "imageId": "redblue_right"
+                        }
+                    ]
+                },
+                {
+                    "audio": "control_red",
+                    "images": [
+                        {
+                            "id": "redblue_left2",
+                            "src": "MOREBLUE",
+                            "position": "left"
+                        },
+                        {
+                            "id": "redblue_right2",
+                            "src": "MORERED",
+                            "position": "right"
+                        }
+                    ],
+                    "highlights": [
+                        {
+                            "range": [
+                                5.5,
+                                5.9
+                            ],
+                            "imageId": "redblue_left2"
+                        },
+                        {
+                            "range": [
+                                6.2,
+                                6.6
+                            ],
+                            "imageId": "redblue_left2"
+                        },
+                        {
+                            "range": [
+                                7.5,
+                                7.9
+                            ],
+                            "imageId": "redblue_right2"
+                        },
+                        {
+                            "range": [
+                                8.2,
+                                8.6
+                            ],
+                            "imageId": "redblue_right2"
+                        }
+                    ]
+                }
+            ],
+            "parameterSets": [
+                {
+                    "MOREBLUE": "moreblue.jpg",
+                    "MORERED": "morered.jpg"
+                }
+            ]
+        },
+        "alldone": {
+            "kind": "exp-lookit-images-audio",
+            "baseDir": "https://raw.githubusercontent.com/adaniabutto/tedstimuli/main/shared/",
+            "audioTypes": [
+                "mp3",
+                "ogg"
+            ],
+            "autoProceed": false,
+            "audio": "outro",
+            "images": [
+                {
+                    "src": "thank_you.png",
+                    "position": "fill"
+                }
+            ]
+        },
+        "exploratory-survey": {
+            "kind": "exp-lookit-survey",
+            "formSchema": {
+                "schema": {
+                    "type": "object",
+                    "title": "How often does your child play with blocks like the ones shown on the images?",
+                    "properties": {
+                        "freq": {
+                            "enum": [
+                                "Never",
+                                "Rarely",
+                                "Sometimes",
+                                "Often"
+                            ],
+                            "type": "string",
+                            "title": "How often?",
+                            "default": ""
+                        }
+                    }
+                },
+                "options": {
+                    "fields": {
+                        "freq": {
+                            "type": "radio",
+                            "message": "Please select one of the response options!",
+                            "validator": "required-field",
+                            "removeDefaultNone": true,
+                            "sort": false
+                        }
+                    }
+                }
+            },
+            "nextButtonText": "Next"
+        }
+    },
+    "sequence": [
+        "email-address",
+        "audio-check",
+        "video-config",
+        "video-consent",
+        "positioning",
+        "start-recording",
+        "instructions",
+        "color-check",
+        "trials",
+        "attention-checks",
+        "stop-recording",
+        "alldone",
+        "exploratory-survey",
+        "exit-survey"
+    ]
+}

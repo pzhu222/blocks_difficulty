@@ -1,0 +1,149 @@
+---
+title: "ted_e4_cleaning_and_analysis"
+output: html_document
+date: "2024-08-12"
+---
+
+# Set-up
+```{r}
+
+cran_packages <- c("knitr", "lme4", "tidyverse", "here", "emmeans")
+
+missing_cran <- setdiff(cran_packages, rownames(installed.packages()))
+if (length(missing_cran) > 0) {
+  install.packages(missing_cran)
+}
+
+require(knitr)
+library(lme4)
+library(tidyverse)
+library(here)
+library(emmeans)
+
+inport_dir <- here("data")
+
+# set default code chunk options
+knitr::opts_chunk$set(echo = T, warning = F, message = F)
+
+# set default plot theme
+theme_set(theme_classic() +
+            theme(text = element_text(size = 18)))
+
+# suppress warnings about grouping
+options(dplyr.summarise.inform = F)
+```
+
+# Data
+
+Read in data:
+
+```{r}
+
+df.e4_vr_raw <- read.csv(here(inport_dir, "e4_vrdata.csv"), header = T)
+
+```
+
+Clean data:
+
+```{r}
+#Exclusions
+# NOTE: Exclude. == 1 marks one participant, the "experimenter error" in the
+# Methods. The file doesn't record the reason
+df.e4_vr <- df.e4_vr_raw |>
+  filter(id != "") |>
+  filter(Exclude. == 0) |>
+  select(id, Friction_Level, contains("Difficulty"), contains("Sec"),
+         Gender, Age)
+
+# Renaming Trial Conditions for both difficulty and time
+e4_tower_names <- c(X5H_Difficulty = "5 Horizontal",
+               X10H_Difficulty = "10 Horizontal",
+               X3x3_Difficulty = "3x3",
+               X5V_Difficulty = "5 Vertical",
+               LShape_Difficulty = "L-Shaped",
+               X10V_Difficulty = "10 Vertical")
+
+# Reshape difficulty data
+df.e4_vr_diff <- df.e4_vr %>%
+  select(id, Friction_Level, contains("Difficulty"), Gender, Age) %>%
+  gather(key = "Tower_Type",
+         value = "Difficulty",
+         X5H_Difficulty:LShape_Difficulty,
+         factor_key = TRUE)
+
+# Reshape time data
+df.e4_vr_time <- df.e4_vr %>%
+  select(id, Friction_Level, contains("Sec"), Gender, Age) %>%
+  gather(key = "Tower_Type",
+         value = "Time",
+         X5H_Sec:LShape_Sec,
+         factor_key = TRUE)
+
+# Clean up the Tower_Type names to match
+df.e4_vr_time$Tower_Type <- gsub("_Sec", "_Difficulty", df.e4_vr_time$Tower_Type)
+
+# Combine the dataframes
+df.e4_vr <- df.e4_vr_diff %>%
+  left_join(df.e4_vr_time, by = c("id", "Friction_Level", "Gender", "Age", "Tower_Type"))
+
+# Rest of processing
+df.e4_vr$Difficulty <- as.numeric(as.character(df.e4_vr$Difficulty))
+df.e4_vr$Time <- as.numeric(as.character(df.e4_vr$Time))
+df.e4_vr$Tower_Type <- factor(df.e4_vr$Tower_Type,
+                              levels = names(e4_tower_names),
+                              labels = e4_tower_names)
+
+# Convert columns to factor
+df.e4_vr <- df.e4_vr |>
+  mutate(Friction_Level = as.factor(Friction_Level))
+
+```
+
+# Process Cleaned Data
+
+# Demographic Information
+
+```{r}
+
+df.e4_vr |>
+  distinct(id, Gender) |>
+  mutate(Gender = trimws(Gender)) |>
+  count(Gender)
+
+# Age was collected in bins
+df.e4_vr |>
+  distinct(id, Age) |>
+  count(Age)
+
+```
+
+# Analyses
+
+Effect of Difficulty
+
+```{r}
+
+# Creating and ordering by verticality (higher is more vertical here)
+df.e4_vr <- df.e4_vr |>
+    mutate(verticality = ifelse(Tower_Type == "5 Horizontal", 1,
+                ifelse(Tower_Type == "10 Horizontal", 1,
+                       ifelse(Tower_Type == "3x3", 3,
+                              ifelse(Tower_Type == "5 Vertical", 5,
+                                     ifelse(Tower_Type == "L-Shaped", 6,
+                                            ifelse(Tower_Type == "10 Vertical", 10, NA)))))))
+
+# LME main effect of verticality and friction on difficulty and interaction
+lmer(Difficulty ~ verticality*Friction_Level + (1|id),
+     data = df.e4_vr) |>
+  joint_tests()
+
+```
+
+
+# Session Info
+
+```{r}
+
+sessionInfo()
+
+```

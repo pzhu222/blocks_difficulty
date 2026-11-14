@@ -1,0 +1,387 @@
+success,timeout,failed_images,failed_audio,failed_video,trial_type,trial_index,plugin_version,time_elapsed,subject_id,condition,assignment_idx,study_id,afc32_left_is_32_1,afc_left_is_house,warmup_first,trial_type_custom,server_verified,hostname,verify_error_codes,rt,stimulus,response,mic_access,peak_volume,time_to_pass_ms,stimulus_id,trial_number,slider_start,afc_pair,afc_left,afc_right,afc_order,afc_chosen
+TRUE,FALSE,[],[],[],preload,0,2.1.0,300,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-keyboard-response,1,2.1.0,6409,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,captcha,TRUE,sociallearninglab.github.io,[],NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,2,2.1.0,7210,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,consent,NA,NA,NA,795,"
+        <div class=""consent-container"">
+            <div style=""text-align: center; margin-bottom: 20px;"">
+                <img src=""../../src/lab_logo.png"" height=""80"">
+            </div>
+            <p>By agreeing to take part in this research, you agree to view and rate a series of block structures. This experiment will take approximately 10 minutes to complete.</p>
+            <p>By answering the following questions, you are participating in a study being performed by cognitive scientists in the Stanford Department of Psychology. If you have questions about this research, please contact us at <a href=""mailto:sociallearninglab@stanford.edu"">sociallearninglab@stanford.edu</a>.</p>
+            <p>You must be at least 18 years old to participate. Your participation in this research is voluntary. You may decline to answer any or all of the following questions. You may decline further participation, at any time, without adverse consequences. Your anonymity is assured; the researchers who have requested your participation will not receive any personal information about you.</p>
+        </div>
+",0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,3,2.1.0,12276,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,mic_test,NA,NA,NA,5061,"
+        <div class=""instruction-container"" style=""text-align: center;"">
+            <h2>Microphone Test</h2>
+            <p>Before we begin, we need to check that your microphone is working.</p>
+            <p>When prompted, please <b>allow</b> microphone access, then say the word <b>""blocks""</b> out loud.</p>
+            <div id=""mic-test-area"" style=""margin: 30px auto;"">
+                <svg id=""mic-icon"" width=""120"" height=""120"" viewBox=""0 0 24 24"" fill=""none"" style=""transition: all 0.3s;"">
+                    <path d=""M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"" fill=""#ccc"" id=""mic-body""/>
+                    <path d=""M19 10v2a7 7 0 0 1-14 0v-2"" stroke=""#ccc"" stroke-width=""1.5"" stroke-linecap=""round"" id=""mic-arc""/>
+                    <line x1=""12"" y1=""19"" x2=""12"" y2=""23"" stroke=""#ccc"" stroke-width=""1.5"" stroke-linecap=""round"" id=""mic-stem""/>
+                    <line x1=""8"" y1=""23"" x2=""16"" y2=""23"" stroke=""#ccc"" stroke-width=""1.5"" stroke-linecap=""round"" id=""mic-base""/>
+                </svg>
+                <div id=""mic-status"" style=""font-size: 16px; margin-top: 16px; color: #777;"">
+                    Waiting for microphone access...
+                </div>
+            </div>
+        </div>
+",0,TRUE,0.438,2260,NA,NA,NA,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,4,2.1.0,44900,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,instructions,NA,NA,NA,32620,"
+        <div class=""instruction-container"">
+            <p>Welcome to the experiment! In this game, you will view a series of block structures. For each structure, you will see a ""START"" picture and a ""FINISH"" picture.</p>
+            <p>Your task is to judge how <b>difficult</b> it would be to build each structure from start to finish.</p>
+            <p>Click the button below when you are ready to begin.</p>
+        </div>
+",0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,5,2.1.0,65236,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,example_intro,NA,NA,NA,20332,"
+        <div class=""instruction-container"" style=""text-align: center;"">
+            <p>You will use a sliding scale from 0 (easy) to 100 (difficult) to mark your answer.</p><p>You can drag the circle to respond.</p>
+            <p>Here is an example of what you will see on each trial:</p>
+            <img src=""stim_files/Example_Final_Diff_Screenshot.png"" class=""trial-image"">
+        </div>
+",0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,6,2.1.0,86284,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,example_init,NA,NA,NA,21046,"
+        <div class=""instruction-container"" style=""text-align: center;"">
+            <p>Sometimes at START, the structure will be partially made already. Please look carefully at both photos!</p>
+            <img src=""stim_files/Example_Initial_Diff_Screenshot.png"" class=""trial-image"">
+        </div>
+",0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,7,2.1.0,96729,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,warmup,NA,NA,NA,10443,"
+            <div class=""trial-container"" style=""text-align: center;"">
+                <img src=""stim_files/37_1.jpg"" class=""trial-image"">
+                <p>This is an example of an <b>easy</b> structure to build.</p>
+            </div>
+",0,NA,NA,NA,37_1,NA,NA,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,8,2.1.0,103163,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,warmup,NA,NA,NA,6430,"
+            <div class=""trial-container"" style=""text-align: center;"">
+                <img src=""stim_files/37_2.jpg"" class=""trial-image"">
+                <p>This is an example of a <b>difficult</b> structure to build.</p>
+            </div>
+",0,NA,NA,NA,37_2,NA,NA,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,9,2.1.0,109414,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,begin_main,NA,NA,NA,6247,"
+        <div class=""instruction-container"" style=""text-align: center;"">
+            <p>You are now ready to begin.</p>
+            <p>Please click continue to start.</p>
+        </div>
+",0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,10,2.1.0,115889,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,6471,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/20_1.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",25,NA,NA,NA,20_1,1,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,11,2.1.0,120098,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,4207,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/20_2.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",81,NA,NA,NA,20_2,2,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,12,2.1.0,124199,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,4097,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/8_2.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",15,NA,NA,NA,8_2,3,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,13,2.1.0,134150,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,9950,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/8_1.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",0,NA,NA,NA,8_1,4,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,14,2.1.0,138859,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,4708,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/30_2.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",9,NA,NA,NA,30_2,5,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,15,2.1.0,143187,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,4324,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/30_1.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",0,NA,NA,NA,30_1,6,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,16,2.1.0,150405,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,7216,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/17_1.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",0,NA,NA,NA,17_1,7,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,17,2.1.0,155532,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,5122,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/17_2.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",3,NA,NA,NA,17_2,8,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,18,2.1.0,169343,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,13807,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/12_2.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",0,NA,NA,NA,12_2,9,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,19,2.1.0,172870,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,3523,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/12_1.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",0,NA,NA,NA,12_1,10,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,20,2.1.0,175411,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,2537,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/22_1.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",0,NA,NA,NA,22_1,11,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,21,2.1.0,179271,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,3855,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/22_2.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",35,NA,NA,NA,22_2,12,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,22,2.1.0,186346,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,7072,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/25_2.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",3,NA,NA,NA,25_2,13,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,23,2.1.0,189113,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,2764,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/25_1.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",0,NA,NA,NA,25_1,14,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,24,2.1.0,204844,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,15727,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/9_1.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",17,NA,NA,NA,9_1,15,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,25,2.1.0,216485,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,11639,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/9_2.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",3,NA,NA,NA,9_2,16,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,26,2.1.0,222786,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,6300,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/18_1.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",35,NA,NA,NA,18_1,17,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,27,2.1.0,225547,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,2759,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/18_2.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",66,NA,NA,NA,18_2,18,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,28,2.1.0,236357,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,10808,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/28_2.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",36,NA,NA,NA,28_2,19,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,29,2.1.0,243859,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,7498,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/28_1.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",30,NA,NA,NA,28_1,20,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,30,2.1.0,252277,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,8415,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/16_2.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",48,NA,NA,NA,16_2,21,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,31,2.1.0,260163,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,7882,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/16_1.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",25,NA,NA,NA,16_1,22,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,32,2.1.0,269047,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,8881,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/13_1.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",19,NA,NA,NA,13_1,23,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,33,2.1.0,273481,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,4431,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/13_2.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",54,NA,NA,NA,13_2,24,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,34,2.1.0,282933,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,9451,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/7_1.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",24,NA,NA,NA,7_1,25,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,35,2.1.0,288745,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,5810,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/7_2.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",44,NA,NA,NA,7_2,26,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,36,2.1.0,297897,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,9148,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/34_1.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",61,NA,NA,NA,34_1,27,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,37,2.1.0,302097,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,4199,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/34_2.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",69,NA,NA,NA,34_2,28,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,38,2.1.0,306448,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,4350,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/29_2.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",56,NA,NA,NA,29_2,29,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,39,2.1.0,309884,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,3434,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/29_1.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",19,NA,NA,NA,29_1,30,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,40,2.1.0,317258,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,7371,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/26_2.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",67,NA,NA,NA,26_2,31,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,41,2.1.0,321387,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,4126,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/26_1.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",11,NA,NA,NA,26_1,32,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,42,2.1.0,327803,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,6413,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/14_1.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",12,NA,NA,NA,14_1,33,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,43,2.1.0,330678,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,2871,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/14_2.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",0,NA,NA,NA,14_2,34,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,44,2.1.0,333962,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,3281,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/33_2.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",88,NA,NA,NA,33_2,35,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,45,2.1.0,336496,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,2531,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/33_1.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",30,NA,NA,NA,33_1,36,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,46,2.1.0,338795,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,2297,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/21_2.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",62,NA,NA,NA,21_2,37,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,47,2.1.0,353344,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,14547,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/21_1.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",36,NA,NA,NA,21_1,38,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,48,2.1.0,359184,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,5837,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/11_2.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",61,NA,NA,NA,11_2,39,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,49,2.1.0,362434,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,3246,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/11_1.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",61,NA,NA,NA,11_1,40,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,50,2.1.0,379605,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,17170,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/23_2.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",51,NA,NA,NA,23_2,41,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,51,2.1.0,387134,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,7527,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/23_1.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",27,NA,NA,NA,23_1,42,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,52,2.1.0,390224,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,3088,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/27_1.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",21,NA,NA,NA,27_1,43,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,53,2.1.0,393902,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,3676,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/27_2.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",67,NA,NA,NA,27_2,44,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,54,2.1.0,397958,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,4051,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/15_1.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",39,NA,NA,NA,15_1,45,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,55,2.1.0,400562,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,2602,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/15_2.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",63,NA,NA,NA,15_2,46,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,56,2.1.0,406203,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,5639,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/31_2.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",58,NA,NA,NA,31_2,47,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,57,2.1.0,409989,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,3783,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/31_1.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",3,NA,NA,NA,31_1,48,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,58,2.1.0,411970,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,1978,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/19_1.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",19,NA,NA,NA,19_1,49,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,59,2.1.0,413981,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,2009,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/19_2.jpg"" class=""trial-image"">
+            <p>How <b>difficult</b> would it be to build this structure?</p>
+        </div>
+",60,NA,NA,NA,19_2,50,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,60,2.1.0,418815,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,2afc,NA,NA,NA,4831,"
+        <div class=""instruction-container"" style=""text-align: center;"">
+            <p style=""font-size: 18px;"">Which drawing do you think would be <b>more difficult</b> to make?</p>
+        </div>
+",1,NA,NA,NA,NA,NA,NA,house_triangle,triangle,house,1,house
+NA,NA,NA,NA,NA,html-button-response,61,2.1.0,426617,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,2afc,NA,NA,NA,7798,"
+        <div class=""instruction-container"" style=""text-align: center;"">
+            <p style=""font-size: 18px;"">Which final structure is <b>taller</b>?</p>
+        </div>
+",0,NA,NA,NA,NA,NA,NA,32,32_1,32_2,1,32_1
+NA,NA,NA,NA,NA,survey-html-form,62,2.1.0,452701,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,strategy_free_resp,NA,NA,NA,26080,NA,"{""strategy"":""Sometimes difficult structure because need more attention ""}",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,survey-html-form,63,2.1.0,486132,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,demographics,NA,NA,NA,33427,NA,"{""age"":""38"",""language"":""Portugues"",""ethnicity"":""white"",""gender"":""female"",""colorblind"":""No"",""focus"":""yes"",""issues"":""""}",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,64,2.1.0,488171,z2cn963uo2,diff,rand,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,end,NA,NA,NA,2036,"
+        <div class=""end-container"">
+            <p>You're finished - thanks for participating!</p>
+            <p>Redirecting you back to Prolific...</p>
+        </div>
+",0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA

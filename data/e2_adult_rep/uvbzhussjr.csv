@@ -1,0 +1,158 @@
+success,timeout,failed_images,failed_audio,failed_video,trial_type,trial_index,plugin_version,time_elapsed,subject_id,condition,assignment_idx,study_id,trial_type_custom,server_verified,hostname,verify_error_codes,rt,stimulus,response,mic_access,peak_volume,time_to_pass_ms,stimulus_id,chosen
+TRUE,FALSE,[],[],[],preload,0,2.1.0,464,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-keyboard-response,1,2.1.0,4443,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,captcha,TRUE,sociallearninglab.github.io,[],NA,NA,NA,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,2,2.1.0,16137,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,consent,NA,NA,NA,11692,"
+        <div class=""consent-container"">
+            <div style=""text-align: center; margin-bottom: 20px;"">
+                <img src=""../../src/lab_logo.png"" height=""80"">
+            </div>
+            <p>By agreeing to take part in this research, you agree to view and rate a series of block structures. This experiment will take approximately 10 minutes to complete.</p>
+            <p>By answering the following questions, you are participating in a study being performed by cognitive scientists in the Stanford Department of Psychology. If you have questions about this research, please contact us at <a href=""mailto:sociallearninglab@stanford.edu"">sociallearninglab@stanford.edu</a>.</p>
+            <p>You must be at least 18 years old to participate. Your participation in this research is voluntary. You may decline to answer any or all of the following questions. You may decline further participation, at any time, without adverse consequences. Your anonymity is assured; the researchers who have requested your participation will not receive any personal information about you.</p>
+        </div>
+",0,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,3,2.1.0,28969,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,mic_test,NA,NA,NA,12831,"
+        <div class=""instruction-container"" style=""text-align: center;"">
+            <h2>Microphone Test</h2>
+            <p>Before we begin, we need to check that your microphone is working.</p>
+            <p>When prompted, please <b>allow</b> microphone access, then say the word <b>""blocks""</b> out loud.</p>
+            <div id=""mic-test-area"" style=""margin: 30px auto;"">
+                <svg id=""mic-icon"" width=""120"" height=""120"" viewBox=""0 0 24 24"" fill=""none"" style=""transition: all 0.3s;"">
+                    <path d=""M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"" fill=""#ccc"" id=""mic-body""/>
+                    <path d=""M19 10v2a7 7 0 0 1-14 0v-2"" stroke=""#ccc"" stroke-width=""1.5"" stroke-linecap=""round"" id=""mic-arc""/>
+                    <line x1=""12"" y1=""19"" x2=""12"" y2=""23"" stroke=""#ccc"" stroke-width=""1.5"" stroke-linecap=""round"" id=""mic-stem""/>
+                    <line x1=""8"" y1=""23"" x2=""16"" y2=""23"" stroke=""#ccc"" stroke-width=""1.5"" stroke-linecap=""round"" id=""mic-base""/>
+                </svg>
+                <div id=""mic-status"" style=""font-size: 16px; margin-top: 16px; color: #777;"">
+                    Waiting for microphone access...
+                </div>
+            </div>
+        </div>
+",0,TRUE,0.539,6225,NA,NA
+NA,NA,NA,NA,NA,html-button-response,4,2.1.0,34157,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,instructions,NA,NA,NA,5187,"
+        <div class=""instruction-container"">
+            <p>You will see pictures of two people playing with blocks.</p>
+            <p>You will have to guess which person's block structure is <b>easier</b> to make.</p>
+        </div>
+",0,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,5,2.1.0,42419,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,instructions,NA,NA,NA,8261,"
+        <div class=""instruction-container"">
+            <p>For each trial, you will first see each person's initial configuration of blocks without seeing what they built. Then, you will see their final configuration. </p>
+        </div>
+",0,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,6,2.1.0,47437,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,instructions,NA,NA,NA,5017,"
+        <div class=""instruction-container"">
+            <p>Please pay close attention to the images. They can differ in their initial configuration, final configuration, or both.</p>
+        </div>
+",0,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,7,2.1.0,52951,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,instructions,NA,NA,NA,5514,"
+        <div class=""instruction-container"">
+            <p>Note: you will see faces of different people. Please make your judgments based on the block structures rather than the actors&#39; facial expressions.</p>
+        </div>
+",0,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,8,2.1.0,58777,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,begin,NA,NA,NA,5825,"
+        <div class=""instruction-container"" style=""text-align: center;"">
+            <p>You're all set to start! Please click continue when you are ready to begin.</p>
+        </div>
+",0,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,9,2.1.0,71053,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,main_question_preview,NA,NA,NA,NA,NA,NA,NA,NA,NA,4,NA
+NA,NA,NA,NA,NA,html-button-response,10,2.1.0,76441,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,main,NA,NA,NA,5387,"
+            <div style=""text-align: center;"">
+                <p style=""font-size: 18px;"">Which one is <b>easier</b> to make?</p>
+            </div>
+",1,NA,NA,NA,4,4_1_vertical
+NA,NA,NA,NA,NA,html-button-response,11,2.1.0,86433,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,main_question_preview,NA,NA,NA,NA,NA,NA,NA,NA,NA,3,NA
+NA,NA,NA,NA,NA,html-button-response,12,2.1.0,96311,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,main,NA,NA,NA,9877,"
+            <div style=""text-align: center;"">
+                <p style=""font-size: 18px;"">Which one is <b>easier</b> to make?</p>
+            </div>
+",1,NA,NA,NA,3,3_1_vertical
+NA,NA,NA,NA,NA,html-button-response,13,2.1.0,102149,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,main_question_preview,NA,NA,NA,NA,NA,NA,NA,NA,NA,2,NA
+NA,NA,NA,NA,NA,html-button-response,14,2.1.0,110417,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,main,NA,NA,NA,8267,"
+            <div style=""text-align: center;"">
+                <p style=""font-size: 18px;"">Which one is <b>easier</b> to make?</p>
+            </div>
+",0,NA,NA,NA,2,2_1_vertical
+NA,NA,NA,NA,NA,html-button-response,15,2.1.0,116507,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,main_question_preview,NA,NA,NA,NA,NA,NA,NA,NA,NA,1,NA
+NA,NA,NA,NA,NA,html-button-response,16,2.1.0,122419,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,main,NA,NA,NA,5911,"
+            <div style=""text-align: center;"">
+                <p style=""font-size: 18px;"">Which one is <b>easier</b> to make?</p>
+            </div>
+",1,NA,NA,NA,1,1_1_vertical
+NA,NA,NA,NA,NA,html-button-response,17,2.1.0,137652,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,main_question_preview,NA,NA,NA,NA,NA,NA,NA,NA,NA,15,NA
+NA,NA,NA,NA,NA,html-button-response,18,2.1.0,142799,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,main,NA,NA,NA,5145,"
+            <div style=""text-align: center;"">
+                <p style=""font-size: 18px;"">Which one is <b>easier</b> to make?</p>
+            </div>
+",1,NA,NA,NA,15,15_1_vertical
+NA,NA,NA,NA,NA,html-button-response,19,2.1.0,155176,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,main_question_preview,NA,NA,NA,NA,NA,NA,NA,NA,NA,12,NA
+NA,NA,NA,NA,NA,html-button-response,20,2.1.0,164306,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,main,NA,NA,NA,9129,"
+            <div style=""text-align: center;"">
+                <p style=""font-size: 18px;"">Which one is <b>easier</b> to make?</p>
+            </div>
+",0,NA,NA,NA,12,12_1_vertical
+NA,NA,NA,NA,NA,html-button-response,21,2.1.0,177550,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,main_question_preview,NA,NA,NA,NA,NA,NA,NA,NA,NA,6,NA
+NA,NA,NA,NA,NA,html-button-response,22,2.1.0,182715,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,main,NA,NA,NA,5163,"
+            <div style=""text-align: center;"">
+                <p style=""font-size: 18px;"">Which one is <b>easier</b> to make?</p>
+            </div>
+",0,NA,NA,NA,6,6_1_vertical
+NA,NA,NA,NA,NA,html-button-response,23,2.1.0,188178,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,main_question_preview,NA,NA,NA,NA,NA,NA,NA,NA,NA,11,NA
+NA,NA,NA,NA,NA,html-button-response,24,2.1.0,193006,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,main,NA,NA,NA,4827,"
+            <div style=""text-align: center;"">
+                <p style=""font-size: 18px;"">Which one is <b>easier</b> to make?</p>
+            </div>
+",0,NA,NA,NA,11,11_1_vertical
+NA,NA,NA,NA,NA,html-button-response,25,2.1.0,199572,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,main_question_preview,NA,NA,NA,NA,NA,NA,NA,NA,NA,5,NA
+NA,NA,NA,NA,NA,html-button-response,26,2.1.0,204462,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,main,NA,NA,NA,4889,"
+            <div style=""text-align: center;"">
+                <p style=""font-size: 18px;"">Which one is <b>easier</b> to make?</p>
+            </div>
+",0,NA,NA,NA,5,5_1_vertical
+NA,NA,NA,NA,NA,html-button-response,27,2.1.0,211286,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,main_question_preview,NA,NA,NA,NA,NA,NA,NA,NA,NA,7,NA
+NA,NA,NA,NA,NA,html-button-response,28,2.1.0,216520,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,main,NA,NA,NA,5233,"
+            <div style=""text-align: center;"">
+                <p style=""font-size: 18px;"">Which one is <b>easier</b> to make?</p>
+            </div>
+",1,NA,NA,NA,7,7_1_vertical
+NA,NA,NA,NA,NA,html-button-response,29,2.1.0,226700,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,begin,NA,NA,NA,10179,"
+        <div class=""instruction-container"" style=""text-align: center;"">
+            <p>Now you will be asked to indicate <b>who</b> thought the block structure was <b>easier</b> to make.</p>
+        </div>
+",0,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,30,2.1.0,234566,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,main_question_preview,NA,NA,NA,NA,NA,NA,NA,NA,NA,18,NA
+NA,NA,NA,NA,NA,html-button-response,31,2.1.0,239362,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,main,NA,NA,NA,4795,"
+            <div style=""text-align: center;"">
+                <p style=""font-size: 18px;"">Who thought it was <b>easier</b> to make?</p>
+            </div>
+",1,NA,NA,NA,18,18_1_vertical
+NA,NA,NA,NA,NA,html-button-response,32,2.1.0,244778,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,main_question_preview,NA,NA,NA,NA,NA,NA,NA,NA,NA,17,NA
+NA,NA,NA,NA,NA,html-button-response,33,2.1.0,249836,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,main,NA,NA,NA,5057,"
+            <div style=""text-align: center;"">
+                <p style=""font-size: 18px;"">Who thought it was <b>easier</b> to make?</p>
+            </div>
+",0,NA,NA,NA,17,17_1_vertical
+NA,NA,NA,NA,NA,html-button-response,34,2.1.0,259732,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,main_question_preview,NA,NA,NA,NA,NA,NA,NA,NA,NA,16,NA
+NA,NA,NA,NA,NA,html-button-response,35,2.1.0,265202,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,main,NA,NA,NA,5469,"
+            <div style=""text-align: center;"">
+                <p style=""font-size: 18px;"">Who thought it was <b>easier</b> to make?</p>
+            </div>
+",1,NA,NA,NA,16,16_2_vertical
+NA,NA,NA,NA,NA,html-button-response,36,2.1.0,270194,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,check_house_triangle,NA,NA,NA,4991,"
+        <div style=""text-align: center;"">
+            <p style=""font-size: 18px;"">Which drawing do you think would be <b>easier</b> to make?</p>
+        </div>
+",0,NA,NA,NA,NA,triangle
+NA,NA,NA,NA,NA,html-button-response,37,2.1.0,276456,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,check_32,NA,NA,NA,6261,"
+        <div style=""text-align: center;"">
+            <p style=""font-size: 18px;"">Which final structure is <b>taller</b>?</p>
+        </div>
+",0,NA,NA,NA,NA,32_2
+NA,NA,NA,NA,NA,survey-html-form,38,2.1.0,344138,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,strategy_free_resp,NA,NA,NA,67681,NA,"{""strategy"":""I would normally see which structure had the most amount of blocks already built, or which had the least amount of blocks on the table as it would be easier""}",NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,survey-html-form,39,2.1.0,361174,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,demographics,NA,NA,NA,17035,NA,"{""age"":""30"",""language"":""English"",""ethnicity"":""white"",""gender"":""male"",""colorblind"":""No"",""focus"":""yes"",""issues"":""n/a""}",NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,40,2.1.0,362420,uvbzhussjr,easier,176,6a15cb8c6ee1ee7a86d055b8,end,NA,NA,NA,1245,"
+        <div class=""end-container"">
+            <p>You're finished - thanks for participating!</p>
+            <p>Redirecting you back to Prolific...</p>
+        </div>
+",0,NA,NA,NA,NA,NA

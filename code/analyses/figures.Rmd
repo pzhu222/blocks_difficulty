@@ -1,0 +1,872 @@
+---
+title: "ted_figures_and_tables"
+output: html_document
+date: "2024-08-12"
+---
+
+# Set-up
+```{r}
+
+set.seed(42)
+
+cran_packages <- c("knitr", "tidyverse", "here", "gridExtra")
+
+missing_cran <- setdiff(cran_packages, rownames(installed.packages()))
+if (length(missing_cran) > 0) {
+  install.packages(missing_cran)
+}
+
+if (!requireNamespace("langcog", quietly = TRUE)) {
+  if (!requireNamespace("remotes", quietly = TRUE)) install.packages("remotes")
+  remotes::install_github("langcog/langcog")
+}
+
+require(knitr)
+library(tidyverse)
+library(here)
+library(langcog)
+
+# set default code chunk options
+knitr::opts_chunk$set(echo = T, warning = F, message = F)
+
+# set default plot theme
+theme_set(theme_classic() +
+            theme(text = element_text(size = 18)))
+
+# suppress warnings about grouping
+options(dplyr.summarise.inform = F)
+```
+
+# Data
+
+```{r}
+
+source_rmd <- function(rmd_path) {
+  tmp_r <- tempfile(fileext = ".R")
+  knitr::purl(rmd_path, output = tmp_r, quiet = TRUE)
+  sys.source(tmp_r, envir = globalenv())
+}
+
+# som.Rmd sources e1-e4 itself; the supplementary figures also need its models
+source_rmd(here("code", "analyses", "som.Rmd"))
+
+```
+
+# Figure 1: Experiment 1
+
+```{r}
+
+df.e1_full_summary <- full_join(rename(df.e1_diff_means, mean_diff = mean_raw),
+          full_join(df.e1_buildtask_summary,
+                    rename(df.e1_time_means, mean_time = mean_raw)))
+
+```
+
+## Build Time vs. Difficulty Rating
+
+```{r}
+# Segment data for "7_Number"
+segment_build_diff_7 <- df.e1_full_summary %>%
+  filter(trial == "7_Number") %>%
+  dplyr::summarize(x_start = mean_diff[easy_hard == "easy"],
+            y_start = mean_build[easy_hard == "easy"],
+            x_end = mean_diff[easy_hard == "hard"],
+            y_end = mean_build[easy_hard == "hard"])
+
+# Segment data for "12_Number"
+segment_build_diff_17 <- df.e1_full_summary %>%
+  filter(trial == "17_InitNumber") %>%
+  dplyr::summarize(x_start = mean_diff[easy_hard == "easy"],
+            y_start = mean_build[easy_hard == "easy"],
+            x_end = mean_diff[easy_hard == "hard"],
+            y_end = mean_build[easy_hard == "hard"])
+
+# Segment data for "34_Stability"
+segment_build_diff_18 <- df.e1_full_summary %>%
+  filter(trial == "18_Stability") %>%
+  dplyr::summarize(x_start = mean_diff[easy_hard == "easy"],
+            y_start = mean_build[easy_hard == "easy"],
+            x_end = mean_diff[easy_hard == "hard"],
+            y_end = mean_build[easy_hard == "hard"])
+
+
+p_builddiff <- NULL
+p_builddiff <- ggplot(data = df.e1_full_summary, aes(x = mean_diff, y = mean_build)) +
+  geom_point(data = df.e1_full_summary %>% filter(trial != "7_Number" & trial != "17_InitNumber" & trial != "18_Stability"), color = "black", size = 3, alpha = .5) +
+  geom_smooth(method = "lm", color = "black", size = 3) +
+  # Triangle pairs (light and dark orange)
+  geom_point(data = df.e1_full_summary %>% filter(trial == "7_Number", easy_hard == "easy"), color = "#F5B357", size = 10, shape = 17) +
+  geom_point(data = df.e1_full_summary %>% filter(trial == "7_Number", easy_hard == "hard"), color = "#EC9C54", size = 10, shape = 25, fill = "#EC9C54") +
+  # Circle pairs (light and dark blue)
+  geom_point(data = df.e1_full_summary %>% filter(trial == "17_InitNumber", easy_hard == "easy"), color = "#96BFE8", size = 12, shape = 16) +
+  geom_point(data = df.e1_full_summary %>% filter(trial == "17_InitNumber", easy_hard == "hard"), color = "#4E95D9", size = 6.5, shape = 4, stroke = 4) +
+  # Square pairs (light and dark green)
+  geom_point(data = df.e1_full_summary %>% filter(trial == "18_Stability", easy_hard == "easy"), color = "#A8E480", size = 11, shape = 15) +
+  geom_point(data = df.e1_full_summary %>% filter(trial == "18_Stability", easy_hard == "hard"), color = "#0B6623", size = 10, shape = 23, fill = "#0B6623") +
+  scale_y_continuous(limits = c(0, 80), breaks = c(0, 40, 80)) +
+  scale_x_continuous(limits = c(0, 80), breaks = c(0, 40, 80)) +
+  theme_classic() +
+  theme(
+    text = element_text(family = "Helvetica Neue"),
+    legend.position = "none",
+    axis.title = element_text(face = "bold", size = 33, family = "Helvetica Neue"),
+    axis.text = element_text(size = 33, family = "Helvetica Neue"),
+    axis.ticks.length = unit(0.25, "cm"),  # Makes tick marks longer
+    axis.ticks = element_line(size = 1.5)   # Makes tick marks thicker
+  ) +
+  labs(title = "",
+       x = "Mean Difficulty Rating (0-100)",
+       y = "Mean Build Time (s)")
+
+ggsave(here("figs", "plots", "TED_Fig1_BuildDiff.jpg"), plot = p_builddiff, width = 9.2, height = 7.2, units = "in")
+
+# Print the plot to view it in RStudio
+print(p_builddiff)
+```
+
+## Build Time vs. Time Estimation
+
+```{r}
+# Segment data for "7_Number"
+segment_build_timebuild_7 <- df.e1_full_summary %>%
+  filter(trial == "7_Number") %>%
+  dplyr::summarize(x_start = mean_time[easy_hard == "easy"],
+            y_start = mean_build[easy_hard == "easy"],
+            x_end = mean_time[easy_hard == "hard"],
+            y_end = mean_build[easy_hard == "hard"])
+
+# Segment data for "12_Number"
+segment_build_timebuild_17 <- df.e1_full_summary %>%
+  filter(trial == "17_InitNumber") %>%
+  dplyr::summarize(x_start = mean_time[easy_hard == "easy"],
+            y_start = mean_build[easy_hard == "easy"],
+            x_end = mean_time[easy_hard == "hard"],
+            y_end = mean_build[easy_hard == "hard"])
+
+# Segment data for "34_Stability"
+segment_build_timebuild_18 <- df.e1_full_summary %>%
+  filter(trial == "18_Stability") %>%
+  dplyr::summarize(x_start = mean_time[easy_hard == "easy"],
+            y_start = mean_build[easy_hard == "easy"],
+            x_end = mean_time[easy_hard == "hard"],
+            y_end = mean_build[easy_hard == "hard"])
+
+p_buildtime <- ggplot(data = df.e1_full_summary, aes(x = mean_time, y = mean_build)) +
+  geom_point(data = df.e1_full_summary %>% filter(trial != "7_Number" & trial != "17_InitNumber" & trial != "18_Stability"), color = "black", size = 3, alpha = .5) +
+  geom_smooth(method = "lm", color = "black", size = 3) +
+  # Triangle pairs (light and dark orange)
+  geom_point(data = df.e1_full_summary %>% filter(trial == "7_Number", easy_hard == "easy"), color = "#F5B357", size = 10, shape = 17) +
+  geom_point(data = df.e1_full_summary %>% filter(trial == "7_Number", easy_hard == "hard"), color = "#EC9C54", size = 10, shape = 25, fill = "#EC9C54") +
+  # Circle pairs (light and dark blue)
+  geom_point(data = df.e1_full_summary %>% filter(trial == "17_InitNumber", easy_hard == "easy"), color = "#96BFE8", size = 12, shape = 16) +
+  geom_point(data = df.e1_full_summary %>% filter(trial == "17_InitNumber", easy_hard == "hard"), color = "#4E95D9", size = 6.5, shape = 4, stroke = 4) +
+  # Square pairs (light and dark green)
+  geom_point(data = df.e1_full_summary %>% filter(trial == "18_Stability", easy_hard == "easy"), color = "#A8E480", size = 11, shape = 15) +
+  geom_point(data = df.e1_full_summary %>% filter(trial == "18_Stability", easy_hard == "hard"), color = "#0B6623", size = 10, shape = 23, fill = "#0B6623") +
+  scale_y_continuous(limits = c(0, 80), breaks = c(0, 40, 80)) +
+  scale_x_continuous(limits = c(0, 80), breaks = c(0, 40, 80)) +
+  theme_classic() +
+  theme(
+    text = element_text(family = "Helvetica Neue"),
+    legend.position = "none",
+    axis.title = element_text(face = "bold", size = 33, family = "Helvetica Neue"),
+    axis.text = element_text(size = 33, family = "Helvetica Neue"),
+    axis.ticks.length = unit(0.25, "cm"),
+    axis.ticks = element_line(size = 1.5)
+  ) +
+  labs(title = "",
+       x = "Mean Time Estimation (0-100)",
+       y = "Mean Build Time (s)")
+
+ggsave(here("figs", "plots", "TED_Fig1_TimeBuild.jpg"), plot = p_buildtime, width = 9.2, height = 7.2, units = "in")
+
+# Print the plot to view it in RStudio
+print(p_buildtime)
+
+```
+
+## Difficulty Rating vs. Time Estimation
+
+```{r}
+# Segment data for "7_Number"
+segment_build_difftime_7 <- df.e1_full_summary %>%
+  filter(trial == "7_Number") %>%
+  dplyr::summarize(x_start = mean_time[easy_hard == "easy"],
+            y_start = mean_diff[easy_hard == "easy"],
+            x_end = mean_time[easy_hard == "hard"],
+            y_end = mean_diff[easy_hard == "hard"])
+
+# Segment data for "12_Number"
+segment_build_difftime_17 <- df.e1_full_summary %>%
+  filter(trial == "17_InitNumber") %>%
+  dplyr::summarize(x_start = mean_time[easy_hard == "easy"],
+            y_start = mean_diff[easy_hard == "easy"],
+            x_end = mean_time[easy_hard == "hard"],
+            y_end = mean_diff[easy_hard == "hard"])
+
+# Segment data for "34_Stability"
+segment_build_difftime_18 <- df.e1_full_summary %>%
+  filter(trial == "18_Stability") %>%
+  dplyr::summarize(x_start = mean_time[easy_hard == "easy"],
+            y_start = mean_diff[easy_hard == "easy"],
+            x_end = mean_time[easy_hard == "hard"],
+            y_end = mean_diff[easy_hard == "hard"])
+
+p_difftime <- ggplot(data = df.e1_full_summary, aes(x = mean_time, y = mean_diff)) +
+  geom_point(data = df.e1_full_summary %>% filter(trial != "7_Number" & trial != "17_InitNumber" & trial != "18_Stability"), color = "black", size = 3, alpha = .5) +
+  geom_smooth(method = "lm", color = "black", size = 3) +
+  # Triangle pairs (light and dark orange)
+  geom_point(data = df.e1_full_summary %>% filter(trial == "7_Number", easy_hard == "easy"), color = "#F5B357", size = 10, shape = 17) +
+  geom_point(data = df.e1_full_summary %>% filter(trial == "7_Number", easy_hard == "hard"), color = "#EC9C54", size = 10, shape = 25, fill = "#EC9C54") +
+  # Circle pairs (light and dark blue)
+  geom_point(data = df.e1_full_summary %>% filter(trial == "17_InitNumber", easy_hard == "easy"), color = "#96BFE8", size = 12, shape = 16) +
+  geom_point(data = df.e1_full_summary %>% filter(trial == "17_InitNumber", easy_hard == "hard"), color = "#4E95D9", size = 6.5, shape = 4, stroke = 4) +
+  # Square pairs (light and dark green)
+  geom_point(data = df.e1_full_summary %>% filter(trial == "18_Stability", easy_hard == "easy"), color = "#A8E480", size = 11, shape = 15) +
+  geom_point(data = df.e1_full_summary %>% filter(trial == "18_Stability", easy_hard == "hard"), color = "#0B6623", size = 10, shape = 23, fill = "#0B6623") +
+  scale_y_continuous(limits = c(0, 80), breaks = c(0, 40, 80)) +
+  scale_x_continuous(limits = c(0, 80), breaks = c(0, 40, 80)) +
+  theme_classic() +
+  theme(
+    text = element_text(family = "Helvetica Neue"),
+    legend.position = "none",
+    axis.title = element_text(face = "bold", size = 33, family = "Helvetica Neue"),
+    axis.text = element_text(size = 33, family = "Helvetica Neue"),
+    axis.ticks.length = unit(0.25, "cm"),
+    axis.ticks = element_line(size = 1.5)
+  ) +
+  labs(title = "",
+       x = "Mean Time Estimation (0-100)",
+       y = "Mean Difficulty Rating (0-100)")
+
+ggsave(here("figs", "plots", "TED_Fig1_DiffTime.jpg"), plot = p_difftime, width = 9.2, height = 7.2, units = "in")
+
+# Print the plot to view it in RStudio
+print(p_difftime)
+
+```
+
+# Figure 2: The big plot
+
+## Combine Summary Data
+
+```{r}
+
+# reset the seed so these bootstrapped CIs don't depend on the chunks above
+set.seed(42)
+
+df.e2aadultfc_summary <- df.e2adultfc_combined_long |>
+  group_by(trial) |>
+  multi_boot_standard(col = "correct") |>
+  mutate(dataset = "US Adults") |>
+  #get rid of trial that was left out of Tsimane and Lookit
+  filter(trial != "TwoPile_Castle")
+
+df.e2b_childfc_summary <- df.e2b_online |>
+  mutate(dataset = if_else(age < 6,
+                           "US Children (3-5 years)",
+                           "US Children (6-8 years)")) |>
+  group_by(dataset, trial) |>
+  multi_boot_standard(col = "correct") |>
+  ungroup() |>
+  filter(!is.na(trial))
+
+df.e3_childfc_summary <- df.e3_childfc |>
+  select(correct,
+         trial) |>
+  group_by(trial) |>
+  multi_boot_standard(col = "correct") |>
+  mutate(dataset = "Tsimane' Children")
+
+df.e2a_2b_3_summary <- full_join(df.e2aadultfc_summary,
+          full_join(df.e2b_childfc_summary, df.e3_childfc_summary)) |>
+  # older children next to the adults
+  mutate(dataset = factor(dataset, levels = c("US Adults",
+                                              "US Children (6-8 years)",
+                                              "US Children (3-5 years)",
+                                              "Tsimane' Children")))
+
+```
+
+## Plot
+
+```{r}
+
+# Custom color palette
+custom_palette <- c(
+  "US Adults" = "white",
+  "US Children (3-5 years)" = "gray70",
+  "US Children (6-8 years)" = "black",
+  "Tsimane' Children" = "gray30"
+)
+
+p.figure2_data <- ggplot(df.e2a_2b_3_summary, aes(x = dataset,
+                                                   y = mean,
+                                                   fill = dataset)) +
+  geom_bar(stat = "identity",
+           position = position_dodge(width = 0.9),
+           color = "black",
+           width = .5,
+           size = 1) +
+  geom_errorbar(aes(ymin = ci_lower,
+                    ymax = ci_upper),
+                position = position_dodge(width = 0.9),
+                width = 0.15,
+                size = 1.4) +
+  geom_hline(yintercept = .50,
+             linetype = "dashed",
+             alpha = .5) +
+  facet_wrap(~ factor(trial, c("Number1",
+                                "Number2",
+                                "Number3",
+                                "Number4",
+                                "Stability",
+                                "Number&Stability",
+                                "Process1",
+                                "Process2",
+                                "Pattern",
+                                "Probability",
+                                "Agent1",
+                                "Agent2",
+                                "Agent3")),
+             scales = "free_x",
+             nrow = 3) +
+  scale_fill_manual(values = custom_palette, name = "Dataset") +
+  scale_y_continuous(breaks = c(0, 0.5, 1), labels = scales::percent_format(accuracy = 1)) +
+  labs(title = "",
+       x = "",
+       y = "Percentage Correct") +
+  theme_classic() +
+  theme(
+    text = element_text(family = "Helvetica Neue"),
+    axis.text.x = element_blank(),
+    axis.title.y = element_text(face = "bold", size = 48, family = "Helvetica Neue"),
+    axis.text.y = element_text(size = 46, family = "Helvetica Neue"),
+    legend.text = element_text(size = 30, family = "Helvetica Neue"),
+    legend.title = element_text(face = "bold", size = 32, family = "Helvetica Neue"),
+    strip.text = element_text(size = 24, family = "Helvetica Neue"),
+    panel.spacing = unit(3,"lines")
+  )
+
+
+ggsave(here("figs", "plots", "TED_Fig2_Accuracy.jpg"), width = 32, height = 14, p.figure2_data, dpi = 300)
+
+# Print the plot to view it in RStudio
+print(p.figure2_data)
+```
+
+# Figure 3: Age Curves (Experiment 2b, Online Sample)
+
+```{r}
+
+# ggemmeans() names the grouping term "group" rather than "trial", so rename
+# before joining on trial below
+df.e2b_age_analysis_named <- e2b_age_analysis_raw |>
+  rename(trial = group)
+
+df.e2b_age_predictions <- df.e2b_age_predictions |>
+  mutate(min_age = case_when(min_age == "did not pass .5" ~ NA,
+                             .default = as.numeric(min_age)))
+
+df.e2b_predict_age <- full_join(df.e2b_age_predictions, df.e2b_age_analysis_named, by = "trial") |>
+  mutate(age = x)
+
+# Create a data frame for unique min_age values and their positions
+df.e2b_unique_min_age <- df.e2b_predict_age %>%
+  dplyr::select(trial, min_age) %>%
+  dplyr::distinct() %>%
+  mutate(text_label = case_when(
+    is.na(min_age) ~ "N/A",
+    TRUE ~ sprintf("%.2f", min_age) # keep two decimals (3.40, not 3.4)
+  )) %>%
+  filter(!is.na(min_age))
+
+p.figure3 <- ggplot(df.e2b_predict_age, aes(x = age, y = predicted)) +
+  geom_line(color = "gray30", size = 2.25) +
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = .2, fill = "gray30") +
+  geom_vline(aes(xintercept = min_age), alpha = .2, color = "black", size = 3) +
+  geom_hline(yintercept = .5, linetype = "dashed", alpha = .35) +
+  geom_text(data = df.e2b_unique_min_age,
+            aes(x = Inf, y = -Inf, label = text_label),
+            hjust = 1.2, vjust = -2, size = 12) +
+  # same panel order as Figure 2
+  facet_wrap(~ factor(trial, c("Number1",
+                               "Number2",
+                               "Number3",
+                               "Number4",
+                               "Stability",
+                               "Number&Stability",
+                               "Process1",
+                               "Process2",
+                               "Pattern",
+                               "Probability",
+                               "Agent1",
+                               "Agent2",
+                               "Agent3")),
+             scales = "free_x",
+             nrow = 3) +
+  geom_jitter(data = df.e2b_online,
+              aes(x = age, y = correct),
+              width = 0,
+              height = .05,
+              alpha = .05,
+              size = 5) +
+  theme_classic(base_size = 14) +
+  theme(
+        strip.text.x = element_text(size = 36, family = "Helvetica Neue"),
+        axis.text.x = element_text(size = 28, family = "Helvetica Neue"),
+        axis.title.x = element_text(face = "bold", size = 45, family = "Helvetica Neue"),
+        axis.text.y = element_text(size = 28, family = "Helvetica Neue"),
+        legend.text = element_text(size = 30, family = "Helvetica Neue"),
+        axis.title.y = element_text(face = "bold", size = 50, family = "Helvetica Neue")) +
+  scale_y_continuous(breaks = c(0, 0.5, 1),
+                     labels = scales::percent_format(accuracy = 1)) +
+  scale_x_continuous(limits = c(3, 9),
+                     breaks = c(3, 5, 7, 9)) +
+  labs(x = "Age (years)",
+       y = "Percentage Correct")
+
+# Print the plot to view it in RStudio
+print(p.figure3)
+
+# Save the plot to a file with specific dimensions
+ggsave(here("figs", "plots", "TED_Fig3_AgeCurves.png"),
+       plot = p.figure3,
+       width = 24,
+       height = 14,
+       dpi = 300)
+```
+
+# Figure 4: VR Data
+
+```{r}
+
+# correctly reorder the Tower_Type factor
+df.e4_vr$Tower_Type <- factor(df.e4_vr$Tower_Type,
+                              levels = c("5 Horizontal", "10 Horizontal", "3x3",
+                                         "5 Vertical", "L-Shaped", "10 Vertical"))
+
+# recalculate means with the new order
+df.e4_vr_means <- df.e4_vr %>%
+  group_by(Tower_Type, Friction_Level) %>%
+  dplyr::summarize(Mean_Difficulty = mean(Difficulty, na.rm = TRUE),
+            .groups = 'drop')
+
+df.e4_vr_segments <- df.e4_vr_means %>%
+  group_by(Tower_Type) %>%
+  dplyr::summarize(xstart = first(Friction_Level),
+            xend = last(Friction_Level),
+            ystart = first(Mean_Difficulty),
+            yend = last(Mean_Difficulty),
+            .groups = 'drop')
+
+# update the plot with the new order
+p_e4_vrdata <- ggplot(df.e4_vr, aes(x = Friction_Level,
+                    y = Difficulty,
+                    color = Tower_Type)) +
+  geom_jitter(height = 0,
+              width = .1,
+              alpha = .15,
+              size = 3) +
+  geom_segment(data = df.e4_vr_segments,
+               aes(x = xstart,
+                   xend = xend,
+                   y = ystart,
+                   yend = yend),
+               linetype = "dashed",
+               color = "black",
+               alpha = .8,
+               linewidth = 1.5) +
+  stat_summary(fun.data = "mean_cl_boot",
+               geom = "pointrange",
+               size = 1.25,
+               linewidth = 2) +
+  facet_grid(~ Tower_Type,
+             scales = "free_y",
+             space = "free_x") +
+  scale_x_discrete(expand = c(0.4, 0.4)) +
+  labs(x = "Friction Level",
+       y = "Difficulty Rating \n(1-10)") +
+  scale_color_manual(values = c("5 Horizontal" = "#8DE18F",
+                               "10 Horizontal" = "#8DE18F",
+                               "3x3" = "#52D356",
+                               "5 Vertical" = "#2CAF30",
+                               "L-Shaped" = "#1F7B22",
+                               "10 Vertical" = "#124713")) +
+  theme_classic() +
+  theme(
+    text = element_text(size = 18, family = "Helvetica Neue"),
+    axis.title = element_text(face = "bold", size = 26, family = "Helvetica Neue"),
+    axis.title.x = element_text(margin = margin(t = 20)), # Adds 20 points of space above the x-axis label
+    axis.text = element_text(size = 28, family = "Helvetica Neue"),
+    strip.text = element_blank(),
+    legend.position = "none")
+
+ggsave(here("figs", "plots", "TED_Fig4_VRData.jpg"), width = 20, height = 4.45, p_e4_vrdata, dpi = 300)
+
+# Print the plot to view it in RStudio
+print(p_e4_vrdata)
+
+```
+
+# Supplementary Figures
+
+## Experiment 1: Original vs. Replication Correlations
+
+```{r fig.width = 15, fig.height = 10}
+
+# layers shared by all six panels: Figure 1's axes, plain points
+e1_scatter <- list(
+  geom_smooth(method = "lm", se = FALSE, colour = "grey70", linewidth = 0.8),
+  geom_point(size = 3, alpha = 0.5),
+  scale_x_continuous(limits = c(0, 80), breaks = c(0, 40, 80)),
+  scale_y_continuous(limits = c(0, 80), breaks = c(0, 40, 80)),
+  theme(axis.title = element_text(face = "bold"))
+)
+
+# original dataset
+p_orig_builddiff <- ggplot(df.e1_orig_full_summary,
+                           aes(x = mean_diff, y = mean_build)) +
+  e1_scatter +
+  annotate("text", x = Inf, y = -Inf, hjust = 1.3, vjust = -1.6, size = 5,
+           label = sprintf("r = %.2f", cor(df.e1_orig_full_summary$mean_diff,
+                                           df.e1_orig_full_summary$mean_build))) +
+  labs(x = "Mean Difficulty Rating (0-100)", y = "Mean Build Time (s)")
+
+p_orig_buildtime <- ggplot(df.e1_orig_full_summary,
+                           aes(x = mean_time, y = mean_build)) +
+  e1_scatter +
+  annotate("text", x = Inf, y = -Inf, hjust = 1.3, vjust = -1.6, size = 5,
+           label = sprintf("r = %.2f", cor(df.e1_orig_full_summary$mean_time,
+                                           df.e1_orig_full_summary$mean_build))) +
+  labs(x = "Mean Time Estimation (0-100)", y = "Mean Build Time (s)")
+
+p_orig_difftime <- ggplot(df.e1_orig_full_summary,
+                          aes(x = mean_time, y = mean_diff)) +
+  e1_scatter +
+  annotate("text", x = Inf, y = -Inf, hjust = 1.3, vjust = -1.6, size = 5,
+           label = sprintf("r = %.2f", cor(df.e1_orig_full_summary$mean_time,
+                                           df.e1_orig_full_summary$mean_diff))) +
+  labs(x = "Mean Time Estimation (0-100)",
+       y = "Mean Difficulty Rating (0-100)")
+
+# replication dataset
+p_rep_builddiff <- ggplot(df.e1_rep_full_summary,
+                          aes(x = mean_diff, y = mean_build)) +
+  e1_scatter +
+  annotate("text", x = Inf, y = -Inf, hjust = 1.3, vjust = -1.6, size = 5,
+           label = sprintf("r = %.2f", cor(df.e1_rep_full_summary$mean_diff,
+                                           df.e1_rep_full_summary$mean_build))) +
+  labs(x = "Mean Difficulty Rating (0-100)", y = "Mean Build Time (s)")
+
+p_rep_buildtime <- ggplot(df.e1_rep_full_summary,
+                          aes(x = mean_time, y = mean_build)) +
+  e1_scatter +
+  annotate("text", x = Inf, y = -Inf, hjust = 1.3, vjust = -1.6, size = 5,
+           label = sprintf("r = %.2f", cor(df.e1_rep_full_summary$mean_time,
+                                           df.e1_rep_full_summary$mean_build))) +
+  labs(x = "Mean Time Estimation (0-100)", y = "Mean Build Time (s)")
+
+p_rep_difftime <- ggplot(df.e1_rep_full_summary,
+                         aes(x = mean_time, y = mean_diff)) +
+  e1_scatter +
+  annotate("text", x = Inf, y = -Inf, hjust = 1.3, vjust = -1.6, size = 5,
+           label = sprintf("r = %.2f", cor(df.e1_rep_full_summary$mean_time,
+                                           df.e1_rep_full_summary$mean_diff))) +
+  labs(x = "Mean Time Estimation (0-100)",
+       y = "Mean Difficulty Rating (0-100)")
+
+# one row of three panels per dataset, each with a header above it
+p_e1_orig_rep <- gridExtra::arrangeGrob(
+  gridExtra::arrangeGrob(p_orig_builddiff, p_orig_buildtime, p_orig_difftime,
+                         nrow = 1,
+                         top = grid::textGrob("Original Dataset",
+                                              gp = grid::gpar(fontsize = 22,
+                                                              fontface = "bold"))),
+  gridExtra::arrangeGrob(p_rep_builddiff, p_rep_buildtime, p_rep_difftime,
+                         nrow = 1,
+                         top = grid::textGrob("Replication Dataset",
+                                              gp = grid::gpar(fontsize = 22,
+                                                              fontface = "bold"))),
+  ncol = 1)
+
+grid::grid.draw(p_e1_orig_rep)
+
+ggsave(here("figs", "plots", "som_e1_orig_rep.pdf"), plot = p_e1_orig_rep,
+       width = 15, height = 10, dpi = 300)
+
+```
+
+## Experiment 2b: Age Curves, All Samples Combined
+
+```{r}
+
+ggplot(df.e2b_age_combined, aes(x = age, y = predicted)) +
+  # fixed seed: leaves the global RNG stream (and later bootstraps) untouched
+  geom_point(data = df.e2b_all_samples, aes(y = correct),
+             position = position_jitter(width = 0, height = .05, seed = 1),
+             alpha = .06, size = 0.5) +
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high),
+              alpha = .2, fill = "gray30") +
+  geom_line(colour = "gray30", linewidth = 0.6) +
+  geom_hline(yintercept = .5, linetype = "dashed", alpha = .35) +
+  geom_vline(data = filter(df.e2b_success_combined,
+                           !is.na(min_age), min_age > youngest),
+             aes(xintercept = min_age), alpha = .2, linewidth = 1) +
+  geom_text(data = df.e2b_success_combined,
+            aes(x = Inf, y = .25, label = label),
+            hjust = 1.1, size = 2.4) +
+  scale_y_continuous(breaks = c(0, .5, 1),
+                     labels = scales::percent_format(accuracy = 1)) +
+  labs(x = "Age (years)", y = "Percentage correct") +
+  theme_classic(base_size = 8) +
+  theme(strip.background = element_blank()) +
+  facet_wrap(~ trial, nrow = 3)
+
+ggsave(here("figs", "plots", "som_e2b_age_combined.pdf"),
+       width = 6.3, height = 3.8)
+
+```
+
+## Experiment 3: Tsimane' Schooling by Age
+
+```{r fig.width = 7, fig.height = 5}
+
+df.e3_schooling <- df.e3_childfc |>
+  distinct(id, age, school)
+
+p_e3_schooling <- ggplot(df.e3_schooling, aes(x = age, y = school)) +
+  geom_count(colour = "gray30") +
+  geom_smooth(method = "lm", se = FALSE, colour = "grey70") +
+  scale_x_continuous(breaks = 5:13) +
+  scale_y_continuous(breaks = 0:6) +
+  scale_size(breaks = c(1, 3, 5, 7),
+             labels = c("1 child", "3 children", "5 children", "7 children")) +
+  labs(x = "Age (years)", y = "Years of schooling", size = NULL) +
+  theme(axis.title = element_text(face = "bold"))
+
+ggsave(here("figs", "plots", "som_e3_schooling_by_age.pdf"), plot = p_e3_schooling,
+       width = 7, height = 5)
+
+# Print the plot to view it in RStudio
+print(p_e3_schooling)
+
+```
+
+## Experiment 1: Model Fits
+
+```{r fig.width = 15, fig.height = 5.5}
+
+df.e1_model_fitted <- df.e1_model_and_data |>
+  mutate(full = fitted(model_e1_diff_full),
+         effort = fitted(model_e1_diff_effort),
+         risk = fitted(model_e1_diff_risk))
+
+# layers shared by the three panels
+e1_model_scatter <- list(
+  # shaded band: 95% CI of the regression line
+  geom_smooth(method = "lm", colour = "grey70", fill = "grey70",
+              alpha = 0.3, linewidth = 0.8),
+  geom_point(size = 3, alpha = 0.6),
+  theme(axis.title = element_text(face = "bold"),
+        plot.title = element_text(hjust = 0.5, face = "bold", size = 22))
+)
+
+p_e1_full <- ggplot(df.e1_model_fitted, aes(x = full, y = Difficulty)) +
+  e1_model_scatter +
+  annotate("text", x = -Inf, y = Inf, hjust = -0.3, vjust = 1.6, size = 5,
+           label = sprintf("r = %.2f", cor(df.e1_model_fitted$full,
+                                           df.e1_model_fitted$Difficulty))) +
+  labs(title = "Full Model", x = "Model Predicted Difficulty",
+       y = "Mean Difficulty Rating\n(z-scored)")
+
+p_e1_effort <- ggplot(df.e1_model_fitted, aes(x = effort, y = Difficulty)) +
+  e1_model_scatter +
+  annotate("text", x = -Inf, y = Inf, hjust = -0.3, vjust = 1.6, size = 5,
+           label = sprintf("r = %.2f", cor(df.e1_model_fitted$effort,
+                                           df.e1_model_fitted$Difficulty))) +
+  labs(title = "Effort-only Model", x = "Model Predicted Difficulty",
+       y = "Mean Difficulty Rating\n(z-scored)")
+
+p_e1_risk <- ggplot(df.e1_model_fitted, aes(x = risk, y = Difficulty)) +
+  e1_model_scatter +
+  annotate("text", x = -Inf, y = Inf, hjust = -0.3, vjust = 1.6, size = 5,
+           label = sprintf("r = %.2f", cor(df.e1_model_fitted$risk,
+                                           df.e1_model_fitted$Difficulty))) +
+  labs(title = "Risk-only Model", x = "Model Predicted Difficulty",
+       y = "Mean Difficulty Rating\n(z-scored)")
+
+# side by side; cbind() lines up their panels
+p_e1_model <- cbind(ggplotGrob(p_e1_full), ggplotGrob(p_e1_effort),
+                    ggplotGrob(p_e1_risk), size = "max")
+
+grid::grid.draw(p_e1_model)
+
+ggsave(here("figs", "plots", "som_e1_model.pdf"), plot = p_e1_model,
+       width = 15, height = 5.5, dpi = 300)
+
+```
+
+## Experiments 2a, 2b and 3: Model vs. Accuracy by Age Group
+
+```{r fig.width = 18, fig.height = 5.5}
+
+# observed accuracy and the full model's difficulty ratio for the ten pairs,
+# one row per sample and trial
+df.model_2afc_scatter <- bind_rows(df.e2a_model_summary,
+                                   df.e2b_model_summary,
+                                   df.e3_model_summary) |>
+  ungroup() |>
+  select(trial, dataset, accuracy = mean) |>
+  left_join(select(df.model_2afc, trial, full), by = "trial") |>
+  mutate(dataset = factor(dataset, levels = c("US Adults", "US Children",
+                                              "Tsimane' Children")))
+
+# US children, split into the younger (3-5) and older (6-8) age groups
+df.e2b_age_scatter <- df.e2b_online |>
+  filter(trial %in% df.model_2afc$trial)|>
+  mutate(age_bin = if_else(age_group == "3-5", "3- to 5-year-olds",
+                           "6- to 8-year-olds")) |>
+  dplyr::summarise(accuracy = mean(correct), .by = c(age_bin, trial)) |>
+  left_join(select(df.model_2afc, trial, full), by = "trial") |>
+  rename(panel = age_bin)
+
+# Tsimane' children and US adults, pooled across age
+df.age_panel_levels <- c("US Adults",
+                         "3- to 5-year-olds",
+                         "6- to 8-year-olds",
+                         "Tsimane' Children")
+
+df.e2b_age_scatter <- df.model_2afc_scatter |>
+  filter(dataset %in% c("Tsimane' Children", "US Adults")) |>
+  transmute(panel = as.character(dataset), trial, accuracy, full) |>
+  bind_rows(df.e2b_age_scatter) |>
+  mutate(panel = factor(panel, levels = df.age_panel_levels))
+
+# layers shared by the four panels: chance lines, the same axes in every panel
+e2_age_scatter <- list(
+  geom_hline(yintercept = 0.5, linetype = "dashed", colour = "grey80"),
+  geom_vline(xintercept = 0.5, linetype = "dashed", colour = "grey80"),
+  # group = 1 so the fit is per panel, not per trial (colour = trial would
+  # otherwise split the data into single-point groups)
+  geom_smooth(aes(group = 1), method = "lm", se = FALSE, colour = "grey70",
+              linewidth = 0.8),
+  geom_point(aes(colour = trial), size = 3, alpha = 0.7),
+  scale_x_continuous(limits = range(df.e2b_age_scatter$accuracy),
+                     breaks = c(0.5, 0.7, 0.9)),
+  scale_y_continuous(limits = range(df.e2b_age_scatter$full),
+                     expand = expansion(mult = c(0.18, 0.05))),
+  labs(x = "Proportion Correct", y = "Full Model\nDifficulty Ratio",
+       colour = "Trial"),
+  theme(axis.title = element_text(face = "bold"),
+        plot.title = element_text(hjust = 0.5, face = "bold", size = 20),
+        legend.position = "none")
+)
+
+df.e2b_age_adults <- filter(df.e2b_age_scatter, panel == "US Adults")
+df.e2b_age_3to5 <- filter(df.e2b_age_scatter, panel == "3- to 5-year-olds")
+df.e2b_age_6to8 <- filter(df.e2b_age_scatter, panel == "6- to 8-year-olds")
+df.e2b_age_tsimane <- filter(df.e2b_age_scatter, panel == "Tsimane' Children")
+
+p_e2_age_adults <- ggplot(df.e2b_age_adults, aes(x = accuracy, y = full)) +
+  e2_age_scatter +
+  annotate("text", x = Inf, y = -Inf, hjust = 1.3, vjust = -1.6, size = 5,
+           label = sprintf("r = %.2f", cor(df.e2b_age_adults$accuracy,
+                                           df.e2b_age_adults$full))) +
+  labs(title = "US Adults")
+
+p_e2_age_3to5 <- ggplot(df.e2b_age_3to5, aes(x = accuracy, y = full)) +
+  e2_age_scatter +
+  annotate("text", x = Inf, y = -Inf, hjust = 1.3, vjust = -1.6, size = 5,
+           label = sprintf("r = %.2f", cor(df.e2b_age_3to5$accuracy,
+                                           df.e2b_age_3to5$full))) +
+  labs(title = "US Children, 3-5 Years")
+
+p_e2_age_6to8 <- ggplot(df.e2b_age_6to8, aes(x = accuracy, y = full)) +
+  e2_age_scatter +
+  annotate("text", x = Inf, y = -Inf, hjust = 1.3, vjust = -1.6, size = 5,
+           label = sprintf("r = %.2f", cor(df.e2b_age_6to8$accuracy,
+                                           df.e2b_age_6to8$full))) +
+  labs(title = "US Children, 6-8 Years")
+
+p_e2_age_tsimane <- ggplot(df.e2b_age_tsimane, aes(x = accuracy, y = full)) +
+  e2_age_scatter +
+  annotate("text", x = Inf, y = -Inf, hjust = 1.3, vjust = -1.6, size = 5,
+           label = sprintf("r = %.2f", cor(df.e2b_age_tsimane$accuracy,
+                                           df.e2b_age_tsimane$full))) +
+  labs(title = "Tsimane' Children")
+
+# the trial legend, taken from one panel and shown once, to the right
+e2_age_legend <- gtable::gtable_filter(
+  ggplotGrob(p_e2_age_tsimane + theme(legend.position = "right")),
+  "guide-box-right")
+
+# side by side; cbind() lines up their panels
+p_e2_age_model <- gridExtra::arrangeGrob(
+  cbind(ggplotGrob(p_e2_age_adults), ggplotGrob(p_e2_age_3to5),
+        ggplotGrob(p_e2_age_6to8), ggplotGrob(p_e2_age_tsimane),
+        size = "max"),
+  e2_age_legend,
+  ncol = 2, widths = c(8, 1.2))
+
+grid::grid.draw(p_e2_age_model)
+
+ggsave(here("figs", "plots", "som_e2a_e2b_e3_model.pdf"), plot = p_e2_age_model,
+       width = 18, height = 5.5, dpi = 300)
+
+```
+
+## Experiment 4: Data vs. Full Model
+
+```{r fig.width = 14, fig.height = 9}
+
+# both rows z-scored, so the data and the model share one scale
+df.e4_model_fig <- df.e4_model_and_data |>
+  mutate(Data = (mean_diff - mean(mean_diff)) / sd(mean_diff),
+         Full = (full - mean(full)) / sd(full)) |>
+  select(Tower_Type, Friction_Level, Data, Full)
+
+# layers shared by both rows: one panel per tower, the same y range
+e4_lines <- list(
+  facet_wrap(~ Tower_Type, nrow = 1),
+  scale_x_discrete(expand = c(0.3, 0.3)),
+  scale_y_continuous(limits = range(select(df.e4_model_fig, -Tower_Type,
+                                           -Friction_Level))),
+  theme(axis.title = element_text(face = "bold"),
+        plot.title = element_text(hjust = 0.5, face = "bold", size = 22))
+)
+
+p_e4_data <- ggplot(df.e4_model_fig,
+                    aes(x = Friction_Level, y = Data, group = 1)) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 2.5) +
+  e4_lines +
+  labs(title = "Empirical Data", x = "Friction Level",
+       y = "Mean Difficulty Rating\n(z-scored)")
+
+p_e4_model <- ggplot(df.e4_model_fig,
+                     aes(x = Friction_Level, y = Full, group = 1)) +
+  geom_line(linewidth = 1, colour = "firebrick", linetype = "dotted") +
+  geom_point(size = 2.5, colour = "firebrick") +
+  e4_lines +
+  labs(title = "Full Model Predictions", x = "Friction Level",
+       y = "Model Predicted Difficulty\n(z-scored)")
+
+# stack the two plots; rbind() lines up their panels
+p_e4_model_data <- rbind(ggplotGrob(p_e4_data), ggplotGrob(p_e4_model),
+                         size = "max")
+
+grid::grid.draw(p_e4_model_data)
+
+ggsave(here("figs", "plots", "som_e4_model_full.pdf"), plot = p_e4_model_data,
+       width = 12, height = 9, dpi = 300)
+
+```
+
+# Session Info
+
+```{r}
+
+sessionInfo()
+
+```

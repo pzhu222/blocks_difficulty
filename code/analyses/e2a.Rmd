@@ -1,0 +1,457 @@
+---
+title: "ted_e2a_cleaning_and_analysis"
+output: html_document
+date: "2024-08-12"
+---
+
+# Set-up
+```{r}
+
+set.seed(42)
+
+cran_packages <- c("knitr", "lme4", "ggeffects", "tidyverse", "here", "emmeans")
+
+missing_cran <- setdiff(cran_packages, rownames(installed.packages()))
+if (length(missing_cran) > 0) {
+  install.packages(missing_cran)
+}
+
+if (!requireNamespace("langcog", quietly = TRUE)) {
+  if (!requireNamespace("remotes", quietly = TRUE)) install.packages("remotes")
+  remotes::install_github("langcog/langcog")
+}
+
+require(knitr)
+library(lme4)
+library(ggeffects)
+library(emmeans)
+library(tidyverse)
+library(here)
+library(langcog)
+
+inport_dir <- here("data")
+
+# set default code chunk options
+knitr::opts_chunk$set(echo = T, warning = F, message = F)
+
+# set default plot theme
+theme_set(theme_classic() +
+            theme(text = element_text(size = 18)))
+
+# suppress warnings about grouping
+options(dplyr.summarise.inform = F)
+```
+
+# Original Data
+
+```{r}
+# Load data in
+df.e2adultfc_easy_raw <- read.csv(here(inport_dir, "e2a_adultfc_easy.csv"))
+
+df.e2adultfc_easy = as.data.frame(df.e2adultfc_easy_raw[which(df.e2adultfc_easy_raw$include == '1'),])
+
+df.e2adultfc_easy_drop = as.data.frame(df.e2adultfc_easy_raw[which(df.e2adultfc_easy_raw$include == '0'),])
+
+df.e2adultfc_hard_raw <- read.csv(here(inport_dir, "e2a_adultfc_hard.csv"))
+
+df.e2adultfc_hard = as.data.frame(df.e2adultfc_hard_raw[which(df.e2adultfc_hard_raw$include == '1'),])
+
+df.e2adultfc_hard_drop = as.data.frame(df.e2adultfc_hard_raw[which(df.e2adultfc_hard_raw$include == '0'),])
+
+# Report excluded participants and reasons for exclusion
+bind_rows(df.e2adultfc_easy_drop, df.e2adultfc_hard_drop) |>
+  count(condition, include_why)
+
+# Selecting columns of interest
+df.e2adultfc_easy <- select(df.e2adultfc_easy,
+                            id,
+                            group,
+                            condition,
+                            InsR,
+                            Sampling_Check1,
+                            Sampling_Check2,
+                            Age_Check1,
+                            Age_Check2,
+                            Sling_Check1,
+                            Sling_Check2,
+                            Number_TriCir,
+                            Number_Cross,
+                            Number_Vert,
+                            Number_Horz,
+                            Init_Horz,
+                            Init_Vert,
+                            TwoBlocks_TenBlocks,
+                            Init_Distance,
+                            Fin_Distance,
+                            Init_Sorted,
+                            Pattern_NoPattern,
+                            Sampling,
+                            Box_Castle,
+                            TwoPile_Castle,
+                            Vert_Horz,
+                            Adult_Child,
+                            Sling_TwoHands,
+                            OneAgent_TwoAgent,
+                            age,
+                            gender,
+                            include)
+
+df.e2adultfc_hard <- select(df.e2adultfc_hard,
+                            id,
+                            group,
+                            condition,
+                            InsR,
+                            Sampling_Check1,
+                            Sampling_Check2,
+                            Age_Check1,
+                            Age_Check2,
+                            Sling_Check1,
+                            Sling_Check2,
+                            Number_TriCir,
+                            Number_Cross,
+                            Number_Vert,
+                            Number_Horz,
+                            Init_Horz,
+                            Init_Vert,
+                            TwoBlocks_TenBlocks,
+                            Init_Distance,
+                            Fin_Distance,
+                            Init_Sorted,
+                            Pattern_NoPattern,
+                            Sampling,
+                            Box_Castle,
+                            TwoPile_Castle,
+                            Vert_Horz,
+                            Adult_Child,
+                            Sling_TwoHands,
+                            OneAgent_TwoAgent,
+                            age,
+                            gender,
+                            include)
+
+
+# Merging Data Frames
+df.e2adultfc <- full_join(df.e2adultfc_easy, df.e2adultfc_hard)
+
+# Selecting columns of interest in merged Data Frame
+df.e2adultfc <- select(df.e2adultfc,
+                           id,
+                           condition,
+                           age,
+                           gender,
+                           Number_TriCir,
+                           Number_Cross,
+                           Number_Vert,
+                           Number_Horz,
+                           Init_Horz,
+                           Init_Vert,
+                           TwoBlocks_TenBlocks,
+                           Pattern_NoPattern,
+                           Sampling,
+                           TwoPile_Castle,
+                           Vert_Horz,
+                           Adult_Child,
+                           Sling_TwoHands,
+                           OneAgent_TwoAgent)
+
+# Reshape to long format and assign trial types
+df.e2adultfc_long <- df.e2adultfc %>%
+  gather(trial,correct,
+        Number_TriCir,
+        Number_Cross,
+        Number_Vert,
+        Number_Horz,
+        Init_Horz,
+        Init_Vert,
+        TwoBlocks_TenBlocks,
+        Pattern_NoPattern,
+        Sampling,
+        TwoPile_Castle,
+        Vert_Horz,
+        Adult_Child,
+        Sling_TwoHands,
+        OneAgent_TwoAgent) %>%
+  rename(question_type = condition) %>%
+  mutate(condition = ifelse(trial == "Number_TriCir"| trial == "Number_Cross"| trial == "Number_Vert" |trial == "Number_Horz" | trial == "TwoBlocks_TenBlocks" | trial == "TwoPile_Castle" | trial == "Vert_Horz", "Simple", ifelse(trial == "Sampling" | trial == "Pattern_NoPattern"| trial == "Init_Horz" | trial == "Init_Vert", "Complex", "Agent"))) %>%
+  na.omit()
+```
+
+Change trial names:
+
+```{r}
+# Changing trial names to new format
+df.e2adultfc_long <- df.e2adultfc_long |>
+    mutate(trial = case_when(trial == "Number_TriCir" ~ "Number1",
+                           trial == "Number_Cross" ~ "Number2",
+                           trial == "Number_Vert" ~ "Number3",
+                           trial == "Number_Horz" ~ "Number4",
+                           trial == "Vert_Horz" ~ "Stability",
+                           trial == "TwoBlocks_TenBlocks" ~ "Number&Stability",
+                           trial == "Init_Horz" ~ "Process1",
+                           trial == "Init_Vert" ~ "Process2",
+                           trial == "Pattern_NoPattern" ~ "Pattern",
+                           trial == "Sampling" ~ "Probability",
+                           trial == "Sling_TwoHands" ~ "Agent1",
+                           trial == "Adult_Child" ~ "Agent2",
+                           trial == "OneAgent_TwoAgent" ~ "Agent3",
+                           .default = trial))
+```
+
+
+# Replication Data (US Adults, Online, Pre-registered)
+
+```{r}
+TED_e2_rep_csv_files <- list.files(
+  path       = here("data", "e2_adult_rep"),
+  pattern    = "\\.csv$",
+  full.names = TRUE
+)
+
+TED_e2_rep_clean <- function(file_path) {
+  dat <- readr::read_csv(file_path, show_col_types = FALSE)
+  dat <- dat %>% mutate(across(everything(), as.character))
+
+  # the strategy and demographics answers are JSON strings in `response`
+  strategy_raw <- dat %>%
+    filter(trial_type_custom == "strategy_free_resp") %>%
+    pull(response) %>%
+    first(na_rm = TRUE)
+
+  # per-participant values: the first non-missing entry in each column
+  # (read_csv already reads blank cells as NA)
+  participant_meta <- dat %>%
+    summarise(
+      source_file         = basename(file_path),
+      condition           = first(condition, na_rm = TRUE),
+      subject_id          = first(subject_id, na_rm = TRUE),
+      study_id            = first(study_id, na_rm = TRUE),
+      mic_access          = first(mic_access, na_rm = TRUE),
+      mic_peak_volume     = first(peak_volume, na_rm = TRUE),
+      strategy            = na_if(str_match(strategy_raw, '"strategy":"([^"]*)"')[, 2], ""),
+      mic_time_to_pass_ms = suppressWarnings(as.numeric(first(time_to_pass_ms, na_rm = TRUE)))
+    )
+
+  # e2: main trials store the chosen stimulus id, not a numeric rating
+  ratings_wide <- dat %>%
+    filter(
+      trial_type_custom == "main",
+      !is.na(stimulus_id), stimulus_id != "",
+      !is.na(chosen),      chosen != ""
+    ) %>%
+    transmute(stim_col = paste0("rating_", stimulus_id), chosen = chosen) %>%
+    distinct(stim_col, .keep_all = TRUE) %>%
+    pivot_wider(names_from = stim_col, values_from = chosen)
+
+  if (nrow(ratings_wide) == 0) ratings_wide <- tibble::tibble(.rows = 1)
+
+  afc_wide <- tibble::tibble(.rows = 1)
+
+  # attention checks are condition-dependent
+  afc_checks_tbl <- dat %>%
+    summarise(
+      afc_check_house_correct = any(
+        trial_type_custom == "check_house_triangle" & (
+          (condition == "harder" & chosen == "house") |
+          (condition == "easier" & chosen == "triangle")
+        ),
+        na.rm = TRUE
+      ),
+      afc_check_32_2_correct = any(
+        trial_type_custom == "check_32" & chosen == "32_2",
+        na.rm = TRUE
+      )
+    )
+
+  captcha_tbl <- dat %>%
+    filter(trial_type_custom == "captcha") %>%
+    summarise(captcha_passed = any(server_verified == "TRUE", na.rm = TRUE))
+
+  rt_tbl <- dat %>%
+    filter(trial_type_custom == "main") %>%
+    mutate(rt_num = suppressWarnings(as.numeric(rt))) %>%
+    summarise(
+      any_fast_rt     = any(rt_num < 1000, na.rm = TRUE),
+      all_same_rating = n_distinct(response, na.rm = TRUE) == 1
+    )
+
+  demographics_raw <- dat %>%
+    filter(trial_type_custom == "demographics") %>%
+    pull(response) %>%
+    first(na_rm = TRUE)
+
+  # pull each "field":"value" pair out of the JSON; blank answers become NA
+  demographics_tbl <- tibble(
+    age        = str_match(demographics_raw, '"age":"([^"]*)"')[, 2],
+    language   = str_match(demographics_raw, '"language":"([^"]*)"')[, 2],
+    ethnicity  = str_match(demographics_raw, '"ethnicity":"([^"]*)"')[, 2],
+    gender     = str_match(demographics_raw, '"gender":"([^"]*)"')[, 2],
+    colorblind = str_match(demographics_raw, '"colorblind":"([^"]*)"')[, 2],
+    focus      = str_match(demographics_raw, '"focus":"([^"]*)"')[, 2],
+    issues     = str_match(demographics_raw, '"issues":"([^"]*)"')[, 2]
+  ) %>%
+    mutate(across(everything(), ~ na_if(.x, "")))
+
+  bind_cols(participant_meta, ratings_wide, afc_wide, afc_checks_tbl, captcha_tbl, rt_tbl, demographics_tbl)
+}
+
+df.ted_e2_wide <- purrr::map_dfr(TED_e2_rep_csv_files, TED_e2_rep_clean)
+```
+
+Recode chosen stimulus by condition and apply exclusions:
+
+```{r}
+recode_harder_easier <- function(chosen_cell, cond) {
+  dplyr::case_when(
+    is.na(chosen_cell) | chosen_cell == "" ~ NA_real_,
+    cond == "harder" & stringr::str_ends(chosen_cell, "_2_vertical") ~ 1,
+    cond == "harder" ~ 0,
+    cond == "easier" & stringr::str_ends(chosen_cell, "_2_vertical") ~ 0,
+    cond == "easier" ~ 1,
+    TRUE ~ NA_real_
+  )
+}
+
+df.ted_e2_wide_clean <- df.ted_e2_wide |>
+  filter(
+    afc_check_house_correct,
+    afc_check_32_2_correct,
+    mic_access == "TRUE",
+    captcha_passed,
+    !any_fast_rt,
+    !all_same_rating,
+    # colorblind: "yes" in any case, or "Red/Green"; blank (NA) is kept
+    !(tolower(colorblind) %in% c("yes", "red/green")),
+    !grepl("I noticed the difficulty and chose accordingly", strategy, fixed = TRUE)
+  ) |>
+  select(subject_id, condition, starts_with("rating_"), starts_with("afc_"),
+         strategy, age, gender, ethnicity, colorblind, focus, issues) |>
+  mutate(across(starts_with("rating_"), ~ recode_harder_easier(.x, condition)))
+
+df.ted_e2_wide_clean |>
+  group_by(condition) |>
+  dplyr::summarize(n = n())
+```
+
+# Process Cleaned Data
+
+```{r}
+
+df.e2adultfc_rep <- df.ted_e2_wide_clean |>
+  filter(afc_check_32_2_correct == TRUE)
+
+# turn data long (one row per subject × rating trial)
+df.e2adultfc_rep_long <- df.e2adultfc_rep %>%
+  pivot_longer(
+    cols = starts_with("rating_"),
+    names_to = "trial",
+    names_prefix = "rating_",
+    values_to = "correct"
+  )
+
+# map replication stimulus_id to the same trial names used in the original
+# data, and harmonize condition labels ("easier"/"harder" -> "easy"/"hard")
+df.e2adultfc_rep_trialnames <- read.csv(here(inport_dir, "e2_adult_rep_trialnames.csv")) |>
+  mutate(stim_number = as.character(stim_number))
+
+df.e2adultfc_rep_long <- df.e2adultfc_rep_long |>
+  left_join(df.e2adultfc_rep_trialnames, by = c("trial" = "stim_number")) |>
+  mutate(trial = trial_name,
+         question_type = case_when(condition == "easier" ~ "easy",
+                                    condition == "harder" ~ "hard",
+                                    TRUE ~ NA_character_)) |>
+  select(-trial_name)
+
+```
+
+# Demographic Information
+
+```{r}
+
+#number of participants
+df.e2adultfc |>
+  nrow()
+
+#age
+df.e2adultfc |>
+  pull(age) |>
+  mean(na.rm = T)
+
+df.e2adultfc |>
+  pull(age) |>
+  sd(na.rm = T)
+
+#1 = female, 0 = male
+df.e2adultfc |>
+  group_by(gender) |>
+  dplyr::summarize(n = n())
+
+```
+
+Replication. Exclusions by reason: each participant is counted once, under the
+first criterion they fail, in the order of the filter above.
+
+```{r}
+
+df.ted_e2_wide |>
+  mutate(exclusion = case_when(
+    !afc_check_house_correct | !afc_check_32_2_correct ~ "attention check",
+    !(mic_access %in% "TRUE") ~ "microphone",
+    !captcha_passed ~ "captcha",
+    any_fast_rt ~ "fast RT",
+    all_same_rating ~ "same response on all trials",
+    tolower(colorblind) %in% c("yes", "red/green") ~ "colorblind",
+    grepl("I noticed the difficulty and chose accordingly", strategy,
+          fixed = TRUE) ~ "strategy",
+    .default = "included")) |>
+  count(condition, exclusion)
+
+# age and gender are free-text in the export; blanks are NA
+df.ted_e2_wide_clean |>
+  mutate(age = as.numeric(age)) |>
+  dplyr::summarize(n = n(),
+                   n_female = sum(gender %in% "female"),
+                   n_male = sum(gender %in% "male"),
+                   n_other = sum(gender %in% "other"),
+                   n_no_gender = sum(is.na(gender)),
+                   n_reported_age = sum(!is.na(age)),
+                   mean_age = mean(age, na.rm = T),
+                   sd_age = sd(age, na.rm = T))
+
+```
+
+# Analyses
+
+
+```{r}
+
+df.e2adultfc_combined_long <- bind_rows(
+  df.e2adultfc_long |>
+    mutate(id = as.character(id)) |>
+    select(id, trial, question_type, correct),
+  df.e2adultfc_rep_long |>
+    select(id = subject_id, trial, question_type, correct)
+)
+
+# Linear mixed effect model predictions
+model_e2adultfc <- glmer(correct ~ 1 + trial + question_type + (1|id),
+      data = df.e2adultfc_combined_long, family = "binomial",
+      control = glmerControl(optimizer = "bobyqa",
+                             optCtrl = list(maxfun = 2e5)))
+
+
+# ggemmeans() rather than ggpredict(): ggpredict() would report the by-trial
+# predictions at question_type == "easier" (its reference level) instead of
+# averaging over both wordings. Matches the treatment in e2b.Rmd.
+# ggemmeans() has no all-terms default, so each predictor is requested by name.
+ggemmeans(model = model_e2adultfc, terms = "trial")
+ggemmeans(model = model_e2adultfc, terms = "question_type")
+
+```
+
+# Session Info
+
+```{r}
+
+sessionInfo()
+
+```

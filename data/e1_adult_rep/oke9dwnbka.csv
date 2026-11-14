@@ -1,0 +1,387 @@
+success,timeout,failed_images,failed_audio,failed_video,trial_type,trial_index,plugin_version,time_elapsed,subject_id,condition,assignment_idx,study_id,afc32_left_is_32_1,afc_left_is_house,warmup_first,trial_type_custom,server_verified,hostname,verify_error_codes,rt,stimulus,response,mic_access,peak_volume,time_to_pass_ms,stimulus_id,trial_number,slider_start,afc_pair,afc_left,afc_right,afc_order,afc_chosen
+TRUE,FALSE,[],[],[],preload,0,2.1.0,329,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-keyboard-response,1,2.1.0,6518,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,captcha,TRUE,sociallearninglab.github.io,[],NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,2,2.1.0,11393,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,consent,NA,NA,NA,4872,"
+        <div class=""consent-container"">
+            <div style=""text-align: center; margin-bottom: 20px;"">
+                <img src=""../../src/lab_logo.png"" height=""80"">
+            </div>
+            <p>By agreeing to take part in this research, you agree to view and rate a series of block structures. This experiment will take approximately 10 minutes to complete.</p>
+            <p>By answering the following questions, you are participating in a study being performed by cognitive scientists in the Stanford Department of Psychology. If you have questions about this research, please contact us at <a href=""mailto:sociallearninglab@stanford.edu"">sociallearninglab@stanford.edu</a>.</p>
+            <p>You must be at least 18 years old to participate. Your participation in this research is voluntary. You may decline to answer any or all of the following questions. You may decline further participation, at any time, without adverse consequences. Your anonymity is assured; the researchers who have requested your participation will not receive any personal information about you.</p>
+        </div>
+",0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,3,2.1.0,24033,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,mic_test,NA,NA,NA,12628,"
+        <div class=""instruction-container"" style=""text-align: center;"">
+            <h2>Microphone Test</h2>
+            <p>Before we begin, we need to check that your microphone is working.</p>
+            <p>When prompted, please <b>allow</b> microphone access, then say the word <b>""blocks""</b> out loud.</p>
+            <div id=""mic-test-area"" style=""margin: 30px auto;"">
+                <svg id=""mic-icon"" width=""120"" height=""120"" viewBox=""0 0 24 24"" fill=""none"" style=""transition: all 0.3s;"">
+                    <path d=""M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"" fill=""#ccc"" id=""mic-body""/>
+                    <path d=""M19 10v2a7 7 0 0 1-14 0v-2"" stroke=""#ccc"" stroke-width=""1.5"" stroke-linecap=""round"" id=""mic-arc""/>
+                    <line x1=""12"" y1=""19"" x2=""12"" y2=""23"" stroke=""#ccc"" stroke-width=""1.5"" stroke-linecap=""round"" id=""mic-stem""/>
+                    <line x1=""8"" y1=""23"" x2=""16"" y2=""23"" stroke=""#ccc"" stroke-width=""1.5"" stroke-linecap=""round"" id=""mic-base""/>
+                </svg>
+                <div id=""mic-status"" style=""font-size: 16px; margin-top: 16px; color: #777;"">
+                    Waiting for microphone access...
+                </div>
+            </div>
+        </div>
+",0,TRUE,0.375,5560,NA,NA,NA,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,4,2.1.0,31754,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,instructions,NA,NA,NA,7716,"
+        <div class=""instruction-container"">
+            <p>Welcome to the experiment! In this game, you will view a series of block structures. For each structure, you will see a ""START"" picture and a ""FINISH"" picture.</p>
+            <p>Your task is to estimate the <b>time</b> it would take to build each structure from start to finish.</p>
+            <p>Click the button below when you are ready to begin.</p>
+        </div>
+",0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,5,2.1.0,43525,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,example_intro,NA,NA,NA,11769,"
+        <div class=""instruction-container"" style=""text-align: center;"">
+            <p>You will use a sliding scale from 0 seconds to 100 seconds to mark your answer.</p><p>You can drag the circle to respond.</p>
+            <p>Here is an example of what you will see on each trial:</p>
+            <img src=""stim_files/Example_Final_Time_Screenshot.png"" class=""trial-image"">
+        </div>
+",0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,6,2.1.0,49736,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,example_init,NA,NA,NA,6209,"
+        <div class=""instruction-container"" style=""text-align: center;"">
+            <p>Sometimes at START, the structure will be partially made already. Please look carefully at both photos!</p>
+            <img src=""stim_files/Example_Initial_Time_Screenshot.png"" class=""trial-image"">
+        </div>
+",0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,7,2.1.0,55426,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,warmup,NA,NA,NA,5688,"
+            <div class=""trial-container"" style=""text-align: center;"">
+                <img src=""stim_files/37_1.jpg"" class=""trial-image"">
+                <p>This is an example of a structure that would be <b>quick</b> to build.</p>
+            </div>
+",0,NA,NA,NA,37_1,NA,NA,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,8,2.1.0,61014,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,warmup,NA,NA,NA,5585,"
+            <div class=""trial-container"" style=""text-align: center;"">
+                <img src=""stim_files/37_2.jpg"" class=""trial-image"">
+                <p>This is an example of a structure that would take a <b>long time</b> to build.</p>
+            </div>
+",0,NA,NA,NA,37_2,NA,NA,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,9,2.1.0,66946,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,begin_main,NA,NA,NA,5929,"
+        <div class=""instruction-container"" style=""text-align: center;"">
+            <p>You are now ready to begin.</p>
+            <p>Please click continue to start.</p>
+        </div>
+",0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,10,2.1.0,81955,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,14834,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/30_1.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",1,NA,NA,NA,30_1,1,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,11,2.1.0,96996,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,15037,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/30_2.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",8,NA,NA,NA,30_2,2,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,12,2.1.0,106911,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,9912,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/15_2.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",12,NA,NA,NA,15_2,3,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,13,2.1.0,114904,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,7991,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/15_1.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",3,NA,NA,NA,15_1,4,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,14,2.1.0,123648,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,8741,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/17_2.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",15,NA,NA,NA,17_2,5,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,15,2.1.0,132182,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,8532,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/17_1.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",2,NA,NA,NA,17_1,6,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,16,2.1.0,140598,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,8414,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/23_1.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",1,NA,NA,NA,23_1,7,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,17,2.1.0,150819,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,10220,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/23_2.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",6,NA,NA,NA,23_2,8,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,18,2.1.0,156627,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,5806,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/26_1.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",2,NA,NA,NA,26_1,9,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,19,2.1.0,163462,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,6811,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/26_2.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",10,NA,NA,NA,26_2,10,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,20,2.1.0,171706,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,8242,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/11_2.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",10,NA,NA,NA,11_2,11,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,21,2.1.0,181166,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,9458,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/11_1.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",10,NA,NA,NA,11_1,12,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,22,2.1.0,190284,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,9116,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/27_2.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",6,NA,NA,NA,27_2,13,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,23,2.1.0,201190,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,10904,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/27_1.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",2,NA,NA,NA,27_1,14,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,24,2.1.0,209063,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,7870,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/7_2.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",15,NA,NA,NA,7_2,15,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,25,2.1.0,215049,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,5984,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/7_1.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",2,NA,NA,NA,7_1,16,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,26,2.1.0,222222,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,7169,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/19_2.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",25,NA,NA,NA,19_2,17,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,27,2.1.0,229581,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,7357,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/19_1.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",20,NA,NA,NA,19_1,18,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,28,2.1.0,238914,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,9232,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/20_2.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",40,NA,NA,NA,20_2,19,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,29,2.1.0,249494,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,10579,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/20_1.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",30,NA,NA,NA,20_1,20,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,30,2.1.0,255364,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,5867,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/14_2.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",20,NA,NA,NA,14_2,21,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,31,2.1.0,261406,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,6040,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/14_1.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",6,NA,NA,NA,14_1,22,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,32,2.1.0,268717,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,7309,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/29_2.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",12,NA,NA,NA,29_2,23,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,33,2.1.0,275506,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,6788,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/29_1.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",1,NA,NA,NA,29_1,24,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,34,2.1.0,283106,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,7598,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/21_2.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",20,NA,NA,NA,21_2,25,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,35,2.1.0,287683,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,4575,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/21_1.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",2,NA,NA,NA,21_1,26,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,36,2.1.0,295058,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,7373,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/34_1.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",15,NA,NA,NA,34_1,27,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,37,2.1.0,300565,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,5505,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/34_2.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",25,NA,NA,NA,34_2,28,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,38,2.1.0,305706,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,5139,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/12_2.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",10,NA,NA,NA,12_2,29,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,39,2.1.0,316965,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,11205,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/12_1.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",2,NA,NA,NA,12_1,30,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,40,2.1.0,328833,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,11866,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/31_2.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",8,NA,NA,NA,31_2,31,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,41,2.1.0,333812,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,4977,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/31_1.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",1,NA,NA,NA,31_1,32,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,42,2.1.0,341569,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,7755,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/25_1.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",20,NA,NA,NA,25_1,33,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,43,2.1.0,349888,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,8317,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/25_2.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",20,NA,NA,NA,25_2,34,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,44,2.1.0,358023,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,8132,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/33_2.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",30,NA,NA,NA,33_2,35,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,45,2.1.0,366183,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,8158,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/33_1.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",12,NA,NA,NA,33_1,36,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,46,2.1.0,378912,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,12728,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/9_2.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",6,NA,NA,NA,9_2,37,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,47,2.1.0,383283,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,4369,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/9_1.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",1,NA,NA,NA,9_1,38,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,48,2.1.0,392368,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,9083,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/13_2.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",40,NA,NA,NA,13_2,39,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,49,2.1.0,401352,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,8982,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/13_1.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",10,NA,NA,NA,13_1,40,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,50,2.1.0,410485,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,9130,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/18_2.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",35,NA,NA,NA,18_2,41,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,51,2.1.0,419930,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,9443,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/18_1.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",7,NA,NA,NA,18_1,42,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,52,2.1.0,425372,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,5441,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/22_1.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",2,NA,NA,NA,22_1,43,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,53,2.1.0,435935,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,10560,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/22_2.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",20,NA,NA,NA,22_2,44,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,54,2.1.0,441054,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,5117,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/16_1.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",3,NA,NA,NA,16_1,45,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,55,2.1.0,446595,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,5540,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/16_2.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",12,NA,NA,NA,16_2,46,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,56,2.1.0,452085,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,5488,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/8_1.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",8,NA,NA,NA,8_1,47,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,57,2.1.0,458424,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,6337,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/8_2.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",25,NA,NA,NA,8_2,48,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,58,2.1.0,465304,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,6879,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/28_1.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",15,NA,NA,NA,28_1,49,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-slider-response,59,2.1.0,472682,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,rating,NA,NA,NA,7376,"
+        <div class=""trial-container"" style=""text-align: center;"">
+            <img src=""stim_files/28_2.jpg"" class=""trial-image"">
+            <p>How <b>long</b> would it take to build this structure?</p>
+        </div>
+",25,NA,NA,NA,28_2,50,50,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,60,2.1.0,477337,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,2afc,NA,NA,NA,4608,"
+        <div class=""instruction-container"" style=""text-align: center;"">
+            <p style=""font-size: 18px;"">Which drawing do you think would take <b>longer</b> to make?</p>
+        </div>
+",1,NA,NA,NA,NA,NA,NA,house_triangle,triangle,house,1,house
+NA,NA,NA,NA,NA,html-button-response,61,2.1.0,481728,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,2afc,NA,NA,NA,4387,"
+        <div class=""instruction-container"" style=""text-align: center;"">
+            <p style=""font-size: 18px;"">Which final structure is <b>taller</b>?</p>
+        </div>
+",1,NA,NA,NA,NA,NA,NA,32,32_1,32_2,1,32_2
+NA,NA,NA,NA,NA,survey-html-form,62,2.1.0,516326,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,strategy_free_resp,NA,NA,NA,34570,NA,"{""strategy"":""Sometimes counting the blocks and seeing where the blocks were initially positioned as to how quickly they could be grabbed and moved.""}",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,survey-html-form,63,2.1.0,531857,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,demographics,NA,NA,NA,15529,NA,"{""age"":""37"",""language"":""English"",""ethnicity"":""white"",""gender"":""female"",""colorblind"":""No"",""focus"":""yes"",""issues"":""No""}",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,64,2.1.0,533055,oke9dwnbka,time,62,6a14c86819eeac29ef36920b,TRUE,FALSE,37_1,end,NA,NA,NA,1195,"
+        <div class=""end-container"">
+            <p>You're finished - thanks for participating!</p>
+            <p>Redirecting you back to Prolific...</p>
+        </div>
+",0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA

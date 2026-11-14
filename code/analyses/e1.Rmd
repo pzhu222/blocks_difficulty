@@ -1,0 +1,686 @@
+---
+title: "ted_e1_cleaning_and_analysis"
+output: html_document
+date: "2024-08-12"
+---
+
+# Set-up
+```{r}
+
+set.seed(42)
+
+cran_packages <- c("knitr", "tidyverse", "here")
+
+missing_cran <- setdiff(cran_packages, rownames(installed.packages()))
+if (length(missing_cran) > 0) {
+  install.packages(missing_cran)
+}
+
+require(knitr)
+library(tidyverse)
+library(here)
+
+inport_dir <- here("data")
+
+# set default code chunk options
+knitr::opts_chunk$set(echo = T, warning = F, message = F)
+
+# set default plot theme
+theme_set(theme_classic() +
+            theme(text = element_text(size = 18)))
+
+# suppress warnings about grouping
+options(dplyr.summarise.inform = F)
+```
+
+# Original Data
+
+## Read in data
+
+```{r}
+#load in build data
+df.e1_buildtask_raw <- read.csv(here(inport_dir, "e1_buildtask.csv"))
+
+#load in time data
+df.e1_time_raw <- read.csv(here(inport_dir, "e1_time_estimation.csv"))
+
+#load in difficulty data
+df.e1_difficulty_raw <- read.csv(here(inport_dir, "e1_diff_estimation.csv"))
+```
+
+## Processing Build Task
+
+```{r}
+
+# First, create a mapping of trial values to their respective labels
+build_trial_labels <- c("7_Number",
+                        "8_Number",
+                        "9_InitNumber",
+                        "10_Stability",
+                        "11_InitSorted",
+                        "12_Number",
+                        "13_Sampling",
+                        "14_Stability",
+                        "15_Number",
+                        "16_Number",
+                        "17_InitNumber",
+                        "18_Stability",
+                        "19_Pattern",
+                        "20_Stability",
+                        "21_Number",
+                        "22_Number",
+                        "23_InitNumber",
+                        "24_Stability",
+                        "25_InitSorted",
+                        "26_Number",
+                        "27_Sampling",
+                        "28_Stability",
+                        "29_Number",
+                        "30_Number",
+                        "31_InitNumber",
+                        "32_Stability",
+                        "33_Pattern",
+                        "34_Stability",
+                        "35_Distance",
+                        "36_Distance")
+
+##Exclude participants
+
+df.e1_buildtask = subset(df.e1_buildtask_raw, df.e1_buildtask_raw$id != 30518869) #technical error, all trials NA
+df.e1_buildtask = subset(df.e1_buildtask, df.e1_buildtask$id != 64193249) #technical error, all trials NA
+
+#factors
+df.e1_buildtask$id = factor(df.e1_buildtask$id)
+df.e1_buildtask$trial = factor(df.e1_buildtask$trial)
+
+df.e1_buildtask <- df.e1_buildtask |>
+  na.omit() %>%
+  gather(easy_hard, build_time,c("easy", "hard")) %>%
+  select(id, trial, easy_hard, build_time) %>%
+  na.omit() %>%
+  group_by(trial,easy_hard) %>%
+  filter(id != 49226599, #failed to complete a significant number of trials
+         id != 72104062) |> #failed to complete a significant number of trials
+  ungroup()
+
+# Ensure the trials are sorted in increasing order
+build_sorted_trials <- sort(unique(df.e1_buildtask$trial))
+
+# Create a named vector to map sorted trials to labels
+names(build_trial_labels) <- build_sorted_trials
+
+# Assign the 'trial' column using the mapping
+df.e1_buildtask$trial <- factor(df.e1_buildtask$trial, labels = build_trial_labels[as.character(build_sorted_trials)])
+```
+
+## Processing Time Estimation
+
+```{r}
+# First, create a mapping of trial values to their respective labels
+time_trial_labels <- c("7_Number",
+                       "8_Number",
+                       "9_InitNumber",
+                       "10_Stability",
+                       "11_InitSorted",
+                       "12_Number",
+                       "13_Sampling",
+                       "14_Stability",
+                       "15_Number",
+                       "16_Number",
+                       "17_InitNumber",
+                       "18_Stability",
+                       "19_Pattern",
+                       "20_Stability",
+                       "21_Number",
+                       "22_Number",
+                       "23_InitNumber",
+                       "24_Stability",
+                       "25_InitSorted",
+                       "26_Number",
+                       "27_Sampling",
+                       "28_Stability",
+                       "29_Number",
+                       "30_Number",
+                       "31_InitNumber",
+                       "33_Pattern",
+                       "34_Stability",
+                       "37_Practice")
+
+#initial cleaning
+df.e1_time <- df.e1_time_raw |>
+  separate(trial, into = c("trial","easy_hard")) %>%
+  select(id,age,gender,trial,easy_hard,rating) |>
+  mutate(easy_hard = factor(easy_hard, levels=c(1,2), labels=c("easy","hard")))
+
+df.e1_time$trial <- as.numeric(df.e1_time$trial)
+
+# Ensure the trials are sorted in increasing order
+time_sorted_trials <- sort(unique(df.e1_time$trial))
+
+# Create a named vector to map sorted trials to labels
+names(time_trial_labels) <- time_sorted_trials
+
+# Assign the 'trial' column using the mapping
+df.e1_time$trial <- factor(df.e1_time$trial, labels = time_trial_labels[as.character(time_sorted_trials)])
+
+df.e1_time_clean <- df.e1_time |>
+  group_by(id) %>%
+  #filtering our participants who gave the same response on all trials
+  filter(sd(rating) != 0) |>
+  ungroup() |>
+  #get rid of warm-up trial
+  filter(trial != "37_Practice") |>
+  # take out trials that are not modelable
+  filter(trial != "10_Stability") |>
+  filter(trial != "24_Stability")
+```
+
+## Process Difficulty Data
+
+```{r}
+
+# First, create a mapping of trial values to their respective labels
+diff_trial_labels <- c("7_Number",
+                        "8_Number",
+                        "9_InitNumber",
+                        "10_Stability",
+                        "11_InitSorted",
+                        "12_Number",
+                        "13_Sampling",
+                        "14_Stability",
+                        "15_Number",
+                        "16_Number",
+                        "17_InitNumber",
+                        "18_Stability",
+                        "19_Pattern",
+                        "20_Stability",
+                        "21_Number",
+                        "22_Number",
+                        "23_InitNumber",
+                        "24_Stability",
+                        "25_InitSorted",
+                        "26_Number",
+                        "27_Sampling",
+                        "28_Stability",
+                        "29_Number",
+                        "30_Number",
+                        "31_InitNumber",
+                        "33_Pattern",
+                        "34_Stability",
+                        "35_Distance",
+                        "36_Distance")
+
+#initial cleaning
+df.e1_difficulty <- df.e1_difficulty_raw |>
+  separate(trial, into = c("trial","easy_hard")) %>%
+  select(id,age,gender,trial,easy_hard,rating) |>
+  mutate(easy_hard = factor(easy_hard, levels=c(1,2), labels=c("easy","hard")))|>
+  group_by(id, trial) |>
+  #trial 31 administered twice, take only the first observation
+  mutate(trial_count = row_number(trial == 31)) |>
+  filter(!(trial == 31 & trial_count > 2)) |>
+  select(!trial_count) |>
+  ungroup()
+
+# Convert the 'trial' column to numeric if it is not already
+df.e1_difficulty$trial <- as.numeric(df.e1_difficulty$trial)
+
+# Ensure the trials are sorted in increasing order
+diff_sorted_trials <- sort(unique(df.e1_difficulty$trial))
+
+# Create a named vector to map sorted trials to labels
+names(diff_trial_labels) <- diff_sorted_trials
+
+# Assign the 'trial' column using the mapping
+df.e1_difficulty$trial <- factor(df.e1_difficulty$trial, labels = diff_trial_labels[as.character(diff_sorted_trials)])
+
+df.e1_difficulty_clean <- df.e1_difficulty |>
+  group_by(id) %>%
+  #get rid of participants who gave teh same answer
+  filter(sd(rating) != 0) |>
+  ungroup()
+
+df.e1_difficulty_exclude <- df.e1_difficulty |>
+  group_by(id) %>%
+  #get rid of participants who gave the same answer
+  filter(sd(rating) == 0) |>
+  ungroup()
+
+```
+
+# Replication Data (US Adults, Online)
+
+```{r}
+TED_e1_rep_csv_files <- list.files(
+  path       = here("data", "e1_adult_rep"),
+  pattern    = "\\.csv$",
+  full.names = TRUE
+)
+
+TED_e1_rep_clean <- function(file_path) {
+  dat <- readr::read_csv(file_path, show_col_types = FALSE)
+  dat <- dat %>% mutate(across(everything(), as.character))
+
+  # the strategy and demographics answers are JSON strings in `response`
+  strategy_raw <- dat %>%
+    filter(trial_type_custom == "strategy_free_resp") %>%
+    pull(response) %>%
+    first(na_rm = TRUE)
+
+  # per-participant values: the first non-missing entry in each column
+  # (read_csv already reads blank cells as NA)
+  participant_meta <- dat %>%
+    summarise(
+      source_file         = basename(file_path),
+      condition           = first(condition, na_rm = TRUE),
+      subject_id          = first(subject_id, na_rm = TRUE),
+      study_id            = first(study_id, na_rm = TRUE),
+      mic_access          = first(mic_access, na_rm = TRUE),
+      mic_peak_volume     = first(peak_volume, na_rm = TRUE),
+      strategy            = na_if(str_match(strategy_raw, '"strategy":"([^"]*)"')[, 2], ""),
+      mic_time_to_pass_ms = suppressWarnings(as.numeric(first(time_to_pass_ms, na_rm = TRUE)))
+    )
+
+  ratings_wide <- dat %>%
+    filter(trial_type_custom == "rating", !is.na(stimulus_id), stimulus_id != "") %>%
+    transmute(
+      stim_col = paste0("rating_", stimulus_id),
+      rating   = suppressWarnings(as.numeric(response))
+    ) %>%
+    distinct(stim_col, .keep_all = TRUE) %>%
+    pivot_wider(names_from = stim_col, values_from = rating)
+
+  afc_wide <- dat %>%
+    filter(trial_type_custom == "2afc", !is.na(afc_pair), afc_pair != "") %>%
+    transmute(afc_pair, afc_left, afc_right, afc_order, afc_chosen, afc_response = response) %>%
+    distinct(afc_pair, .keep_all = TRUE) %>%
+    pivot_wider(
+      names_from  = afc_pair,
+      values_from = c(afc_left, afc_right, afc_order, afc_chosen, afc_response),
+      names_glue  = "{.value}_{afc_pair}"
+    )
+
+  afc_checks_tbl <- dat %>%
+    filter(trial_type_custom == "2afc") %>%
+    summarise(
+      afc_check_house_correct = any(afc_chosen == "house",  na.rm = TRUE),
+      afc_check_32_2_correct  = any(afc_chosen == "32_2",   na.rm = TRUE)
+    )
+
+  captcha_tbl <- dat %>%
+    filter(trial_type_custom == "captcha") %>%
+    summarise(captcha_passed = any(server_verified == "TRUE", na.rm = TRUE))
+
+  rt_tbl <- dat %>%
+    filter(trial_type_custom == "rating") %>%
+    mutate(rt_num = suppressWarnings(as.numeric(rt))) %>%
+    summarise(
+      any_fast_rt    = any(rt_num < 1000, na.rm = TRUE),
+      all_same_rating = n_distinct(suppressWarnings(as.numeric(response)), na.rm = TRUE) == 1
+    )
+
+  demographics_raw <- dat %>%
+    filter(trial_type_custom == "demographics") %>%
+    pull(response) %>%
+    first(na_rm = TRUE)
+
+  # pull each "field":"value" pair out of the JSON; blank answers become NA
+  demographics_tbl <- tibble(
+    age        = str_match(demographics_raw, '"age":"([^"]*)"')[, 2],
+    language   = str_match(demographics_raw, '"language":"([^"]*)"')[, 2],
+    ethnicity  = str_match(demographics_raw, '"ethnicity":"([^"]*)"')[, 2],
+    gender     = str_match(demographics_raw, '"gender":"([^"]*)"')[, 2],
+    colorblind = str_match(demographics_raw, '"colorblind":"([^"]*)"')[, 2],
+    focus      = str_match(demographics_raw, '"focus":"([^"]*)"')[, 2],
+    issues     = str_match(demographics_raw, '"issues":"([^"]*)"')[, 2]
+  ) %>%
+    mutate(across(everything(), ~ na_if(.x, "")))
+
+  bind_cols(participant_meta, ratings_wide, afc_wide, afc_checks_tbl, captcha_tbl, rt_tbl, demographics_tbl)
+}
+
+df.ted_e1_wide <- purrr::map_dfr(TED_e1_rep_csv_files, TED_e1_rep_clean)
+```
+
+Apply exclusions:
+
+```{r}
+df.e1_rep_difftime <- df.ted_e1_wide |>
+  # pre-registered exclusion criteria
+  filter(
+    afc_check_house_correct,
+    afc_check_32_2_correct,
+    mic_access == "TRUE",
+    captcha_passed,
+    !any_fast_rt,
+    !all_same_rating,
+    # colorblind: "yes" in any case, or "Red/Green"; blank (NA) is kept
+    !(tolower(colorblind) %in% c("yes", "red/green")),
+    !grepl("I noticed the difficulty and chose accordingly", strategy, fixed = TRUE)
+  ) |>
+  select(subject_id, condition, starts_with("rating_"), starts_with("afc_"),
+         strategy, age, gender, ethnicity, colorblind, focus, issues)
+
+df.e1_rep_difftime |>
+  group_by(condition) |>
+  dplyr::summarize(n = n())
+```
+
+# Process Cleaned Data
+
+Processing Build Task:
+
+```{r}
+
+df.e1_buildtask_summary <- df.e1_buildtask |>
+  # get rid of trials that were not administered in the Time or Difficulty estimation
+  filter(!grepl("35_Distance", trial)) |>
+  filter(!grepl("36_Distance", trial)) |>
+  filter(!grepl("32_Stability", trial)) |>
+  # get rid of trials that cannot be modeled
+  filter(trial != "10_Stability") |>
+  filter(trial != "24_Stability") |>
+  select(id, trial, build_time, easy_hard) |>
+  group_by(trial, easy_hard) |>
+  tidyr::drop_na(build_time) |>
+  dplyr::summarise(mean_build = mean(build_time), .groups = "drop")
+
+```
+
+Processing Time Estimation:
+
+```{r}
+df.e1_time_summary <- df.e1_time_clean |>
+  #some trials were presented twice due to a glitch, so only take first observation per participant per trial
+  group_by(id, trial, easy_hard) |>
+  filter(row_number() == 1) |>
+  ungroup() |>
+  # no trial filters needed: the time task had no 32/35/36 trials, and
+  # df.e1_time_clean already drops 37_Practice, 10_Stability and 24_Stability
+  select(id,trial,rating,easy_hard) %>%
+  #mutate(trial = all_trial) %>%
+  #select(id,trial,condition,rating) %>%
+  group_by(trial,easy_hard) %>%
+  dplyr::summarise(mean_time= (mean(rating)), .groups = "drop")
+
+```
+
+Process Difficulty Data:
+
+```{r}
+df.e1_difficulty_summary <- df.e1_difficulty_clean |>
+  filter(!grepl("35_Distance", trial)) |>
+  filter(!grepl("36_Distance", trial)) |>
+  filter(trial != "10_Stability") |>
+  filter(trial != "24_Stability") |>
+  select(id, trial, rating, easy_hard) %>%
+  group_by(trial, easy_hard) %>%
+  dplyr::summarise(mean_diff = mean(rating, na.rm = TRUE), .groups = "drop")
+
+```
+
+Process replication:
+
+```{r}
+
+rep_trial_key <- c(
+  `7` = "7_Number",
+  `8` = "8_Number",
+  `9` = "9_InitNumber",
+  `10` = "10_Stability",
+  `11` = "11_InitSorted",
+  `12` = "12_Number",
+  `13` = "13_Sampling",
+  `14` = "14_Stability",
+  `15` = "15_Number",
+  `16` = "16_Number",
+  `17` = "17_InitNumber",
+  `18` = "18_Stability",
+  `19` = "19_Pattern",
+  `20` = "20_Stability",
+  `21` = "21_Number",
+  `22` = "22_Number",
+  `23` = "23_InitNumber",
+  `24` = "24_Stability",
+  `25` = "25_InitSorted",
+  `26` = "26_Number",
+  `27` = "27_Sampling",
+  `28` = "28_Stability",
+  `29` = "29_Number",
+  `30` = "30_Number",
+  `31` = "31_InitNumber",
+  `33` = "33_Pattern",
+  `34` = "34_Stability",
+  `35` = "35_Distance",
+  `36` = "36_Distance"
+)
+
+df.e1_rep_difftime_clean <- df.e1_rep_difftime |>
+  pivot_longer(
+    cols = starts_with("rating_"),
+    names_to = "trial_raw",
+    values_to = "rating"
+  ) |>
+  mutate(trial_raw = str_remove(trial_raw, "^rating_")) |>
+  separate(trial_raw, into = c("trial_num", "easy_hard_code"), sep = "_") |>
+  mutate(
+    trial_num = as.numeric(trial_num)) |>
+  filter(!(trial_num %in% c(32, 35, 36))) |>
+  mutate(
+    easy_hard = case_when(
+      easy_hard_code == "1" ~ "easy",
+      easy_hard_code == "2" ~ "hard",
+      TRUE ~ NA_character_
+    ),
+    trial = rep_trial_key[as.character(trial_num)]
+  ) |>
+  select(
+    id = subject_id,
+    age,
+    trial,
+    gender,
+    easy_hard,
+    rating,
+    condition
+  ) |>
+  mutate(rating = as.numeric(rating))
+
+df.e1_rep_diff_summary <- df.e1_rep_difftime_clean |>
+  filter(condition == "diff") |>
+  group_by(trial, easy_hard) %>%
+  summarise(mean_diff = mean(rating, na.rm = TRUE), .groups = "drop")
+
+df.e1_rep_time_summary <- df.e1_rep_difftime_clean |>
+  filter(condition == "time") |>
+  group_by(trial, easy_hard) %>%
+  summarise(mean_time = mean(rating, na.rm = TRUE), .groups = "drop")
+
+```
+
+# Demographic Information
+
+Difficulty Estimation:
+
+```{r}
+
+df.e1_difficulty_clean |>
+  distinct(id, age, gender) |>
+  dplyr::summarize(n = n(),
+                   n_female = sum(gender == "female"),
+                   n_male = sum(gender == "male"),
+                   n_noresponse = sum(gender == "noresponse"),
+                   mean_age = mean(age, na.rm = T),
+                   sd_age = sd(age, na.rm = T))
+
+```
+
+Time Estimation:
+
+```{r}
+
+df.e1_time_clean |>
+  distinct(id, age, gender) |>
+  dplyr::summarize(n = n(),
+                   n_female = sum(gender == "female"),
+                   n_male = sum(gender == "male"),
+                   n_noresponse = sum(gender == "noresponse"),
+                   mean_age = mean(age, na.rm = T),
+                   sd_age = sd(age, na.rm = T))
+
+```
+
+```{r}
+
+#build task
+
+n_distinct(df.e1_buildtask$id)
+
+#get number of participants per structure
+
+df.e1_buildtask |>
+  group_by(trial, easy_hard) |>
+  dplyr::summarize(n = n())
+
+```
+
+```{r}
+
+df.ted_e1_wide |>
+  mutate(exclusion = case_when(
+    !afc_check_house_correct | !afc_check_32_2_correct ~ "attention check",
+    !(mic_access %in% "TRUE") ~ "microphone",
+    !captcha_passed ~ "captcha",
+    any_fast_rt ~ "fast RT",
+    all_same_rating ~ "same rating on all trials",
+    tolower(colorblind) %in% c("yes", "red/green") ~ "colorblind",
+    grepl("I noticed the difficulty and chose accordingly", strategy,
+          fixed = TRUE) ~ "strategy",
+    .default = "included")) |>
+  count(condition, exclusion)
+
+# age and gender are free-text in the export; blanks are NA
+df.e1_rep_difftime |>
+  mutate(age = as.numeric(age)) |>
+  group_by(condition) |>
+  dplyr::summarize(n = n(),
+                   n_female = sum(gender %in% "female"),
+                   n_male = sum(gender %in% "male"),
+                   n_other = sum(gender %in% "other"),
+                   n_no_gender = sum(is.na(gender)),
+                   n_reported_age = sum(!is.na(age)),
+                   mean_age = mean(age, na.rm = T),
+                   sd_age = sd(age, na.rm = T))
+
+```
+
+# Analyses
+
+## Prepare Combined Data
+
+```{r}
+n_boot <- 10000
+
+# z-scored df.e1_buildtask_summary means
+df.e1_build_forboot <- df.e1_buildtask_summary |>
+  mutate(mean = as.numeric(scale(mean_build)),
+         study = "Build") |>
+  select(-mean_build)
+
+df.e1_diff_means <- bind_rows(
+  df.e1_difficulty_clean |> mutate(id = as.character(id)) |> select(id, trial, easy_hard, rating),
+  df.e1_rep_difftime_clean |> filter(condition == "diff") |> select(id, trial, easy_hard, rating)
+) |>
+  filter(!grepl("10_Stability", trial)) |>
+  filter(!grepl("24_Stability", trial)) |>
+  filter(!grepl("35_Distance", trial)) |>
+  filter(!grepl("36_Distance", trial)) |>
+  filter(!grepl("32_Stability", trial)) |>
+  filter(!grepl("37_Practice", trial)) |>
+  group_by(trial, easy_hard) |>
+  dplyr::summarize(mean_raw = mean(rating, na.rm = T), .groups = "drop")
+
+df.e1_diff_combined <- df.e1_diff_means |>
+  mutate(mean = as.numeric(scale(mean_raw)),
+         study = "Difficulty") |>
+  select(-mean_raw)
+
+df.e1_time_means <- bind_rows(
+  df.e1_time_clean |>
+    group_by(id, trial, easy_hard) |>
+    filter(row_number() == 1) |>
+    ungroup() |>
+    mutate(id = as.character(id)) |>
+    select(id, trial, easy_hard, rating),
+  df.e1_rep_difftime_clean |> filter(condition == "time") |> select(id, trial, easy_hard, rating)
+) |>
+  filter(!grepl("10_Stability", trial)) |>
+  filter(!grepl("24_Stability", trial)) |>
+  filter(!grepl("35_Distance", trial)) |>
+  filter(!grepl("36_Distance", trial)) |>
+  filter(!grepl("32_Stability", trial)) |>
+  filter(!grepl("37_Practice", trial)) |>
+  group_by(trial, easy_hard) |>
+  dplyr::summarize(mean_raw = mean(rating, na.rm = T), .groups = "drop")
+
+df.e1_time_combined <- df.e1_time_means |>
+  mutate(mean = as.numeric(scale(mean_raw)),
+         study = "Time") |>
+  select(-mean_raw)
+
+df.e1_combined_forboot_wide <- full_join(df.e1_diff_combined,
+            full_join(df.e1_time_combined, df.e1_build_forboot)) |>
+  mutate(trial = paste(trial, easy_hard, sep = "_")) |>
+  select(-easy_hard) |>
+  pivot_wider(names_from = study, values_from = mean)
+
+```
+
+## Correlations (Combined Data)
+
+```{r}
+
+cor.test(df.e1_combined_forboot_wide$Build, df.e1_combined_forboot_wide$Difficulty)
+cor.test(df.e1_combined_forboot_wide$Build, df.e1_combined_forboot_wide$Time)
+cor.test(df.e1_combined_forboot_wide$Difficulty, df.e1_combined_forboot_wide$Time)
+
+```
+
+## Bootstrapped Correlation Differences (Combined Data)
+
+```{r}
+
+boot_cor_BD_combined <- numeric(n_boot)
+boot_cor_BT_combined <- numeric(n_boot)
+boot_cor_DT_combined <- numeric(n_boot)
+
+boot_diff_BD_DT_combined <- numeric(n_boot)
+boot_diff_BD_BT_combined <- numeric(n_boot)
+boot_diff_BT_DT_combined <- numeric(n_boot)
+
+for (i in seq_len(n_boot)) {
+  boot_sample <- df.e1_combined_forboot_wide %>%
+    sample_frac(size = 1, replace = TRUE)
+
+  boot_cor_BD_combined[i] <- cor(boot_sample$Build, boot_sample$Difficulty, use = "complete.obs")
+  boot_cor_BT_combined[i] <- cor(boot_sample$Build, boot_sample$Time, use = "complete.obs")
+  boot_cor_DT_combined[i] <- cor(boot_sample$Difficulty, boot_sample$Time, use = "complete.obs")
+
+  boot_diff_BD_DT_combined[i] <- boot_cor_BD_combined[i] - boot_cor_DT_combined[i]
+  boot_diff_BD_BT_combined[i] <- boot_cor_BD_combined[i] - boot_cor_BT_combined[i]
+  boot_diff_BT_DT_combined[i] <- boot_cor_BT_combined[i] - boot_cor_DT_combined[i]
+}
+
+#compute 95% CIs on differences; if CI excludes 0, correlations are reliably different
+quantile(boot_diff_BD_DT_combined, c(0.025, 0.975))
+quantile(boot_diff_BD_BT_combined, c(0.025, 0.975))
+quantile(boot_diff_BT_DT_combined, c(0.025, 0.975))
+
+```
+
+# Session Info
+
+```{r}
+
+sessionInfo()
+
+```

@@ -1,0 +1,158 @@
+success,timeout,failed_images,failed_audio,failed_video,trial_type,trial_index,plugin_version,time_elapsed,subject_id,condition,assignment_idx,study_id,trial_type_custom,server_verified,hostname,verify_error_codes,rt,stimulus,response,mic_access,peak_volume,time_to_pass_ms,stimulus_id,chosen
+TRUE,FALSE,[],[],[],preload,0,2.1.0,337,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-keyboard-response,1,2.1.0,6798,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,captcha,TRUE,sociallearninglab.github.io,[],NA,NA,NA,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,2,2.1.0,27501,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,consent,NA,NA,NA,20699,"
+        <div class=""consent-container"">
+            <div style=""text-align: center; margin-bottom: 20px;"">
+                <img src=""../../src/lab_logo.png"" height=""80"">
+            </div>
+            <p>By agreeing to take part in this research, you agree to view and rate a series of block structures. This experiment will take approximately 10 minutes to complete.</p>
+            <p>By answering the following questions, you are participating in a study being performed by cognitive scientists in the Stanford Department of Psychology. If you have questions about this research, please contact us at <a href=""mailto:sociallearninglab@stanford.edu"">sociallearninglab@stanford.edu</a>.</p>
+            <p>You must be at least 18 years old to participate. Your participation in this research is voluntary. You may decline to answer any or all of the following questions. You may decline further participation, at any time, without adverse consequences. Your anonymity is assured; the researchers who have requested your participation will not receive any personal information about you.</p>
+        </div>
+",0,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,3,2.1.0,59812,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,mic_test,NA,NA,NA,32307,"
+        <div class=""instruction-container"" style=""text-align: center;"">
+            <h2>Microphone Test</h2>
+            <p>Before we begin, we need to check that your microphone is working.</p>
+            <p>When prompted, please <b>allow</b> microphone access, then say the word <b>""blocks""</b> out loud.</p>
+            <div id=""mic-test-area"" style=""margin: 30px auto;"">
+                <svg id=""mic-icon"" width=""120"" height=""120"" viewBox=""0 0 24 24"" fill=""none"" style=""transition: all 0.3s;"">
+                    <path d=""M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"" fill=""#ccc"" id=""mic-body""/>
+                    <path d=""M19 10v2a7 7 0 0 1-14 0v-2"" stroke=""#ccc"" stroke-width=""1.5"" stroke-linecap=""round"" id=""mic-arc""/>
+                    <line x1=""12"" y1=""19"" x2=""12"" y2=""23"" stroke=""#ccc"" stroke-width=""1.5"" stroke-linecap=""round"" id=""mic-stem""/>
+                    <line x1=""8"" y1=""23"" x2=""16"" y2=""23"" stroke=""#ccc"" stroke-width=""1.5"" stroke-linecap=""round"" id=""mic-base""/>
+                </svg>
+                <div id=""mic-status"" style=""font-size: 16px; margin-top: 16px; color: #777;"">
+                    Waiting for microphone access...
+                </div>
+            </div>
+        </div>
+",0,TRUE,0.992,3857,NA,NA
+NA,NA,NA,NA,NA,html-button-response,4,2.1.0,75951,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,instructions,NA,NA,NA,16136,"
+        <div class=""instruction-container"">
+            <p>You will see pictures of two people playing with blocks.</p>
+            <p>You will have to guess which person's block structure is <b>harder</b> to make.</p>
+        </div>
+",0,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,5,2.1.0,96865,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,instructions,NA,NA,NA,20911,"
+        <div class=""instruction-container"">
+            <p>For each trial, you will first see each person's initial configuration of blocks without seeing what they built. Then, you will see their final configuration. </p>
+        </div>
+",0,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,6,2.1.0,107940,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,instructions,NA,NA,NA,11073,"
+        <div class=""instruction-container"">
+            <p>Please pay close attention to the images. They can differ in their initial configuration, final configuration, or both.</p>
+        </div>
+",0,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,7,2.1.0,121043,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,instructions,NA,NA,NA,13101,"
+        <div class=""instruction-container"">
+            <p>Note: you will see faces of different people. Please make your judgments based on the block structures rather than the actors&#39; facial expressions.</p>
+        </div>
+",0,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,8,2.1.0,171321,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,begin,NA,NA,NA,50275,"
+        <div class=""instruction-container"" style=""text-align: center;"">
+            <p>You're all set to start! Please click continue when you are ready to begin.</p>
+        </div>
+",0,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,9,2.1.0,200401,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,main_question_preview,NA,NA,NA,NA,NA,NA,NA,NA,NA,2,NA
+NA,NA,NA,NA,NA,html-button-response,10,2.1.0,211104,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,main,NA,NA,NA,10700,"
+            <div style=""text-align: center;"">
+                <p style=""font-size: 18px;"">Which one is <b>harder</b> to make?</p>
+            </div>
+",0,NA,NA,NA,2,2_2_vertical
+NA,NA,NA,NA,NA,html-button-response,11,2.1.0,220070,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,main_question_preview,NA,NA,NA,NA,NA,NA,NA,NA,NA,4,NA
+NA,NA,NA,NA,NA,html-button-response,12,2.1.0,227021,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,main,NA,NA,NA,6948,"
+            <div style=""text-align: center;"">
+                <p style=""font-size: 18px;"">Which one is <b>harder</b> to make?</p>
+            </div>
+",0,NA,NA,NA,4,4_2_vertical
+NA,NA,NA,NA,NA,html-button-response,13,2.1.0,236055,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,main_question_preview,NA,NA,NA,NA,NA,NA,NA,NA,NA,3,NA
+NA,NA,NA,NA,NA,html-button-response,14,2.1.0,241892,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,main,NA,NA,NA,5835,"
+            <div style=""text-align: center;"">
+                <p style=""font-size: 18px;"">Which one is <b>harder</b> to make?</p>
+            </div>
+",1,NA,NA,NA,3,3_2_vertical
+NA,NA,NA,NA,NA,html-button-response,15,2.1.0,247018,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,main_question_preview,NA,NA,NA,NA,NA,NA,NA,NA,NA,1,NA
+NA,NA,NA,NA,NA,html-button-response,16,2.1.0,254060,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,main,NA,NA,NA,7039,"
+            <div style=""text-align: center;"">
+                <p style=""font-size: 18px;"">Which one is <b>harder</b> to make?</p>
+            </div>
+",0,NA,NA,NA,1,1_2_vertical
+NA,NA,NA,NA,NA,html-button-response,17,2.1.0,262032,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,main_question_preview,NA,NA,NA,NA,NA,NA,NA,NA,NA,5,NA
+NA,NA,NA,NA,NA,html-button-response,18,2.1.0,267530,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,main,NA,NA,NA,5495,"
+            <div style=""text-align: center;"">
+                <p style=""font-size: 18px;"">Which one is <b>harder</b> to make?</p>
+            </div>
+",1,NA,NA,NA,5,5_2_vertical
+NA,NA,NA,NA,NA,html-button-response,19,2.1.0,276828,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,main_question_preview,NA,NA,NA,NA,NA,NA,NA,NA,NA,15,NA
+NA,NA,NA,NA,NA,html-button-response,20,2.1.0,282465,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,main,NA,NA,NA,5635,"
+            <div style=""text-align: center;"">
+                <p style=""font-size: 18px;"">Which one is <b>harder</b> to make?</p>
+            </div>
+",1,NA,NA,NA,15,15_2_vertical
+NA,NA,NA,NA,NA,html-button-response,21,2.1.0,291993,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,main_question_preview,NA,NA,NA,NA,NA,NA,NA,NA,NA,6,NA
+NA,NA,NA,NA,NA,html-button-response,22,2.1.0,298041,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,main,NA,NA,NA,6046,"
+            <div style=""text-align: center;"">
+                <p style=""font-size: 18px;"">Which one is <b>harder</b> to make?</p>
+            </div>
+",1,NA,NA,NA,6,6_2_vertical
+NA,NA,NA,NA,NA,html-button-response,23,2.1.0,303597,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,main_question_preview,NA,NA,NA,NA,NA,NA,NA,NA,NA,12,NA
+NA,NA,NA,NA,NA,html-button-response,24,2.1.0,310337,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,main,NA,NA,NA,6738,"
+            <div style=""text-align: center;"">
+                <p style=""font-size: 18px;"">Which one is <b>harder</b> to make?</p>
+            </div>
+",0,NA,NA,NA,12,12_2_vertical
+NA,NA,NA,NA,NA,html-button-response,25,2.1.0,315864,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,main_question_preview,NA,NA,NA,NA,NA,NA,NA,NA,NA,11,NA
+NA,NA,NA,NA,NA,html-button-response,26,2.1.0,321220,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,main,NA,NA,NA,5354,"
+            <div style=""text-align: center;"">
+                <p style=""font-size: 18px;"">Which one is <b>harder</b> to make?</p>
+            </div>
+",0,NA,NA,NA,11,11_2_vertical
+NA,NA,NA,NA,NA,html-button-response,27,2.1.0,326554,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,main_question_preview,NA,NA,NA,NA,NA,NA,NA,NA,NA,7,NA
+NA,NA,NA,NA,NA,html-button-response,28,2.1.0,338266,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,main,NA,NA,NA,11710,"
+            <div style=""text-align: center;"">
+                <p style=""font-size: 18px;"">Which one is <b>harder</b> to make?</p>
+            </div>
+",0,NA,NA,NA,7,7_1_vertical
+NA,NA,NA,NA,NA,html-button-response,29,2.1.0,348856,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,begin,NA,NA,NA,10587,"
+        <div class=""instruction-container"" style=""text-align: center;"">
+            <p>Now you will be asked to indicate <b>who</b> thought the block structure was <b>harder</b> to make.</p>
+        </div>
+",0,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,30,2.1.0,366529,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,main_question_preview,NA,NA,NA,NA,NA,NA,NA,NA,NA,16,NA
+NA,NA,NA,NA,NA,html-button-response,31,2.1.0,373163,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,main,NA,NA,NA,6631,"
+            <div style=""text-align: center;"">
+                <p style=""font-size: 18px;"">Who thought it was <b>harder</b> to make?</p>
+            </div>
+",1,NA,NA,NA,16,16_1_vertical
+NA,NA,NA,NA,NA,html-button-response,32,2.1.0,379606,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,main_question_preview,NA,NA,NA,NA,NA,NA,NA,NA,NA,18,NA
+NA,NA,NA,NA,NA,html-button-response,33,2.1.0,384717,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,main,NA,NA,NA,5109,"
+            <div style=""text-align: center;"">
+                <p style=""font-size: 18px;"">Who thought it was <b>harder</b> to make?</p>
+            </div>
+",0,NA,NA,NA,18,18_2_vertical
+NA,NA,NA,NA,NA,html-button-response,34,2.1.0,389799,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,main_question_preview,NA,NA,NA,NA,NA,NA,NA,NA,NA,17,NA
+NA,NA,NA,NA,NA,html-button-response,35,2.1.0,395351,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,main,NA,NA,NA,5550,"
+            <div style=""text-align: center;"">
+                <p style=""font-size: 18px;"">Who thought it was <b>harder</b> to make?</p>
+            </div>
+",1,NA,NA,NA,17,17_2_vertical
+NA,NA,NA,NA,NA,html-button-response,36,2.1.0,405422,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,check_house_triangle,NA,NA,NA,10069,"
+        <div style=""text-align: center;"">
+            <p style=""font-size: 18px;"">Which drawing do you think would be <b>harder</b> to make?</p>
+        </div>
+",1,NA,NA,NA,NA,house
+NA,NA,NA,NA,NA,html-button-response,37,2.1.0,420074,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,check_32,NA,NA,NA,14649,"
+        <div style=""text-align: center;"">
+            <p style=""font-size: 18px;"">Which final structure is <b>taller</b>?</p>
+        </div>
+",0,NA,NA,NA,NA,32_2
+NA,NA,NA,NA,NA,survey-html-form,38,2.1.0,460758,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,strategy_free_resp,NA,NA,NA,40681,NA,"{""strategy"":"" used the amount of structure, individual capacity, and level of preparedness""}",NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,survey-html-form,39,2.1.0,499967,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,demographics,NA,NA,NA,39207,NA,"{""age"":""44"",""language"":""yoruba"",""ethnicity"":""black"",""gender"":""male"",""colorblind"":""no"",""focus"":""yes"",""issues"":""no""}",NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,html-button-response,40,2.1.0,506285,lvpjvhst7o,harder,118,6a15cb8c6ee1ee7a86d055b8,end,NA,NA,NA,6316,"
+        <div class=""end-container"">
+            <p>You're finished - thanks for participating!</p>
+            <p>Redirecting you back to Prolific...</p>
+        </div>
+",0,NA,NA,NA,NA,NA

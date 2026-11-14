@@ -1,0 +1,26 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+code/.DS_Store
+.DS_Store
+
+# stray default-device output from headless renders
+Rplots.pdf
+
+# async code-review log, not part of the paper
+CHANGELOG.md
+
+# stats cross-reference audit: findings log and its scratch plots/scripts
+STATS_CHECK.md
+stats_check_plots/
+
+# private submission materials (editor letter, reviews, drafts, reporting summary)
+for_reproducibility/
+
+# Claude Code local settings
+.claude/
+
+# knitted output
+code/analyses/*.html
+code/analyses/*_files/

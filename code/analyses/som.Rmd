@@ -1,0 +1,1319 @@
+---
+title: "ted_som_additional_analyses"
+output: html_document
+date: "2024-08-12"
+---
+
+# Set-up
+```{r}
+
+set.seed(42)
+
+cran_packages <- c("knitr", "readxl", "tidyverse", "here", "boot")
+
+missing_cran <- setdiff(cran_packages, rownames(installed.packages()))
+if (length(missing_cran) > 0) {
+  install.packages(missing_cran)
+}
+
+require(knitr)
+library(readxl)
+library(tidyverse)
+library(here)
+library(boot)
+
+# set default code chunk options
+knitr::opts_chunk$set(echo = T, warning = F, message = F)
+
+# suppress warnings about grouping
+options(dplyr.summarise.inform = F)
+
+# the sourced experiment files are purled, so their unnamed chunks collide
+# with this file's when knitting
+options(knitr.duplicate.label = "allow")
+```
+
+# Data
+
+```{r}
+
+source_rmd <- function(rmd_path) {
+  tmp_r <- tempfile(fileext = ".R")
+  knitr::purl(rmd_path, output = tmp_r, quiet = TRUE)
+  sys.source(tmp_r, envir = globalenv())
+}
+
+source_rmd(here("code", "analyses", "e1.Rmd"))
+source_rmd(here("code", "analyses", "e2a.Rmd"))
+source_rmd(here("code", "analyses", "e2b.Rmd"))
+source_rmd(here("code", "analyses", "e3.Rmd"))
+source_rmd(here("code", "analyses", "e4.Rmd"))
+
+```
+
+# Sample Sizes
+
+```{r}
+
+e1_n <- c(Difficulty = n_distinct(df.e1_difficulty_clean$id) +
+            sum(df.e1_rep_difftime$condition == "diff"),
+          Time = n_distinct(df.e1_time_clean$id) +
+            sum(df.e1_rep_difftime$condition == "time"),
+          Build = n_distinct(df.e1_buildtask$id))
+
+e1_n
+sum(e1_n)
+
+c(adults = sum(e1_n) + n_distinct(df.e2adultfc_combined_long$id) +
+    n_distinct(df.e4_vr$id),
+  children = n_distinct(df.e2b_online$id) + n_distinct(df.e3_childfc$id))
+
+```
+
+# Experiment 1: Additional Analyses
+
+## Original vs. Replication Correlations
+
+```{r}
+
+df.e1_orig_full_summary <- full_join(df.e1_difficulty_summary,
+          full_join(df.e1_buildtask_summary, df.e1_time_summary))
+
+# Original data: diff/time vs. build, and diff vs. time
+cor.test(df.e1_orig_full_summary$mean_diff, df.e1_orig_full_summary$mean_build)
+cor.test(df.e1_orig_full_summary$mean_time, df.e1_orig_full_summary$mean_build)
+cor.test(df.e1_orig_full_summary$mean_diff, df.e1_orig_full_summary$mean_time)
+
+df.e1_rep_full_summary <- full_join(df.e1_rep_diff_summary,
+          full_join(df.e1_rep_time_summary, df.e1_buildtask_summary))
+
+# Replication data compared to itself, and to build
+cor.test(df.e1_rep_full_summary$mean_diff, df.e1_rep_full_summary$mean_build)
+cor.test(df.e1_rep_full_summary$mean_time, df.e1_rep_full_summary$mean_build)
+cor.test(df.e1_rep_full_summary$mean_diff, df.e1_rep_full_summary$mean_time)
+
+```
+
+## Bootstrapped Correlation Differences (Original Data Only)
+
+```{r}
+
+# the per-trial means from e1.Rmd, z-scored across the 50 structures
+df.e1_difficulty_forboot <- df.e1_difficulty_summary |>
+  mutate(mean = as.numeric(base::scale(mean_diff)),
+         study = "Difficulty") |>
+  select(-mean_diff)
+
+df.e1_time_forboot <- df.e1_time_summary |>
+  mutate(mean = as.numeric(base::scale(mean_time)),
+         study = "Time") |>
+  select(-mean_time)
+
+df.e1_forboot_wide <- full_join(df.e1_difficulty_forboot,
+            full_join(df.e1_time_forboot, df.e1_build_forboot)) |>
+  mutate(trial = paste(trial, easy_hard, sep = "_")) |>
+  select(-easy_hard) |>
+  pivot_wider(names_from = study, values_from = mean)
+
+boot_cor_BD <- numeric(n_boot)
+boot_cor_BT <- numeric(n_boot)
+boot_cor_DT <- numeric(n_boot)
+
+boot_diff_BD_DT <- numeric(n_boot)
+boot_diff_BD_BT <- numeric(n_boot)
+boot_diff_BT_DT <- numeric(n_boot)
+
+for (i in seq_len(n_boot)) {
+  boot_sample <- df.e1_forboot_wide %>%
+    sample_frac(size = 1, replace = TRUE)
+
+  boot_cor_BD[i] <- cor(boot_sample$Build, boot_sample$Difficulty, use = "complete.obs")
+  boot_cor_BT[i] <- cor(boot_sample$Build, boot_sample$Time, use = "complete.obs")
+  boot_cor_DT[i] <- cor(boot_sample$Difficulty, boot_sample$Time, use = "complete.obs")
+
+  boot_diff_BD_DT[i] <- boot_cor_BD[i] - boot_cor_DT[i]
+  boot_diff_BD_BT[i] <- boot_cor_BD[i] - boot_cor_BT[i]
+  boot_diff_BT_DT[i] <- boot_cor_BT[i] - boot_cor_DT[i]
+}
+
+#compute 95% CIs on differences; if CI excludes 0, correlations are reliably different
+quantile(boot_diff_BD_DT, c(0.025, 0.975))
+quantile(boot_diff_BD_BT, c(0.025, 0.975))
+quantile(boot_diff_BT_DT, c(0.025, 0.975))
+
+```
+
+## Bootstrapped Correlation Differences (Replication Data Only)
+
+```{r}
+
+# the replication per-trial means from e1.Rmd, without the two trials that
+# can't be modeled, z-scored across the 50 structures
+df.e1_rep_diff_forboot <- df.e1_rep_diff_summary |>
+  filter(!trial %in% c("10_Stability", "24_Stability")) |>
+  mutate(mean = as.numeric(base::scale(mean_diff)),
+         study = "Difficulty") |>
+  select(-mean_diff)
+
+df.e1_rep_time_forboot <- df.e1_rep_time_summary |>
+  filter(!trial %in% c("10_Stability", "24_Stability")) |>
+  mutate(mean = as.numeric(base::scale(mean_time)),
+         study = "Time") |>
+  select(-mean_time)
+
+df.e1_rep_forboot_wide <- full_join(df.e1_rep_diff_forboot,
+            full_join(df.e1_rep_time_forboot, df.e1_build_forboot)) |>
+  mutate(trial = paste(trial, easy_hard, sep = "_")) |>
+  select(-easy_hard) |>
+  pivot_wider(names_from = study, values_from = mean)
+
+boot_cor_BD_rep <- numeric(n_boot)
+boot_cor_BT_rep <- numeric(n_boot)
+boot_cor_DT_rep <- numeric(n_boot)
+
+boot_diff_BD_DT_rep <- numeric(n_boot)
+boot_diff_BD_BT_rep <- numeric(n_boot)
+boot_diff_BT_DT_rep <- numeric(n_boot)
+
+for (i in seq_len(n_boot)) {
+  boot_sample <- df.e1_rep_forboot_wide %>%
+    sample_frac(size = 1, replace = TRUE)
+
+  boot_cor_BD_rep[i] <- cor(boot_sample$Build, boot_sample$Difficulty, use = "complete.obs")
+  boot_cor_BT_rep[i] <- cor(boot_sample$Build, boot_sample$Time, use = "complete.obs")
+  boot_cor_DT_rep[i] <- cor(boot_sample$Difficulty, boot_sample$Time, use = "complete.obs")
+
+  boot_diff_BD_DT_rep[i] <- boot_cor_BD_rep[i] - boot_cor_DT_rep[i]
+  boot_diff_BD_BT_rep[i] <- boot_cor_BD_rep[i] - boot_cor_BT_rep[i]
+  boot_diff_BT_DT_rep[i] <- boot_cor_BT_rep[i] - boot_cor_DT_rep[i]
+}
+
+quantile(boot_diff_BD_DT_rep, c(0.025, 0.975))
+quantile(boot_diff_BD_BT_rep, c(0.025, 0.975))
+quantile(boot_diff_BT_DT_rep, c(0.025, 0.975))
+
+```
+
+## Correlations Including Non-Modelable Trials
+
+```{r}
+
+df.e1_buildtask_somfullset <- df.e1_buildtask |>
+  filter(!grepl("35_Distance", trial)) |>
+  filter(!grepl("36_Distance", trial)) |>
+  filter(!grepl("32_Stability", trial)) |>
+  select(id, trial, build_time, easy_hard) |>
+  group_by(trial, easy_hard) |>
+  tidyr::drop_na(build_time) |>
+  dplyr::summarise(mean_build = mean(build_time), .groups = "drop")
+
+df.e1_time_somfullset <- df.e1_time |>
+  group_by(id) %>%
+  filter(sd(rating) != 0) |>
+  ungroup() |>
+  filter(trial != "37_Practice") |>
+  select(id, trial, rating, easy_hard) %>%
+  group_by(trial, easy_hard) %>%
+  tidyr::drop_na(rating) |>
+  dplyr::summarise(mean_time = mean(rating), .groups = "drop")
+
+df.e1_difficulty_somfullset <- df.e1_difficulty |>
+  filter(!grepl("35_Distance", trial)) |>
+  filter(!grepl("36_Distance", trial)) |>
+  select(id, trial, rating, easy_hard) %>%
+  group_by(trial, easy_hard) %>%
+  tidyr::drop_na(rating) |>
+  dplyr::summarise(mean_diff = mean(rating), .groups = "drop")
+
+df.e1_somfullset <- full_join(df.e1_buildtask_somfullset,
+          full_join(df.e1_time_somfullset, df.e1_difficulty_somfullset))
+
+cor.test(df.e1_somfullset$mean_build, df.e1_somfullset$mean_diff)
+cor.test(df.e1_somfullset$mean_build, df.e1_somfullset$mean_time)
+cor.test(df.e1_somfullset$mean_diff, df.e1_somfullset$mean_time)
+
+```
+
+# Experiment 2a: Additional Analyses
+
+## Two Pile Castle Performance
+
+```{r}
+
+df.e2adultfc_twopilecastle <- df.e2adultfc_long |>
+  filter(trial == "TwoPile_Castle")
+
+df.e2adultfc_twopilecastle |>
+  dplyr::summarize(n = n(), prop_correct = mean(correct))
+
+binom.test(sum(df.e2adultfc_twopilecastle$correct), nrow(df.e2adultfc_twopilecastle))
+
+```
+
+## Effect of Question Type in adults
+
+```{r}
+
+model_e2adultfc |>
+  joint_tests()
+
+df.e2adultfc_combined_long |>
+  group_by(question_type) |>
+  summarise(pct_correct = mean(correct) * 100)
+
+```
+
+# Experiment 2b: Additional Analyses
+
+## Effect of Question Type
+
+```{r}
+
+model_e2bchildfc_online |>
+  joint_tests()
+
+df.e2b_online |>
+  group_by(question_type) |>
+  summarise(pct_correct = mean(correct) * 100)
+
+```
+
+## Age Curves by Sample
+
+```{r}
+
+e2b_trial_order <- c("Number1", "Number2", "Number3", "Number4", "Stability",
+                     "Number&Stability", "Process1", "Process2", "Pattern",
+                     "Probability", "Agent1", "Agent2", "Agent3")
+
+df.e2b_by_sample <- df.e2b_online |>
+  mutate(sample = if_else(age_group == "3-5",
+                          "Online, Younger (3-5 years)",
+                          "Online, Older (6-8 years)"),
+         sample = factor(sample, levels = c("Online, Younger (3-5 years)",
+                                            "Online, Older (6-8 years)")),
+         trial = factor(trial, levels = e2b_trial_order))
+
+df.e2b_younger <- filter(df.e2b_by_sample, age_group == "3-5")
+df.e2b_older <- filter(df.e2b_by_sample, age_group == "6-8")
+
+model_e2b_age_younger <- glmer(correct ~ 1 + trial + age + question_type + trial:age +
+                                 (1|id),
+      data = df.e2b_younger, family = "binomial",
+      control = glmerControl(optimizer = "bobyqa",
+                             optCtrl = list(maxfun = 2e5)))
+
+model_e2b_age_older <- glmer(correct ~ 1 + trial + age + question_type + trial:age +
+                               (1|id),
+      data = df.e2b_older, family = "binomial",
+      control = glmerControl(optimizer = "bobyqa",
+                             optCtrl = list(maxfun = 2e5)))
+
+df.e2b_age_by_sample <- bind_rows(
+  "Online, Younger (3-5 years)" = ggemmeans(model_e2b_age_younger,
+      terms = list(age = seq(ceiling(min(df.e2b_younger$age) * 100) / 100,
+                             floor(max(df.e2b_younger$age) * 100) / 100,
+                             by = .01),
+                   trial = e2b_trial_order)) |>
+    as_tibble(),
+  "Online, Older (6-8 years)" = ggemmeans(model_e2b_age_older,
+      terms = list(age = seq(ceiling(min(df.e2b_older$age) * 100) / 100,
+                             floor(max(df.e2b_older$age) * 100) / 100,
+                             by = .01),
+                   trial = e2b_trial_order)) |>
+    as_tibble(),
+  .id = "sample") |>
+  transmute(sample = factor(sample, levels = levels(df.e2b_by_sample$sample)),
+            age = x, trial = factor(group, levels = e2b_trial_order),
+            predicted, conf.low, conf.high)
+
+df.e2b_success_by_sample <- df.e2b_age_by_sample |>
+  group_by(sample, trial) |>
+  summarise(min_age = if (any(conf.low > .5)) min(age[conf.low > .5]) else NA,
+            youngest = min(age),
+            .groups = "drop") |>
+  mutate(label = case_when(is.na(min_age) ~ "n.s.",
+                           min_age == youngest ~ "all ages",
+                           .default = sprintf("%.2f", min_age)))
+
+df.e2b_success_by_sample |>
+  select(sample, trial, label) |>
+  pivot_wider(names_from = sample, values_from = label) |>
+  kable()
+
+```
+
+# Experiment 3: Additional Analyses
+
+## Rock/Leaf Task
+
+```{r}
+
+df.e3_rockleaf <- read.csv(here("data", "e3_rockleaf.csv"))
+
+# one row per child
+df.e3_rockleaf |>
+  dplyr::summarize(n = n(),
+                   n_girls = sum(Gender == "F"), n_boys = sum(Gender == "M"),
+                   mean_age = mean(Age), sd_age = sd(Age),
+                   min_age = min(Age), max_age = max(Age))
+
+# the youngest children
+df.e3_rockleaf |>
+  filter(Age <= 5) |>
+  group_by(Age) |>
+  dplyr::summarize(n = n(), n_correct = sum(correct))
+
+#binomial test
+binom.test(x = sum(df.e3_rockleaf$correct),
+           n = nrow(df.e3_rockleaf),
+           p = .5)
+
+# Logistic regression: `correct` is 0/1
+model_e3_rockleaf <- glm(correct ~ Age*Schooling,
+    family = "binomial",
+    data = df.e3_rockleaf)
+
+model_e3_rockleaf |>
+  joint_tests()
+
+```
+
+## Effect of Schooling
+
+```{r}
+
+model_e3_childfc_withschooling <- glmer(correct ~ 1 + trial + age + trial:age + school +
+                           (1|id),
+                         family = "binomial",
+                         control = glmerControl(optimizer = "bobyqa",
+                                                optCtrl = list(maxfun = 2e5)),
+      data = df.e3_childfc)
+
+model_e3_childfc_withschooling |>
+  joint_tests()
+
+```
+
+# Experiment 4: Additional Analyses
+
+## Time Estimation
+
+`df.e4_vr` (including its `verticality` column) already exists in memory
+from `e4.Rmd`'s own Analyses section, so it is reused directly below.
+
+```{r}
+
+lmer(Time ~ verticality*Friction_Level + (1|id),
+     data = df.e4_vr) |>
+  joint_tests()
+
+```
+
+## Correlations Between Time Estimates and Difficulty Judgments
+
+```{r}
+
+df.e4_vr_diff_summary <- df.e4_vr |>
+  group_by(Friction_Level, Tower_Type) |>
+  dplyr::summarize(mean_diff = mean(Difficulty))
+
+df.e4_vr_time_summary <- df.e4_vr |>
+  group_by(Friction_Level, Tower_Type) |>
+  dplyr::summarize(mean_time = mean(Time, na.rm = T))
+
+df.e4_vr_time_diff_summary <- full_join(df.e4_vr_time_summary,
+                                      df.e4_vr_diff_summary)
+
+cor.test(df.e4_vr_time_diff_summary$mean_time,
+         df.e4_vr_time_diff_summary$mean_diff)
+
+```
+
+# In-Person Sample
+
+## Data
+
+The In-Person sample is SI only, so it is read here rather than in
+`e2b.Rmd`. Its trial names are recoded to match the LookIt data.
+
+```{r}
+
+df.e2b_inpersondev_raw <- read.csv(here("data", "e2b_inperson_dev.csv"), header = T)
+
+df.e2b_inpersondev <- df.e2b_inpersondev_raw |>
+    mutate(trial = case_when(trial == "Number_TriCir" ~ "Number1",
+                           trial == "Number_Cross" ~ "Number2",
+                           trial == "Number_Vert" ~ "Number3",
+                           trial == "Number_Horz" ~ "Number4",
+                           trial == "Vert_Horz" ~ "Stability",
+                           trial == "TwoBlock_TenBlock" ~ "Number&Stability",
+                           trial == "Init_Horz" ~ "Process1",
+                           trial == "Init_Vert" ~ "Process2",
+                           trial == "Pattern_NoPattern" ~ "Pattern",
+                           trial == "Sampling" ~ "Probability",
+                           trial == "Sling_TwoHands" ~ "Agent1",
+                           trial == "Adult_Child" ~ "Agent2",
+                           trial == "OneAgent_TwoAgent" ~ "Agent3",
+                           .default = trial)) |>
+  mutate(gender = ifelse(gender == 1, "Female", "Male"))
+
+```
+
+Combining:
+
+```{r}
+
+df.e2b_childfc_combined <- bind_rows(
+  df.e2b_online |>
+    mutate(dataset = "LookIt") |>
+    select(id, age, gender, question_type, trial, correct, dataset),
+  df.e2b_inpersondev |>
+    mutate(dataset = "In-Person") |>
+    select(id, age, gender, question_type, trial, correct, dataset)
+) |>
+  filter(trial != "TwoPile_Castle")
+
+```
+
+## Sample Description
+
+```{r}
+
+df.e2b_inperson_children <- df.e2b_inpersondev |>
+  group_by(id) |>
+  summarise(age = mean(age), gender = first(gender),
+            n_trials = n(), .groups = "drop")
+
+df.e2b_inperson_children |>
+  summarise(n = n(),
+            n_girls = sum(gender == "Female"),
+            mean_age = mean(age), sd_age = sd(age),
+            min_age = min(age), max_age = max(age),
+            # all 14 trials, TwoPile_Castle included
+            n_all_trials = sum(n_trials == 14))
+
+# TwoPile_Castle is not in the main analyses; reported on its own, as for
+# adults in the Exp. 2a section above
+df.e2b_inperson_twopilecastle <- df.e2b_inpersondev |>
+  filter(trial == "TwoPile_Castle")
+
+binom.test(sum(df.e2b_inperson_twopilecastle$correct),
+           nrow(df.e2b_inperson_twopilecastle))
+
+```
+
+## In-Person Performance vs. Chance
+
+```{r}
+
+# fit on all 14 in-person trials (TwoPile_Castle included), as model_e2adultfc
+# does for adults, so Table S1 can report TwoPile_Castle for both samples
+model_e2b_vs_chance_inperson <- glmer(correct ~ 1 + trial + question_type + (1|id),
+      data = df.e2b_inpersondev,
+      family = "binomial",
+      control = glmerControl(optimizer = "bobyqa",
+                             optCtrl = list(maxfun = 2e5)))
+
+# as_tibble() before any dplyr verb: mutate() on a raw ggeffects object
+# silently drops rows
+ggemmeans(model_e2b_vs_chance_inperson, terms = "trial") |>
+  as_tibble() |>
+  mutate(above_chance = conf.low > .5)
+
+```
+
+## Pooled Samples, Performance vs. Chance
+
+```{r}
+
+model_e2b_vs_chance_younger_pooled <- glmer(correct ~ 1 + trial + question_type + (1|id),
+      data = bind_rows(filter(df.e2b_childfc_combined, dataset == "In-Person"),
+                       filter(df.e2b_online, age_group == "3-5")),
+      family = "binomial",
+      control = glmerControl(optimizer = "bobyqa",
+                             optCtrl = list(maxfun = 2e5)))
+
+# random intercept removed because the model did not converge
+model_e2b_vs_chance_all <- glm(correct ~ 1 + trial + question_type,
+                               family = "binomial",
+                               data = df.e2b_childfc_combined)
+
+# In-Person + online 3-5
+ggemmeans(model_e2b_vs_chance_younger_pooled, terms = "trial") |>
+  as_tibble() |>
+  mutate(above_chance = conf.low > .5)
+
+# All three samples
+ggemmeans(model_e2b_vs_chance_all, terms = "trial") |>
+  as_tibble() |>
+  mutate(above_chance = conf.low > .5)
+
+```
+
+## Age Curves, All Samples Combined
+
+```{r}
+
+df.e2b_all_samples <- df.e2b_childfc_combined |>
+  mutate(trial = factor(trial, levels = e2b_trial_order))
+
+# Same model as model_e2bchildfc_online in e2b.Rmd
+# random intercept removed because the model did not converge
+model_e2b_age_combined <- glm(correct ~ 1 + trial + age + question_type + trial:age,
+                              family = "binomial", data = df.e2b_all_samples)
+
+df.e2b_age_combined <- ggemmeans(model_e2b_age_combined,
+    terms = list(age = seq(ceiling(min(df.e2b_all_samples$age) * 100) / 100,
+                           floor(max(df.e2b_all_samples$age) * 100) / 100,
+                           by = .01),
+                 trial = e2b_trial_order)) |>
+  as_tibble() |>
+  transmute(age = x, trial = factor(group, levels = e2b_trial_order),
+            predicted, conf.low, conf.high)
+
+df.e2b_success_combined <- df.e2b_age_combined |>
+  group_by(trial) |>
+  summarise(min_age = if (any(conf.low > .5)) min(age[conf.low > .5]) else NA,
+            youngest = min(age),
+            .groups = "drop") |>
+  mutate(label = case_when(is.na(min_age) ~ "n.s.",
+                           min_age == youngest ~ "all ages",
+                           .default = sprintf("%.2f", min_age)))
+
+df.e2b_success_combined |>
+  select(trial, label) |>
+  kable()
+
+```
+
+# Performance by Trial, All Samples
+
+For the latex table in the paper:
+
+```{r}
+
+
+by_trial_samples <- c("US Adults", "Adults initial", "Adults replication",
+                      "Online 6-8", "Online 3-5", "Tsimane'", "In-Person",
+                      "Pooled 3-5")
+
+# TwoPile_Castle is a second Stability trial, so its row goes after Stability
+by_trial_order <- append(e2b_trial_order, "TwoPile_Castle",
+                         after = which(e2b_trial_order == "Stability"))
+
+# Exp. 2a split into its initial and replication samples, same model as
+# model_e2adultfc
+model_e2adultfc_initial <- glmer(correct ~ 1 + trial + question_type + (1|id),
+      data = df.e2adultfc_long, family = "binomial",
+      control = glmerControl(optimizer = "bobyqa",
+                             optCtrl = list(maxfun = 2e5)))
+
+model_e2adultfc_rep <- glmer(correct ~ 1 + trial + question_type + (1|subject_id),
+      data = df.e2adultfc_rep_long, family = "binomial",
+      control = glmerControl(optimizer = "bobyqa",
+                             optCtrl = list(maxfun = 2e5)))
+
+df.by_trial_all_samples <- bind_rows(
+  "In-Person" = as_tibble(ggemmeans(model_e2b_vs_chance_inperson, terms = "trial")),
+  "Online 3-5" = as_tibble(ggemmeans(model_e2b_vs_chance_3to5, terms = "trial")),
+  "Online 6-8" = as_tibble(ggemmeans(model_e2b_vs_chance_6to8, terms = "trial")),
+  "US Adults" = as_tibble(ggemmeans(model_e2adultfc, terms = "trial")),
+  "Adults initial" = as_tibble(ggemmeans(model_e2adultfc_initial, terms = "trial")),
+  "Adults replication" = as_tibble(ggemmeans(model_e2adultfc_rep, terms = "trial")),
+  "Tsimane'" = as_tibble(ggemmeans(model_e3_childfc, terms = "trial")),
+  "Pooled 3-5" = as_tibble(ggemmeans(model_e2b_vs_chance_younger_pooled,
+                                     terms = "trial")),
+  .id = "sample"
+) |>
+  mutate(trial = as.character(x)) |>
+  # TwoPile_Castle was only given to the Exp. 2a initial adults and the
+  # in-person children; the other samples show "--" for it
+  filter(trial %in% by_trial_order) |>
+  mutate(sample = factor(sample, levels = by_trial_samples),
+         trial = factor(trial, levels = by_trial_order)) |>
+  select(sample, trial, predicted, conf.low, conf.high)
+
+by_trial_n <- c(
+  "In-Person" = n_distinct(filter(df.e2b_childfc_combined,
+                                  dataset == "In-Person")$id),
+  "Online 3-5" = n_distinct(filter(df.e2b_online, age_group == "3-5")$id),
+  "Online 6-8" = n_distinct(filter(df.e2b_online, age_group == "6-8")$id),
+  "US Adults" = n_distinct(df.e2adultfc_combined_long$id),
+  "Adults initial" = n_distinct(df.e2adultfc_long$id),
+  "Adults replication" = n_distinct(df.e2adultfc_rep_long$subject_id),
+  "Tsimane'" = n_distinct(df.e3_childfc$id),
+  "Pooled 3-5" = n_distinct(c(filter(df.e2b_childfc_combined,
+                                     dataset == "In-Person")$id,
+                              filter(df.e2b_online, age_group == "3-5")$id))
+)
+
+df.by_trial_all_samples |>
+  mutate(across(c(predicted, conf.low, conf.high), ~ round(.x, 3))) |>
+  pivot_wider(names_from = sample,
+              values_from = c(predicted, conf.low, conf.high),
+              names_glue = "{sample}: {.value}") |>
+  arrange(trial) |>
+  select(trial, starts_with(by_trial_samples)) |>
+  kable()
+
+```
+
+```{r}
+
+by_trial_cells <- df.by_trial_all_samples |>
+  mutate(cell = sprintf("%.2f [%.2f, %.2f]", predicted, conf.low, conf.high),
+         # "0.72 [0.65, 0.78]" -> ".72 [.65, .78]"; "1.00" is left alone
+         cell = str_replace_all(cell, "\\b0\\.", "."),
+         cell = if_else(conf.low > .5, cell,
+                        paste0("\\textbf{", cell, "}"))) |>
+  select(sample, trial, cell) |>
+  pivot_wider(names_from = sample, values_from = cell) |>
+  arrange(trial) |>
+  select(trial, all_of(by_trial_samples)) |>
+  mutate(across(all_of(by_trial_samples), ~ replace_na(.x, "--")),
+         trial = str_replace_all(as.character(trial), c("&" = "\\\\&", "_" = "\\\\_")))
+
+# in by_trial_samples order
+by_trial_header <- c("All adults", "Initial", "Replication", "Online 6--8",
+                     "Online 3--5", "Tsimane'", "In-person 3--5",
+                     "Online + in-person 3--5")
+
+by_trial_tex <- c(
+  "\\begin{table}[ht]",
+  "\\centering",
+  "\\small",
+  "\\label{tab:by_trial}",
+  # nine columns: scale the table to the text width
+  "\\resizebox{\\textwidth}{!}{%",
+  "\\begin{tabular}{lcccccccc}",
+  "\\hline",
+  # experiment above each sample; Experiment 2a spans all, initial and
+  # replication adults, the two online samples share Experiment 2b, and the
+  # SI-only in-person and pooled samples are not main-text experiments
+  paste0(" & \\multicolumn{3}{c}{Experiment 2a} & ",
+         "\\multicolumn{2}{c}{Experiment 2b} & Experiment 3 & ",
+         "In-person sample & Pooled sample \\\\"),
+  "\\cline{2-4} \\cline{5-6}",
+  paste0("Trial & ", paste(by_trial_header, collapse = " & "), " \\\\"),
+  paste0(" & ", paste(sprintf("(n = %d)", by_trial_n[by_trial_samples]),
+                      collapse = " & "), " \\\\"),
+  "\\hline",
+  pmap_chr(by_trial_cells, \(...) paste0(paste(c(...), collapse = " & "),
+                                         " \\\\")),
+  "\\hline",
+  "\\end{tabular}%",
+  "}",
+  "\\end{table}"
+)
+
+writeLines(by_trial_tex, here("figs", "table", "som_table_by_trial.tex"))
+
+```
+
+# Modeling
+
+## Model inputs
+
+```{r}
+
+# reset the seed so the bootstrapped CIs in this section don't depend on the
+# chunks above
+set.seed(42)
+
+df.stability_raw <- read_excel(here("data", "diff_stability.xlsx"),
+                               sheet = "diff_stability_x02") |>
+  #rename a trial that was left out, regular is LOW here
+  mutate(`Friction Level` = if_else(grepl("^57_", `Trial Name`) &
+                                      `Friction Level` == "Low",
+                                    "Regular", `Friction Level`))
+
+df.ke_raw <- read_excel(here("data", "diff_ke.xlsx"),
+                        sheet = "diff_no_phy_ke_20")
+
+```
+
+## Experiment 1
+
+```{r}
+
+df.e1_ke <- df.ke_raw |>
+  separate(`Trial Name`, into = c("trial_code", "easy_hard"), sep = "_") |>
+  mutate(easy_hard = case_when(easy_hard == "1" ~ "easy",
+                               easy_hard == "2" ~ "hard",
+                               .default = easy_hard)) |>
+  group_by(trial_code, easy_hard) |>
+  dplyr::summarise(effort = mean(KE), .groups = "drop")
+
+df.e1_stability <- df.stability_raw |>
+  filter(`Friction Level` == "Regular") |>
+  separate(`Trial Name`, into = c("trial_code", "easy_hard"), sep = "_") |>
+  mutate(easy_hard = case_when(easy_hard == "1" ~ "easy",
+                               easy_hard == "2" ~ "hard",
+                               .default = easy_hard)) |>
+  select(trial_code, easy_hard, risk = Stability)
+
+df.e1_model <- inner_join(df.e1_ke,
+                          df.e1_stability,
+                          by = c("trial_code", "easy_hard"))
+
+df.e1_model_and_data <- df.e1_combined_forboot_wide |>
+  separate(trial, into = c("trial_code", "trial_type", "easy_hard"),
+           sep = "_", remove = FALSE) |>
+  inner_join(df.e1_model, by = c("trial_code", "easy_hard"))
+
+```
+
+```{r}
+
+model_e1_diff_full <- lm(Difficulty ~ I(effort * (1 - risk)) + I(effort * risk),
+                         data = df.e1_model_and_data)
+
+model_e1_diff_effort <- lm(Difficulty ~ effort, data = df.e1_model_and_data)
+
+model_e1_diff_risk <- lm(Difficulty ~ risk, data = df.e1_model_and_data)
+
+summary(model_e1_diff_full)
+
+summary(model_e1_diff_effort)
+
+summary(model_e1_diff_risk)
+
+```
+
+Correlation between each model's fitted values and participants' mean ratings:
+
+```{r}
+
+cor.test(fitted(model_e1_diff_full), df.e1_model_and_data$Difficulty)
+cor.test(fitted(model_e1_diff_effort), df.e1_model_and_data$Difficulty)
+cor.test(fitted(model_e1_diff_risk), df.e1_model_and_data$Difficulty)
+
+```
+
+```{r}
+
+df.e1_predictors <- df.e1_model_and_data |>
+  select(trial, effort, risk)
+
+df.e1_diff_boot_wide <- bind_rows(
+  df.e1_difficulty_clean |>
+    transmute(id = paste0("orig_", id), trial, easy_hard, rating),
+  df.e1_rep_difftime_clean |>
+    filter(condition == "diff") |>
+    transmute(id = paste0("rep_", id), trial, easy_hard, rating)
+) |>
+  mutate(trial = paste(trial, easy_hard, sep = "_")) |>
+  semi_join(df.e1_model_and_data, by = "trial") |>
+  select(id, trial, rating) |>
+  pivot_wider(names_from = trial, values_from = rating)
+
+diff_cor_e1 <- function(data, indices) {
+  boot_sample <- data[indices, ]
+
+  boot_means <- boot_sample |>
+    pivot_longer(cols = -id,
+                 names_to = "trial",
+                 values_to = "rating") |>
+    group_by(trial) |>
+    dplyr::summarize(Difficulty = mean(rating, na.rm = TRUE),
+                     .groups = "drop") |>
+    left_join(df.e1_predictors, by = "trial")
+
+  cor_full <- cor(fitted(lm(Difficulty ~ I(effort * (1 - risk)) +
+                              I(effort * risk), data = boot_means)),
+                  boot_means$Difficulty)
+  cor_effort <- cor(fitted(lm(Difficulty ~ effort, data = boot_means)),
+                    boot_means$Difficulty)
+  cor_risk <- cor(fitted(lm(Difficulty ~ risk, data = boot_means)),
+                  boot_means$Difficulty)
+
+  c(cor_full, cor_effort, cor_risk,
+    cor_full - cor_effort,
+    cor_full - cor_risk,
+    cor_risk - cor_effort)
+}
+
+boot_results_e1 <- boot(
+  data = df.e1_diff_boot_wide,
+  statistic = diff_cor_e1,
+  R = 1000
+)
+
+boot_results_e1$t0
+
+quantile(boot_results_e1$t[, 1], c(0.025, 0.975)) # Full
+quantile(boot_results_e1$t[, 2], c(0.025, 0.975)) # Effort-only
+quantile(boot_results_e1$t[, 3], c(0.025, 0.975)) # Risk-only
+quantile(boot_results_e1$t[, 4], c(0.025, 0.975)) # Full vs. effort-only
+quantile(boot_results_e1$t[, 5], c(0.025, 0.975)) # Full vs. risk-only
+quantile(boot_results_e1$t[, 6], c(0.025, 0.975)) # Risk-only vs. effort-only
+
+```
+
+## Model Predictions (Experiments 2a, 2b and 3)
+
+```{r}
+
+# Simulator trial codes and the canonical trial names they map to
+child_model_trials <- c("7"  = "Number1",
+                        "15" = "Number2",
+                        "8"  = "Number3",
+                        "16" = "Number4",
+                        "14" = "Stability",
+                        "12" = "Number&Stability",
+                        "9"  = "Process1",
+                        "57" = "Process2",
+                        "19" = "Pattern",
+                        "13" = "Probability")
+
+df.model_2afc <- df.e1_model |>
+  filter(trial_code %in% names(child_model_trials)) |>
+  mutate(trial = unname(child_model_trials[trial_code]),
+         cost = coef(model_e1_diff_full)[[2]] * effort * (1 - risk) +
+                coef(model_e1_diff_full)[[3]] * effort * risk) |>
+  select(trial, easy_hard, cost, effort, risk) |>
+  pivot_wider(names_from = easy_hard,
+              values_from = c(cost, effort, risk)) |>
+  # difficulty ratio: hard / (easy + hard), or .5 when both are 0
+  transmute(trial,
+            full = if_else(cost_easy + cost_hard == 0, 0.5,
+                           cost_hard / (cost_easy + cost_hard)),
+            effort = if_else(effort_easy + effort_hard == 0, 0.5,
+                             effort_hard / (effort_easy + effort_hard)),
+            risk = if_else(risk_easy + risk_hard == 0, 0.5,
+                           risk_hard / (risk_easy + risk_hard)))
+
+df.model_2afc
+
+```
+
+```{r}
+
+df.model_2afc_z <- df.model_2afc |>
+  mutate(across(c(full, effort, risk),
+                ~ as.numeric(base::scale(.x))))
+
+```
+
+```{r}
+
+# Correlation for each model, plus the three pairwise differences
+cor_2afc <- function(data, indices) {
+  boot_sample <- data[indices, ]
+
+  boot_means <- boot_sample |>
+    pivot_longer(cols = -any_of(c("id", "age")),
+                 names_to = "trial",
+                 values_to = "correct") |>
+    group_by(trial) |>
+    dplyr::summarize(mean_correct = mean(correct, na.rm = TRUE),
+                     .groups = "drop") |>
+    left_join(df.model_2afc, by = "trial")
+
+  cor_full <- cor(boot_means$mean_correct, boot_means$full)
+  cor_effort <- cor(boot_means$mean_correct, boot_means$effort)
+  cor_risk <- cor(boot_means$mean_correct, boot_means$risk)
+
+  c(cor_full, cor_effort, cor_risk,
+    cor_full - cor_effort,
+    cor_full - cor_risk,
+    cor_risk - cor_effort)
+}
+
+```
+
+## Experiment 2a
+
+```{r}
+
+df.e2a_model_summary <- df.e2adultfc_combined_long |>
+  filter(trial %in% df.model_2afc$trial) |>
+  group_by(trial) |>
+  multi_boot_standard(col = "correct") |>
+  mutate(dataset = "US Adults")
+
+df.e2a_model_and_data <- inner_join(df.model_2afc,
+                                    df.e2a_model_summary,
+                                    by = "trial")
+
+```
+
+Correlation of each model's difficulty ratio with adults' performance:
+
+```{r}
+
+cor.test(df.e2a_model_and_data$full, df.e2a_model_and_data$mean)
+cor.test(df.e2a_model_and_data$effort, df.e2a_model_and_data$mean)
+cor.test(df.e2a_model_and_data$risk, df.e2a_model_and_data$mean)
+
+```
+
+```{r}
+
+df.e2a_2afc_boot_wide <- df.e2adultfc_combined_long |>
+  filter(trial %in% df.model_2afc$trial) |>
+  select(id, trial, correct) |>
+  pivot_wider(names_from = trial,
+              values_from = correct)
+
+boot_results_e2a <- boot(
+  data = df.e2a_2afc_boot_wide,
+  statistic = cor_2afc,
+  R = 1000
+)
+
+# Full, Effort-only, Risk-only
+boot_results_e2a$t0[1:3]
+
+#compute 95% CIs
+quantile(boot_results_e2a$t[, 1], c(0.025, 0.975)) # Full
+quantile(boot_results_e2a$t[, 2], c(0.025, 0.975)) # Effort-only
+quantile(boot_results_e2a$t[, 3], c(0.025, 0.975)) # Risk-only
+
+```
+
+## Experiment 2b
+
+Online (LookIt) sample only, as in the main-text Exp. 2b analyses; this
+includes the age-bin correlations further down.
+
+```{r}
+
+df.e2b_model_summary <- df.e2b_online |>
+  filter(trial %in% df.model_2afc$trial) |>
+  group_by(trial) |>
+  multi_boot_standard(col = "correct") |>
+  mutate(dataset = "US Children")
+
+df.e2b_model_and_data <- inner_join(df.model_2afc,
+                                    df.e2b_model_summary,
+                                    by = "trial")
+
+```
+
+Correlation of each model's difficulty ratio with children's performance:
+
+```{r}
+
+cor.test(df.e2b_model_and_data$full, df.e2b_model_and_data$mean)
+cor.test(df.e2b_model_and_data$effort, df.e2b_model_and_data$mean)
+cor.test(df.e2b_model_and_data$risk, df.e2b_model_and_data$mean)
+
+```
+
+```{r}
+
+df.e2b_2afc_boot_wide <- df.e2b_online |>
+  filter(trial %in% df.model_2afc$trial) |>
+  mutate(age = mean(age), .by = id) |>
+  select(id, age, trial, correct) |>
+  pivot_wider(names_from = trial,
+              values_from = correct)
+
+boot_results_e2b <- boot(
+  data = df.e2b_2afc_boot_wide,
+  statistic = cor_2afc,
+  R = 1000
+)
+
+# Full, Effort-only, Risk-only, then Full vs. effort-only, Full vs. risk-only,
+# Risk-only vs. effort-only
+boot_results_e2b$t0
+
+#compute 95% CIs; if a difference's CI excludes 0, the models reliably differ
+quantile(boot_results_e2b$t[, 1], c(0.025, 0.975)) # Full
+quantile(boot_results_e2b$t[, 2], c(0.025, 0.975)) # Effort-only
+quantile(boot_results_e2b$t[, 3], c(0.025, 0.975)) # Risk-only
+quantile(boot_results_e2b$t[, 4], c(0.025, 0.975)) # Full vs. effort-only
+quantile(boot_results_e2b$t[, 5], c(0.025, 0.975)) # Full vs. risk-only
+quantile(boot_results_e2b$t[, 6], c(0.025, 0.975)) # Risk-only vs. effort-only
+
+```
+
+Does each model's fit improve with age?
+
+```{r}
+
+# Center age once on the full sample, so the centering constant does not
+# shift from resample to resample
+e2b_age_mean <- mean(df.e2b_2afc_boot_wide$age, na.rm = TRUE)
+
+# Ratio x age interaction for each model, plus the full-vs-lesion contrasts
+age_slopes_e2b <- function(data, indices) {
+  boot_sample <- data[indices, ]
+
+  d <- boot_sample |>
+    pivot_longer(cols = -c(id, age),
+                 names_to = "trial",
+                 values_to = "correct") |>
+    left_join(df.model_2afc_z, by = "trial") |>
+    mutate(age_c = age - e2b_age_mean)
+
+  b_full <- coef(glm(correct ~ full * age_c,
+                     family = "binomial", data = d))[["full:age_c"]]
+  b_effort <- coef(glm(correct ~ effort * age_c,
+                       family = "binomial", data = d))[["effort:age_c"]]
+  b_risk <- coef(glm(correct ~ risk * age_c,
+                     family = "binomial", data = d))[["risk:age_c"]]
+
+  c(b_full, b_effort, b_risk,
+    b_full - b_effort,
+    b_full - b_risk)
+}
+
+boot_results_e2b_age <- boot(
+  data = df.e2b_2afc_boot_wide,
+  statistic = age_slopes_e2b,
+  R = 1000
+)
+
+# Full, Effort-only, Risk-only, then Full vs. effort-only, Full vs. risk-only
+boot_results_e2b_age$t0
+
+#compute 95% CIs; if a difference's CI excludes 0, the models reliably differ
+quantile(boot_results_e2b_age$t[, 1], c(0.025, 0.975)) # Full
+quantile(boot_results_e2b_age$t[, 2], c(0.025, 0.975)) # Effort-only
+quantile(boot_results_e2b_age$t[, 3], c(0.025, 0.975)) # Risk-only
+quantile(boot_results_e2b_age$t[, 4], c(0.025, 0.975)) # Full vs. effort-only
+quantile(boot_results_e2b_age$t[, 5], c(0.025, 0.975)) # Full vs. risk-only
+
+```
+
+Correlation of the full model's difficulty ratio with children's performance
+in each age group (the same 3-5 and 6-8 groups as the SI figure by age group
+in `figures.Rmd`):
+
+```{r}
+
+# plain means rather than multi_boot_standard(): its bootstrap would draw
+# random numbers and shift every bootstrapped CI below
+df.e2b_model_summary_3to5 <- df.e2b_online |>
+  filter(trial %in% df.model_2afc$trial,
+         age_group == "3-5") |>
+  group_by(trial) |>
+  dplyr::summarize(mean = mean(correct))
+
+df.e2b_model_summary_6to8 <- df.e2b_online |>
+  filter(trial %in% df.model_2afc$trial,
+         age_group == "6-8") |>
+  group_by(trial) |>
+  dplyr::summarize(mean = mean(correct))
+
+df.e2b_model_and_data_3to5 <- inner_join(df.model_2afc,
+                                         df.e2b_model_summary_3to5,
+                                         by = "trial")
+
+df.e2b_model_and_data_6to8 <- inner_join(df.model_2afc,
+                                         df.e2b_model_summary_6to8,
+                                         by = "trial")
+
+# 3- to 5-year-olds
+cor.test(df.e2b_model_and_data_3to5$full, df.e2b_model_and_data_3to5$mean)
+
+# 6- to 8-year-olds
+cor.test(df.e2b_model_and_data_6to8$full, df.e2b_model_and_data_6to8$mean)
+
+```
+
+## Experiment 3
+
+```{r}
+
+df.e3_model_summary <- df.e3_childfc |>
+  filter(trial %in% df.model_2afc$trial) |>
+  group_by(trial) |>
+  multi_boot_standard(col = "correct") |>
+  mutate(dataset = "Tsimane' Children")
+
+df.e3_model_and_data <- inner_join(df.model_2afc,
+                                   df.e3_model_summary,
+                                   by = "trial")
+
+```
+
+Correlation of each model's difficulty ratio with children's performance:
+
+```{r}
+
+cor.test(df.e3_model_and_data$full, df.e3_model_and_data$mean)
+cor.test(df.e3_model_and_data$effort, df.e3_model_and_data$mean)
+cor.test(df.e3_model_and_data$risk, df.e3_model_and_data$mean)
+
+```
+
+Bootstrapped comparison of the three models:
+
+```{r}
+
+df.e3_2afc_boot_wide <- df.e3_childfc |>
+  filter(trial %in% df.model_2afc$trial) |>
+  select(id, age, trial, correct) |>
+  pivot_wider(names_from = trial,
+              values_from = correct)
+
+boot_results_e3 <- boot(
+  data = df.e3_2afc_boot_wide,
+  statistic = cor_2afc,
+  R = 1000
+)
+
+# Full, Effort-only, Risk-only, then Full vs. effort-only, Full vs. risk-only,
+# Risk-only vs. effort-only
+boot_results_e3$t0
+
+#compute 95% CIs; if a difference's CI excludes 0, the models reliably differ
+quantile(boot_results_e3$t[, 1], c(0.025, 0.975)) # Full
+quantile(boot_results_e3$t[, 2], c(0.025, 0.975)) # Effort-only
+quantile(boot_results_e3$t[, 3], c(0.025, 0.975)) # Risk-only
+quantile(boot_results_e3$t[, 4], c(0.025, 0.975)) # Full vs. effort-only
+quantile(boot_results_e3$t[, 5], c(0.025, 0.975)) # Full vs. risk-only
+quantile(boot_results_e3$t[, 6], c(0.025, 0.975)) # Risk-only vs. effort-only
+
+```
+
+```{r}
+
+e3_age_mean <- mean(df.e3_2afc_boot_wide$age, na.rm = TRUE)
+
+age_slopes_e3 <- function(data, indices) {
+  boot_sample <- data[indices, ]
+
+  d <- boot_sample |>
+    pivot_longer(cols = -c(id, age),
+                 names_to = "trial",
+                 values_to = "correct") |>
+    left_join(df.model_2afc_z, by = "trial") |>
+    mutate(age_c = age - e3_age_mean)
+
+  b_full <- coef(glm(correct ~ full * age_c,
+                     family = "binomial", data = d))[["full:age_c"]]
+  b_effort <- coef(glm(correct ~ effort * age_c,
+                       family = "binomial", data = d))[["effort:age_c"]]
+  b_risk <- coef(glm(correct ~ risk * age_c,
+                     family = "binomial", data = d))[["risk:age_c"]]
+
+  c(b_full, b_effort, b_risk,
+    b_full - b_effort,
+    b_full - b_risk)
+}
+
+boot_results_e3_age <- boot(
+  data = df.e3_2afc_boot_wide,
+  statistic = age_slopes_e3,
+  R = 1000
+)
+
+# Full, Effort-only, Risk-only, then Full vs. effort-only, Full vs. risk-only
+boot_results_e3_age$t0
+
+#compute 95% CIs; if a difference's CI excludes 0, the models reliably differ
+quantile(boot_results_e3_age$t[, 1], c(0.025, 0.975)) # Full
+quantile(boot_results_e3_age$t[, 2], c(0.025, 0.975)) # Effort-only
+quantile(boot_results_e3_age$t[, 3], c(0.025, 0.975)) # Risk-only
+quantile(boot_results_e3_age$t[, 4], c(0.025, 0.975)) # Full vs. effort-only
+quantile(boot_results_e3_age$t[, 5], c(0.025, 0.975)) # Full vs. risk-only
+
+```
+
+## Experiment 4
+
+```{r}
+
+e4_model_names <- c("51_1" = "5 Horizontal",
+                    "52_1" = "10 Horizontal",
+                    "53_1" = "3x3",
+                    "54_1" = "5 Vertical",
+                    "55_1" = "L-Shaped",
+                    "56_1" = "10 Vertical")
+
+df.e4_model <- df.stability_raw |>
+  filter(`Trial Name` %in% names(e4_model_names)) |>
+  select(`Trial Name`, Friction_Level = `Friction Level`, risk = Stability) |>
+  left_join(df.ke_raw |>
+              group_by(`Trial Name`) |>
+              dplyr::summarise(effort = mean(KE), .groups = "drop"),
+            by = "Trial Name") |>
+  mutate(Tower_Type = factor(e4_model_names[`Trial Name`],
+                             levels = levels(df.e4_vr$Tower_Type))) |>
+  select(Tower_Type, Friction_Level, effort, risk)
+
+df.e4_model_preds <- df.e4_model |>
+  mutate(full = predict(model_e1_diff_full, newdata = df.e4_model),
+         effort_only = predict(model_e1_diff_effort, newdata = df.e4_model),
+         risk_only = predict(model_e1_diff_risk, newdata = df.e4_model)) |>
+  select(Tower_Type, Friction_Level, full, effort_only, risk_only)
+
+```
+
+```{r}
+
+df.e4_model_and_data <- full_join(ungroup(df.e4_vr_diff_summary),
+                                  df.e4_model_preds,
+                                  by = c("Tower_Type", "Friction_Level"))
+
+cor.test(df.e4_model_and_data$full, df.e4_model_and_data$mean_diff)
+cor.test(df.e4_model_and_data$effort_only, df.e4_model_and_data$mean_diff)
+cor.test(df.e4_model_and_data$risk_only, df.e4_model_and_data$mean_diff)
+
+```
+
+```{r}
+
+df.e4_vr_boot_wide <- df.e4_vr |>
+  select(id, Friction_Level, Tower_Type, Difficulty) |>
+  pivot_wider(id_cols = c(id, Friction_Level),
+              names_from = Tower_Type,
+              values_from = Difficulty)
+
+# Correlation for each model, plus the three pairwise differences
+diff_cor_e4 <- function(data, indices) {
+  boot_sample <- data[indices, ]
+
+  boot_means <- boot_sample |>
+    pivot_longer(cols = -c(id, Friction_Level),
+                 names_to = "Tower_Type",
+                 values_to = "Difficulty") |>
+    group_by(Tower_Type, Friction_Level) |>
+    dplyr::summarize(mean_diff = mean(Difficulty, na.rm = TRUE),
+                     .groups = "drop") |>
+    left_join(df.e4_model_preds, by = c("Tower_Type", "Friction_Level"))
+
+  cor_full <- cor(boot_means$mean_diff, boot_means$full)
+  cor_effort <- cor(boot_means$mean_diff, boot_means$effort_only)
+  cor_risk <- cor(boot_means$mean_diff, boot_means$risk_only)
+
+  c(cor_full, cor_effort, cor_risk,
+    cor_full - cor_effort,
+    cor_full - cor_risk,
+    cor_risk - cor_effort)
+}
+
+boot_results_e4 <- boot(
+  data = df.e4_vr_boot_wide,
+  statistic = diff_cor_e4,
+  strata = factor(df.e4_vr_boot_wide$Friction_Level),
+  R = 1000
+)
+
+# Full, Effort-only, Risk-only, then Full vs. effort-only, Full vs. risk-only,
+# Risk-only vs. effort-only
+boot_results_e4$t0
+
+#compute 95% CIs; if a difference's CI excludes 0, the models reliably differ
+quantile(boot_results_e4$t[, 1], c(0.025, 0.975)) # Full
+quantile(boot_results_e4$t[, 2], c(0.025, 0.975)) # Effort-only
+quantile(boot_results_e4$t[, 3], c(0.025, 0.975)) # Risk-only
+quantile(boot_results_e4$t[, 4], c(0.025, 0.975)) # Full vs. effort-only
+quantile(boot_results_e4$t[, 5], c(0.025, 0.975)) # Full vs. risk-only
+quantile(boot_results_e4$t[, 6], c(0.025, 0.975)) # Risk-only vs. effort-only
+
+```
+
+# Session Info
+
+```{r}
+
+sessionInfo()
+
+```

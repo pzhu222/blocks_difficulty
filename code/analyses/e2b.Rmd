@@ -1,0 +1,471 @@
+---
+title: "ted_e2b_cleaning_and_analysis"
+output: html_document
+date: "2024-08-12"
+---
+
+# Set-up
+```{r}
+
+cran_packages <- c("knitr", "lme4", "ggeffects", "emmeans", "tidyverse", "here", "DT")
+
+missing_cran <- setdiff(cran_packages, rownames(installed.packages()))
+if (length(missing_cran) > 0) {
+  install.packages(missing_cran)
+}
+
+require(knitr)
+library(lme4)
+library(ggeffects)
+library(emmeans)
+library(tidyverse)
+library(here)
+library(DT)
+
+inport_dir <- here("data")
+
+# set default code chunk options
+knitr::opts_chunk$set(echo = T, warning = F, message = F)
+
+# set default plot theme
+theme_set(theme_classic() +
+            theme(text = element_text(size = 18)))
+
+# suppress warnings about grouping
+options(dplyr.summarise.inform = F)
+```
+
+# Data
+
+## LookIt (Online)
+
+### Preprocessing (raw LookIt export -> trial-level data)
+
+```{r}
+
+df.e2b_raw <- as_tibble(read.csv(here(inport_dir, "e2b_childfc.csv")))
+
+# import video review data
+df.e2b_video_review_exclusions <-
+  as_tibble(read.csv(here(inport_dir, "e2b_child_distraction_data.csv"))) %>%
+  select(id, Final.decision, exclusion_reason)
+
+df.e2b_preprocessed <-
+  df.e2b_raw %>%
+  # merge with video review data
+  full_join(df.e2b_video_review_exclusions,
+            by = "id")
+```
+
+```{r}
+# define correct responses
+## which one was EASIER to make? / "who thought it was EASY?"
+correct_stimuli_easier <-
+  c("1_Fin_LD_NB_1_crop.jpg", "2_Fin_LD_NB_1_crop.jpg",
+    "3_Fin_LD_NB_1_crop.jpg", "4_Fin_LD_NB_1_crop.jpg",
+    "7_Fin_LD_NB_1_crop.jpg", "15_Fin_LD_NB_1_crop.jpg",
+    "5_Fin_LD_NB_1_crop.jpg", "6_Fin_LD_NB_1_crop.jpg",
+    "11_Fin_LD_NB_1_crop.jpg", "12_Fin_LD_NB_1_crop.jpg",
+    "16_Fin_LD_NB_1_crop.jpg", "17_Fin_LD_NB_1_crop.jpg",
+    "18_Fin_LD_NB_1_crop.jpg")
+## which one was HARDER to make? / "who thought it was HARD?"
+correct_stimuli_harder <-
+  c("1_Fin_LD_NB_2_crop.jpg", "2_Fin_LD_NB_2_crop.jpg",
+    "3_Fin_LD_NB_2_crop.jpg", "4_Fin_LD_NB_2_crop.jpg",
+    "7_Fin_LD_NB_2_crop.jpg", "15_Fin_LD_NB_2_crop.jpg",
+    "5_Fin_LD_NB_2_crop.jpg", "6_Fin_LD_NB_2_crop.jpg",
+    "11_Fin_LD_NB_2_crop.jpg", "12_Fin_LD_NB_2_crop.jpg",
+    "16_Fin_LD_NB_2_crop.jpg", "17_Fin_LD_NB_2_crop.jpg",
+    "18_Fin_LD_NB_2_crop.jpg")
+## which ones are the yellow blocks?
+correct_color7 <- "Color_Check_Y_crop.jpg"
+## which ones are the green blocks?
+correct_color8 <- "Color_Check_G_crop.jpg"
+## which one has more blue blocks?
+correct_blueblocks <- "moreblue.jpg"
+## which one has more red blocks?
+correct_redblocks <- "morered.jpg"
+```
+
+Count exclusions:
+
+```{r}
+# children dropped for incomplete sessions
+n_distinct(df.e2b_preprocessed$id) -
+  n_distinct(filter(df.e2b_preprocessed, completed == TRUE)$id)
+
+# children dropped after video review
+n_distinct(filter(df.e2b_preprocessed, completed == TRUE)$id) -
+  n_distinct(filter(df.e2b_preprocessed, completed == TRUE,
+                    !str_detect(Final.decision, "EXCLUDE"))$id)
+```
+
+```{r}
+# data wrangling
+df.e2b_preprocessed_final <-
+    df.e2b_preprocessed %>%
+    # filter out incomplete sessions
+    filter(completed == TRUE) %>%
+    # filter out distracted children
+    filter(!str_detect(Final.decision, "EXCLUDE")) %>%
+    # filter out break frame data
+    filter(trial != "20-trials") %>%
+    # select and rename relevant columns
+    select(subject = id,
+           age = age,
+           age_rounded = age_years,
+           gender = child__gender,
+           question_type = questiontype,
+           trial_number = trial,
+           response,
+           response_filename = child__condition_list)  %>%
+    # create new columns
+    mutate(trial_type = case_when(
+      # rename simple trials
+      str_detect(trial_number, "10|11|12|13|14|15") ~ "simple",
+      # rename complex trials
+      str_detect(trial_number, "16|17|18|19") ~ "complex",
+      # rename agent trials
+      str_detect(trial_number, "21|22|23") ~ "agent",
+      # make NA if none of the above apply (there should be no such cases)
+      TRUE ~ NA_character_),
+      # define correct responses by trial
+      correct = case_when(
+        # if question type 'harder,' evaluate against correct_stimuli_harder
+        (str_detect(trial_number, "trials") &
+           question_type == "harder" &
+           response_filename %in% correct_stimuli_harder) ~ 1,
+        # if question type 'easier,' evaluate against correct_stimuli_easier
+        (str_detect(trial_number, "trials") &
+           question_type == "easier" &
+           response_filename %in% correct_stimuli_easier) ~ 1,
+        # for color check 1, 'yellow' is correct
+        (trial_number == "7-color-check" &
+           response_filename %in% correct_color7) ~ 1,
+        # for color check 2, 'green' is correct
+        (trial_number == "8-color-check" &
+           response_filename %in% correct_color8) ~ 1,
+        # for attention check 1, 'blue blocks' is correct
+        (trial_number == "24-attention-checks" &
+           response_filename %in% correct_blueblocks) ~ 1,
+        # for attention check 2, 'red blocks' is correct
+        (trial_number == "25-attention-checks" &
+           response_filename %in% correct_redblocks) ~ 1,
+        # for warmup with 'harder', house is correct
+        (trial_number == "9-warmup" &
+           question_type == "harder" &
+           response_filename == "house.jpg") ~ 1,
+        # for warmup with 'easier', triangle is correct
+        (trial_number == "9-warmup" &
+           question_type == "easier" &
+           response_filename == "triangle.png") ~ 1,
+        # else, make the value 0 in all of the above cases
+        TRUE ~ 0)) %>%
+    # pre-screening questions: the color question is passed only if both color
+    # checks are correct
+    group_by(subject) %>%
+    mutate(color_correct = all(correct[str_detect(trial_number, "color-check")] == 1),
+           warmup_correct = all(correct[trial_number == "9-warmup"] == 1)) %>%
+    # filter out children who failed both pre-screening questions
+    filter(color_correct | warmup_correct) %>%
+    ungroup()
+```
+
+Exclusions after video review, by reason:
+
+```{r}
+df.e2b_preprocessed %>%
+  filter(completed == TRUE,
+         str_detect(Final.decision, "EXCLUDE")) %>%
+  distinct(id, exclusion_reason) %>%
+  group_by(exclusion_reason) %>%
+  summarise(n = n())
+```
+
+### Descriptive Statistics
+
+#### Pre-Screening Questions
+
+##### Color Calibration - Yellow Blocks, Green Blocks
+
+```{r}
+df.e2b_preprocessed_final %>%
+  filter(trial_number == "7-color-check" |
+           trial_number == "8-color-check") %>%
+  mutate(correct = ifelse(correct == 1,
+                          "Correct response",
+                          "Incorrect response")) %>%
+  group_by(correct, trial_number) %>%
+  summarise(n = n()) %>%
+  datatable()
+```
+
+##### Difficulty Calibration - House vs Triangle
+
+```{r}
+df.e2b_preprocessed_final %>%
+  filter(trial_number == "9-warmup") %>%
+  mutate(correct = ifelse(correct == 1,
+                          "Correct response",
+                          "Incorrect response")) %>%
+  group_by(correct, age_rounded) %>%
+  summarise(n = n()) %>%
+  datatable()
+```
+
+##### Count Calibration - More Blue vs More Red
+
+```{r}
+df.e2b_preprocessed_final %>%
+  filter(trial_number == "24-attention-checks" |
+           trial_number == "25-attention-checks") %>%
+  mutate(correct = ifelse(correct == 1,
+                          "Correct response",
+                          "Incorrect response")) %>%
+  group_by(correct) %>%
+  summarise(n = n()) %>%
+  datatable()
+```
+
+#### Number of participants
+
+```{r}
+df.e2b_preprocessed_final %>%
+  group_by(age_rounded) %>%
+  summarise(n_unique = n_distinct(subject))
+```
+
+#### Question Type
+
+```{r}
+df.e2b_preprocessed_final %>%
+  group_by(subject) %>%
+  summarise(question_type = first(question_type)) %>%
+  group_by(question_type) %>%
+  summarise(n = n()) %>%
+  datatable()
+```
+
+#### Blockbuilding Experience
+
+```{r}
+df.e2b_preprocessed_final %>%
+  filter(trial_number == "28-exploratory-survey") %>%
+  group_by(response) %>%
+  summarise(n = n()) %>%
+  datatable()
+```
+
+### Trial-Level Data
+
+```{r}
+#Change Trial Names
+df.e2b_childfc_raw <-
+  df.e2b_preprocessed_final %>%
+  filter(trial_type != "") %>%
+  mutate(trial = case_when(
+           str_detect(response_filename, "^1_Fin_LD_NB_") ~ "Number1",
+           str_detect(response_filename, "^2_Fin_LD_NB_") ~ "Number2",
+           str_detect(response_filename, "^3_Fin_LD_NB_") ~ "Number3",
+           str_detect(response_filename, "^4_Fin_LD_NB_") ~ "Number4",
+           str_detect(response_filename, "^7_Fin_LD_NB_") ~ "Num_Stab",
+           str_detect(response_filename, "^15_Fin_LD_NB_") ~ "Stability1",
+           str_detect(response_filename, "^5_Fin_LD_NB_") ~ "Process1",
+           str_detect(response_filename, "^6_Fin_LD_NB_") ~ "Process2",
+           str_detect(response_filename, "^11_Fin_LD_NB_") ~ "Process3",
+           str_detect(response_filename, "^12_Fin_LD_NB_") ~ "Probability",
+           str_detect(response_filename, "^16_Fin_LD_NB_") ~ "Child_Adult",
+           str_detect(response_filename, "^17_Fin_LD_NB_") ~ "Sling",
+           str_detect(response_filename, "^18_Fin_LD_NB_") ~ "Cooperation",
+           TRUE ~ response_filename))
+
+# create mapping for trial order
+unique_trials <-
+  sort(unique(as.numeric(str_extract(df.e2b_childfc_raw$trial_number, "\\d+"))))
+trial_mapping <-
+  setNames(seq_along(unique_trials), unique_trials)
+
+df.e2b_childfc_raw <-
+  df.e2b_childfc_raw %>%
+  select(-c(response, response_filename)) %>%
+  mutate(trial_number = as.numeric(str_extract(trial_number, "\\d+")),
+         trial_number = trial_mapping[as.character(trial_number)])
+
+df.e2b_childfc_raw <- df.e2b_childfc_raw |>
+    mutate(trial = case_when(trial == "Stability1" ~ "Stability",
+                           trial == "Num_Stab" ~ "Number&Stability",
+                           trial == "Process3" ~ "Pattern",
+                           trial == "Sling" ~ "Agent1",
+                           trial == "Child_Adult" ~ "Agent2",
+                           trial == "Cooperation" ~ "Agent3",
+                           .default = trial))
+
+#ensure trial naming is right
+df.e2b_childfc_raw |>
+  group_by(trial) |>
+  summarize(n = n())
+
+#get rid of NAs
+df.e2b_childfc <- df.e2b_childfc_raw |>
+  filter(!is.na(trial))
+
+```
+
+```{r}
+df.e2b_childfc <- df.e2b_childfc %>%
+  rename(id = subject) %>%
+  select(id, everything())
+```
+
+# Process Cleaned Data
+
+```{r}
+
+# children aged 9 and older
+n_distinct(filter(df.e2b_childfc, age_rounded >= 9)$id)
+
+df.e2b_childfc <-
+  df.e2b_childfc %>%
+  # filter out 9s
+  filter(age_rounded < 9) %>%
+  # filter out missing trials
+  filter(trial != "")
+
+```
+
+# Demographic Information
+
+```{r}
+
+df.e2b_childfc |>
+  distinct(id, age, gender) |>
+  dplyr::summarize(n = n(),
+                   n_3to5 = sum(age < 6),
+                   n_6to8 = sum(age >= 6),
+                   n_girls = sum(gender == "f"),
+                   n_boys = sum(gender == "m"),
+                   # "o" in the LookIt export
+                   n_other = sum(gender == "o"),
+                   mean_age = mean(age), sd_age = sd(age),
+                   min_age = min(age), max_age = max(age))
+
+```
+
+# Analyses
+
+```{r}
+
+df.e2b_online <- df.e2b_childfc |>
+  select(id, age, gender, question_type, trial, correct) |>
+  mutate(age_group = if_else(age < 6, "3-5", "6-8"))
+
+```
+
+## Performance vs. Chance by Age Group
+
+```{r}
+
+model_e2b_vs_chance_3to5 <- glmer(correct ~ 1 + trial + question_type + (1|id),
+      data = filter(df.e2b_online, age_group == "3-5"), family = "binomial",
+      control = glmerControl(optimizer = "bobyqa",
+                             optCtrl = list(maxfun = 2e5)))
+
+model_e2b_vs_chance_6to8 <- glmer(correct ~ 1 + trial + question_type + (1|id),
+      data = filter(df.e2b_online, age_group == "6-8"), family = "binomial",
+      control = glmerControl(optimizer = "bobyqa",
+                             optCtrl = list(maxfun = 2e5)))
+
+ggemmeans(model_e2b_vs_chance_3to5, terms = "trial") |>
+  as_tibble() |>
+  mutate(above_chance = conf.low > .5)
+
+ggemmeans(model_e2b_vs_chance_6to8, terms = "trial") |>
+  as_tibble() |>
+  mutate(above_chance = conf.low > .5)
+
+```
+
+
+## Age Model
+
+Per our pre-registration: the maximal model (random intercept for subject,
+`bobyqa` optimizer) failed to converge, so per the pre-registered fallback
+plan we iteratively reduce the model -- dropping the random effect of
+subject and the `bobyqa` optimizer and fitting the fixed-effects-only model
+below. (The maximal model fails on the online sample alone as well as on the
+combined sample.)
+
+```{r}
+
+# Logistic regression for children, run on the online sample
+# random intercept removed because the model did not converge
+model_e2bchildfc_online <- glm(correct ~ 1 + trial + age + question_type + trial:age,
+                         family = "binomial",
+      data = df.e2b_online)
+
+model_e2bchildfc_online |>
+  joint_tests()
+
+```
+
+Overall Regression
+
+```{r}
+
+ggemmeans(model = model_e2bchildfc_online, terms = "trial")
+ggemmeans(model = model_e2bchildfc_online, terms = "age")
+ggemmeans(model = model_e2bchildfc_online, terms = "question_type")
+
+```
+
+Age point analysis:
+
+```{r}
+
+# Now do the age point analysis
+
+e2b_age_range <- seq(3, 9, by = .01)
+
+emm_options(rg.limit = 20000)
+
+e2b_age_analysis_raw <- ggemmeans(model = model_e2bchildfc_online,
+          terms = c("age [e2b_age_range]", "trial"))
+
+df.e2b_age_analysis <- data.frame(age = e2b_age_analysis_raw$x,
+           trial = e2b_age_analysis_raw$group,
+           lowerCI = e2b_age_analysis_raw$conf.low)
+
+df.e2b_age_analysis <- df.e2b_age_analysis |>
+  group_by(trial) |>
+  mutate(passed = ifelse(any(lowerCI > 0.50), "passed", "did not pass .5")) |>
+  ungroup()
+
+df.e2b_passed_min <- df.e2b_age_analysis %>%
+  filter(passed == "passed",
+         lowerCI > .5) %>%
+  group_by(trial) %>%
+  summarise(min_age = min(age))
+
+df.e2b_no_pass <- df.e2b_age_analysis |>
+  filter(passed == "did not pass .5") |>
+  group_by(trial) |>
+  summarise(min_age = "did not pass .5")
+
+# Predictions and generate html table
+df.e2b_age_predictions <- rbind(df.e2b_passed_min, df.e2b_no_pass)
+
+options(max.print = nrow(df.e2b_age_predictions))
+
+kable(df.e2b_age_predictions,
+      format = "html", table.attr = "style = \"color: white;\"",
+      caption = "Merged")
+
+```
+
+# Session Info
+
+```{r}
+
+sessionInfo()
+
+```
